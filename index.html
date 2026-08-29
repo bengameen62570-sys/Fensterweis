@@ -841,6 +841,15 @@ function planSvg(c,{mini=false,outside=false}={}){
   };
   p.push(`<path d="${outline(0)}" fill="${FR}" ${ink}/>`);
 
+  /* Гнутая створка: режем по трём контурам — наружный край рамы, внутренний край рамы
+     и кромка стекла. Иначе сверху пропадает толщина рамы и створки. */
+  const bend = c.isArch && !c.cut;
+  const inSash = G.frame*s, inGlass = (G.frame + G.sashInset/2)*s;
+  const cA = bend ? ` clip-path="url(#ca)"` : '';
+  const cB = bend ? ` clip-path="url(#cb)"` : '';
+  if(bend) p.push(`<clipPath id="ca"><path d="${outline(inSash)}"/></clipPath>`
+                + `<clipPath id="cb"><path d="${outline(inGlass)}"/></clipPath>`);
+
   /* створки живут ниже арочного поля, если выбрана отсечка */
   const yTop = y0 + (c.cut ? riseP : 0);
   const hh   = h - (c.cut ? riseP : 0);
@@ -853,25 +862,28 @@ function planSvg(c,{mini=false,outside=false}={}){
     let g=`<g class="fld" data-i="${i}" tabindex="0" role="button" aria-label="Часть ${i+1}: ${TYPES[f.type].label}">`;
 
     if(f.movable){
-      g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="none" ${thin}/>`;
+      g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="none" ${thin}${cA}/>`;
       const in_=G.sashInset/2*s;
       const ax=gx+in_, ay=gy+in_, bw=gw-2*in_, bh=gh-2*in_;
-      g+=`<rect x="${ax}" y="${ay}" width="${bw}" height="${bh}" fill="url(#gl)" ${thin}/>`;
-      g+=`<path d="M${ax} ${ay+bh*0.72} L${ax+bw} ${ay+bh*0.18} L${ax+bw} ${ay+bh*0.34} L${ax} ${ay+bh*0.88} Z" fill="url(#sheen)"/>`;
-      if(f.type==='dk'||f.type==='kipp')
-        g+=`<path d="M${ax} ${ay+bh} L${ax+bw/2} ${ay} L${ax+bw} ${ay+bh}" ${sym}/>`;
+      g+=`<rect x="${ax}" y="${ay}" width="${bw}" height="${bh}" fill="url(#gl)" ${thin}${cB}/>`;
+      g+=`<path d="M${ax} ${ay+bh*0.72} L${ax+bw} ${ay+bh*0.18} L${ax+bw} ${ay+bh*0.34} L${ax} ${ay+bh*0.88} Z" fill="url(#sheen)"${cB}/>`;
+      if(f.type==='dk'||f.type==='kipp'){
+        /* в гнутой створке вершину откида опускаем под дугу, иначе её срезает */
+        const apex = ay + (bend ? riseP*0.55 : 0);
+        g+=`<path d="M${ax} ${ay+bh} L${ax+bw/2} ${apex} L${ax+bw} ${ay+bh}" ${sym}${cB}/>`;
+      }
       if(f.type==='dk'||f.type==='dreh')
         /* основание треугольника — на стороне петель, вершина смотрит к ручке */
         g+= (f.hinge==='left')
-          ? `<path d="M${ax} ${ay} L${ax+bw} ${ay+bh/2} L${ax} ${ay+bh}" ${sym}/>`
-          : `<path d="M${ax+bw} ${ay} L${ax} ${ay+bh/2} L${ax+bw} ${ay+bh}" ${sym}/>`;
+          ? `<path d="M${ax} ${ay} L${ax+bw} ${ay+bh/2} L${ax} ${ay+bh}" ${sym}${cB}/>`
+          : `<path d="M${ax+bw} ${ay} L${ax} ${ay+bh/2} L${ax+bw} ${ay+bh}" ${sym}${cB}/>`;
     } else {
-      g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="url(#gl)" ${thin}/>`;
-      g+=`<path d="M${gx} ${gy+gh*0.72} L${gx+gw} ${gy+gh*0.18} L${gx+gw} ${gy+gh*0.34} L${gx} ${gy+gh*0.88} Z" fill="url(#sheen)"/>`;
+      g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="url(#gl)" ${thin}${cA}/>`;
+      g+=`<path d="M${gx} ${gy+gh*0.72} L${gx+gw} ${gy+gh*0.18} L${gx+gw} ${gy+gh*0.34} L${gx} ${gy+gh*0.88} Z" fill="url(#sheen)"${cA}/>`;
     }
     if(i===S.sel && !mini)
       g+=`<rect x="${gx+1}" y="${gy+1}" width="${gw-2}" height="${gh-2}" fill="none"
-            stroke="#2f5d4f" stroke-width="2" stroke-dasharray="5 3"/>`;
+            stroke="#2f5d4f" stroke-width="2" stroke-dasharray="5 3"${cA}/>`;
     if(!mini) g+=`<rect class="hit" x="${cx}" y="${yTop}" width="${fwPx}" height="${hh}"/>`;
     g+=`</g>`;
     p.push(g);
@@ -879,9 +891,9 @@ function planSvg(c,{mini=false,outside=false}={}){
     if(i<c.fields.length-1){
       const mx=cx+fwPx;
       if(c.stulp)
-        p.push(`<line x1="${mx}" y1="${yTop+G.frame*s}" x2="${mx}" y2="${yTop+hh-G.frame*s}" stroke="#2a2823" stroke-width="2"/>`);
+        p.push(`<line x1="${mx}" y1="${yTop+G.frame*s}" x2="${mx}" y2="${yTop+hh-G.frame*s}" stroke="#2a2823" stroke-width="2"${cA}/>`);
       else
-        p.push(`<rect x="${mx-G.mullion/2*s}" y="${yTop+G.frame*s}" width="${G.mullion*s}" height="${hh-2*G.frame*s}" fill="${FR}" ${thin}/>`);
+        p.push(`<rect x="${mx-G.mullion/2*s}" y="${yTop+G.frame*s}" width="${G.mullion*s}" height="${hh-2*G.frame*s}" fill="${FR}" ${thin}${cA}/>`);
     }
     if(c.fields.length>1 && !mini){
       const fy=y0+h+21;
@@ -891,11 +903,18 @@ function planSvg(c,{mini=false,outside=false}={}){
     cx+=fwPx;
   });
 
+  if(bend){
+    p.push(`<path d="${outline(inSash)}" fill="none" ${thin}/>`);
+    p.push(`<path d="${outline(inGlass)}" fill="none" ${thin}/>`);
+    p.push(`<path d="${outline(0)}" fill="none" ${ink}/>`);
+  }
+
   if(c.cut){
     const fr=G.frame*s, xa=x0+fr, xb=x0+w-fr, yr=y0+riseP-fr;
     const ch=w-2*fr, ri=Math.max(.5, riseP-fr), Rp=(ch*ch/4+ri*ri)/(2*ri);
     p.push(`<path d="M${xa} ${yr} A${Rp} ${Rp} 0 0 1 ${xb} ${yr} Z" fill="url(#gl)" ${thin}/>`);
     p.push(`<rect x="${xa}" y="${yr}" width="${w-2*fr}" height="${G.mullion*s}" fill="${FR}" ${thin}/>`);
+    p.push(`<path d="${outline(0)}" fill="none" ${ink}/>`);
   }
 
   if(S.tuer){
@@ -913,12 +932,7 @@ function planSvg(c,{mini=false,outside=false}={}){
     p.push(`<text x="${rx+6}" y="${y0+h/2}" font-family="Inter" font-size="13" font-weight="500" fill="#8a857c" text-anchor="middle" transform="rotate(-90 ${rx+6} ${y0+h/2})">${c.H}</text>`);
   }
 
-  /* «арка без отсечки» — гнутые створки: всё содержимое режем по контуру изделия */
-  let inner = p.join('');
-  if(c.isArch && !c.cut)
-    inner = `<clipPath id="cp"><path d="${outline(0)}"/></clipPath>`
-          + `<g clip-path="url(#cp)">${inner}</g>`
-          + `<path d="${outline(0)}" fill="none" ${ink}/>`;
+  const inner = p.join('');
 
   /* вид снаружи — то же самое зеркально; подписей там нет, поэтому текст не переворачивается */
   const body = outside ? `<g transform="translate(${VW},0) scale(-1,1)">${inner}</g>` : inner;
@@ -940,7 +954,8 @@ function planSvg(c,{mini=false,outside=false}={}){
      </defs>` + body
   ).replace(/id="gl"/g,`id="gl-${uid}"`).replace(/id="sheen"/g,`id="sheen-${uid}"`)
    .replace(/url\(#gl\)/g,`url(#gl-${uid})`).replace(/url\(#sheen\)/g,`url(#sheen-${uid})`)
-   .replace(/id="cp"/g,`id="cp-${uid}"`).replace(/url\(#cp\)/g,`url(#cp-${uid})`);
+   .replace(/id="ca"/g,`id="ca-${uid}"`).replace(/url\(#ca\)/g,`url(#ca-${uid})`)
+   .replace(/id="cb"/g,`id="cb-${uid}"`).replace(/url\(#cb\)/g,`url(#cb-${uid})`);
 }
 
 function drawSvg(c){
