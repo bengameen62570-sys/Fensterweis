@@ -49,6 +49,42 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font
 /* ── Общее ───────────────────────────────────────────── */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--sh);padding:20px}
+/* образцы цвета */
+.swatches{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.swatches button{width:38px;height:38px;border-radius:9px;border:2px solid var(--line);
+  cursor:pointer;padding:0;position:relative}
+.swatches button[aria-pressed="true"]{border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-l)}
+/* вид снаружи */
+.outside{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.outside svg{width:100%;max-width:270px;height:auto;display:block}
+/* счётчик в шапке */
+.cart{display:inline-flex;align-items:center;gap:6px}
+.cart .cnt{background:var(--accent);color:#fff;border-radius:999px;
+  padding:1px 8px;font-size:12px;font-weight:600;line-height:1.5}
+/* миниатюра в списке */
+td.thumb{width:86px;padding-right:0}
+td.thumb svg{width:78px;height:60px;display:block}
+/* липкая панель цены на телефоне */
+.dock{display:none}
+@media(max-width:980px){
+  .dock{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;
+    align-items:center;justify-content:space-between;gap:12px;
+    background:#fff;border-top:1px solid var(--line);padding:10px 16px;
+    box-shadow:0 -4px 18px rgba(22,32,43,.10)}
+  .dock .d-sum{display:flex;flex-direction:column;line-height:1.2}
+  .dock .d-sum span{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  .dock .d-sum b{font-family:var(--head);font-size:19px}
+  .dock .btn{width:auto;margin:0;padding:11px 20px;white-space:nowrap}
+  body{padding-bottom:82px}
+}
+/* печать заявки */
+@media print{
+  .top,.hero,.layout,.dock,footer,.btn,.del,#clr{display:none!important}
+  body{background:#fff;padding:0}
+  .card{box-shadow:none;border:0;padding:0}
+  h2.sec{margin:0 0 12px}
+}
 h2.sec{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:-.01em;margin:44px 0 16px}
 .lbl{font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
 
@@ -205,7 +241,7 @@ footer ul{list-style:none;padding:0;margin:0}
     <a class="brand" href="#">Окна<span>ПВХ</span></a>
     <nav>
       <a href="#kalk" class="hide-s">Расчёт</a>
-      <a href="#korb" class="hide-s">Заявка</a>
+      <a href="#korb" class="cart">Заявка<span class="cnt" id="cnt" hidden>0</span></a>
       <a class="tel" href="tel:+4368181380389">+43 681 81380389</a>
     </nav>
   </div>
@@ -234,6 +270,10 @@ footer ul{list-style:none;padding:0;margin:0}
       <div>
         <p class="lbl" style="margin:0 0 8px">Вид изнутри — нажмите на створку</p>
         <svg class="plan" id="draw" viewBox="0 0 620 470" role="group" aria-label="Схема окна"></svg>
+        <div class="outside">
+          <p class="lbl" style="margin:0 0 8px">Вид снаружи</p>
+          <svg id="draw-out" viewBox="0 0 620 470" role="img" aria-label="Вид окна снаружи"></svg>
+        </div>
       </div>
       <aside class="spec">
         <h3>Спецификация</h3>
@@ -242,8 +282,11 @@ footer ul{list-style:none;padding:0;margin:0}
           <dt>Стеклопакет</dt><dd id="sp-glas">—</dd>
           <dt>Фурнитура</dt><dd id="sp-besch">—</dd>
           <dd id="sp-link" style="margin-top:4px"></dd>
-          <dt>Цвет</dt><dd>Белый / ядро белое</dd>
-          <dt>Ручка</dt><dd id="sp-griff">Hoppe, белая</dd>
+          <dt>Цвет</dt><dd id="sp-color">Белый / ядро белое</dd>
+          <dt>Ручка</dt><dd id="sp-griff">—</dd>
+          <dt>Теплопередача Uw</dt><dd id="sp-uw">—</dd>
+          <dt>Шумоизоляция</dt><dd id="sp-rw">—</dd>
+          <dt>Вес изделия</dt><dd id="sp-kg">—</dd>
         </dl>
       </aside>
     </div>
@@ -304,6 +347,17 @@ footer ul{list-style:none;padding:0;margin:0}
         <button type="button" id="s-iglo5">2 стекла · Ug 1,1</button>
         <button type="button" id="s-energy">3 стекла · Ug 0,5</button>
       </div>
+    </div>
+
+    <div class="field">
+      <span class="lbl">Цвет профиля</span>
+      <div class="seg" role="group" aria-label="Цвет профиля">
+        <button type="button" id="c-none">белый</button>
+        <button type="button" id="c-out">цвет снаружи</button>
+        <button type="button" id="c-both">с двух сторон</button>
+      </div>
+      <p class="note" id="colornote"></p>
+      <div class="swatches" id="swatches"></div>
     </div>
 
     <div class="field">
@@ -404,9 +458,17 @@ footer ul{list-style:none;padding:0;margin:0}
   </div>
 
   <button class="btn" type="button" id="send">Отправить заявку</button>
-  <p class="note" id="send-hint"></p>
+  <button class="btn sec" type="button" id="copy" style="margin-top:10px">Скопировать текст заявки</button>
+  <button class="btn sec" type="button" id="pdf" style="margin-top:10px">Скачать заявку PDF</button>
+  <p class="note" id="send-hint">Если почтовая программа не открывается — скопируйте текст
+     и пришлите его в WhatsApp или обычным письмом.</p>
 </section>
 </main>
+
+<div class="dock" id="dock">
+  <div class="d-sum"><span>Брутто</span><b id="d-price">—</b></div>
+  <button class="btn" type="button" id="d-add">В заявку</button>
+</div>
 
 <footer>
   <div class="wrap">
@@ -451,14 +513,62 @@ const SYS = {
            glas:'4/16/4, Ug 1,1 Вт/м²·К', ug:'1,1',
     geo:{ frame:66, mullion:84, stulp:68, sashInset:100, glassAdd:32 },
     r:{ perim:9.96, glass:47.56, sashPerim:9.93, mullion:21.10, mullionFix:8.80,
-        stulpBar:1.02, sash:36.11, min:63.20 } },
+        stulpBar:1.02, sash:36.11, min:63.20 },
+    griff:'Alu Mistral',
+    /* th — теплотехника и вес. Uf и psi подобраны так, чтобы формула EN ISO 10077-1
+       давала ровно те Uw, что стоят в Auftragsbestätigung 599203: 1,42 / 1,43 / 1,41 /
+       1,40 / 1,32 — совпадение на всех пяти позициях IGLO 5 до сотых.
+       rw — Rw из того же документа (33 дБ; на 2000×1400 стоит 32, отсюда минус 1 дБ
+       на крупных изделиях). Вес: стекло 4/16/4 = 20 кг/м², профиль 2,75 кг/пог. м —
+       фит по позициям 1, 5, 7, 12, 13, расхождение до 4 %. */
+    th:{ ug:1.1, uf:1.096, psi:0.0814, rw:33, glassKg:20.0, frameKg:2.75 } },
   energy:{ name:'3 стекла', profil:'Drutex IGLO ENERGY, 6 камер, 82 мм',
            glas:'4/18/4/18/4, Ug 0,5 Вт/м²·К', ug:'0,5',
     geo:{ frame:74, mullion:100, stulp:80, sashInset:100, glassAdd:42 },
     r:{ perim:14.77, glass:55.78, sashPerim:14.73, mullion:31.29, mullionFix:13.05,
-        stulpBar:1.52, sash:53.55, min:93.70 } }
+        stulpBar:1.52, sash:53.55, min:93.70 },
+    griff:'Alu Nevada',
+    /* По ENERGY в 599203 только одна позиция (№9): Uw 0,93, Rw 37, 67,31 кг.
+       psi взят тот же, что у IGLO 5, uf подобран под эту точку — на других размерах
+       возможно расхождение до 0,03. Проверить, когда будет вторая позиция. */
+    th:{ ug:0.5, uf:0.795, psi:0.0814, rw:37, glassKg:30.0, frameKg:3.33 } }
 };
 const OPT = { hinges:28.18, schwelle:58.70, regel:14.09 };
+/* Ламинация (цветная плёнка). Доплата у Drutex считается процентом от цены изделия,
+   а не за метр — проверено на четырёх парах одинаковых окон.
+   Источник: Auftragsbestätigung 599203 от 18.08.2026.
+     IGLO 5:  поз.1→2   204,44 → 229,79 = +12,40 %  (1200×1400, антрацит снаружи)
+              поз.1→4   204,44 → 229,79 = +12,40 %  (тот же размер, Golden Oak — цена та же,
+                                                     значит цвет из палитры на цену не влияет)
+              поз.5→6    80,86 →  91,23 = +12,82 %  (600×600)
+              поз.7→8   302,16 → 339,27 = +12,28 %  (2000×1400)
+              поз.1→3   204,44 → 245,64 = +20,15 %  (снаружи и внутри, ядро профиля в цвет)
+     ENERGY:  поз.9→10  271,30 → 302,79 = +11,61 %  (антрацит снаружи)
+              двусторонняя для ENERGY не просчитывалась. Взята та же пропорция, что у IGLO 5
+              (20,15 / 12,40 = 1,625): 11,61 × 1,625 ≈ 18,9 %. ЭТО ОЦЕНКА — проверить. */
+/* Оттенки плёнки. Цена одинаковая: в 599203 антрацит (поз. 2) и золотой дуб (поз. 4)
+   на одном и том же окне стоят ровно одинаково — 229,79 €. Остальные оттенки взяты
+   как цвета той же стандартной палитры; отдельно их цену Drutex не подтверждал. */
+const TONES = {
+  anthrazit:{ label:'Антрацит',    hex:'#3b4145', spec:'Anthrazitgrau REN 701605-167' },
+  eiche:    { label:'Золотой дуб', hex:'#a06e33', spec:'Golden Oak REN 2178001-167' },
+  nuss:     { label:'Орех тёмный', hex:'#5b3a22', spec:'Nussbaum' },
+  grau:     { label:'Серый',       hex:'#7c8388', spec:'Fenstergrau' },
+  moos:     { label:'Тёмно-зелёный',hex:'#39493c', spec:'Moosgrün' }
+};
+
+const LAM = {
+  none:{ iglo5:0,     energy:0,
+         spec:'Белый / ядро белое', short:'белый',
+         note:'Профиль белый снаружи и внутри.' },
+  out: { iglo5:0.124, energy:0.116,
+         spec:'Цвет снаружи / внутри белый', short:'цвет снаружи',
+         note:'Плёнка снаружи, внутри белый. Антрацит, золотой дуб и другие цвета '
+             +'стандартной палитры Renolit — по одной цене.' },
+  both:{ iglo5:0.201, energy:0.189,
+         spec:'Цвет снаружи и внутри / ядро в цвет', short:'цвет с двух сторон',
+         note:'Плёнка снаружи и внутри, ядро профиля в цвет, ручка и накладки петель в цвет.' }
+};
 const MIN_W_HINGES = 500, MAX_W_HINGES = 1500;   // габарит поля, мм
 const MARKUP = 0.30, VAT = 0.20, LIEFERUNG = 100, MAIL = 'bengameen62570@gmail.com';
 
@@ -483,7 +593,7 @@ const LAYOUTS = {
 function defHinge(i,n){ if(n===1) return 'right'; return (i===n-1) ? 'left' : 'right'; }
 
 const S = {
-  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5',
+  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
   fields:[{type:'fix',hinge:'right'},{type:'dk',hinge:'left'}]
 };
@@ -520,7 +630,8 @@ function calc(){
   const sys=SYS[S.sys], G=sys.geo, R=sys.r;
   const W=S.W, H=S.H, lay=LAYOUTS[S.layout], n=lay.n, fw=W/n;
   const divider = lay.stulp ? G.stulp : G.mullion;
-  let glassArea=0, sashPerim=0, nSash=0, maxSashW=0, maxSashH=0, minFW=1e9, maxFW=0;
+  let glassArea=0, glassLicht=0, glassEdge=0, sashPerim=0, nSash=0,
+      maxSashW=0, maxSashH=0, minFW=1e9, maxFW=0;
   const fields=[];
   for(let i=0;i<n;i++){
     const left=(i===0)?G.frame:divider/2, right=(i===n-1)?G.frame:divider/2;
@@ -528,7 +639,9 @@ function calc(){
     let cw=fw-left-right, ch=H-2*G.frame;
     if(mov){ cw-=G.sashInset; ch-=G.sashInset; }
     const gw=cw+G.glassAdd, gh=ch+G.glassAdd;
-    glassArea+=gw*gh/1e6;
+    glassArea+=gw*gh/1e6;                        // Glasmaß — по нему считаем вес
+    glassLicht+=(gw-G.glassAdd)*(gh-G.glassAdd)/1e6;   // видимое стекло — для Uw
+    glassEdge+=2*((gw-G.glassAdd)+(gh-G.glassAdd))/1000; // периметр кромки стекла
     if(mov){ sashPerim+=2*(gw+gh)/1000; nSash++;
              maxSashW=Math.max(maxSashW,gw); maxSashH=Math.max(maxSashH,gh);
              minFW=Math.min(minFW,fw); maxFW=Math.max(maxFW,fw); }
@@ -545,6 +658,7 @@ function calc(){
   const perim=2*(W+H)/1000;
   let ek = perim*R.perim + glassArea*R.glass + sashPerim*R.sashPerim + dividerCost + nSash*R.sash;
   ek = Math.max(ek, R.min);
+  ek *= 1 + LAM[S.color][S.sys];      // ламинация — процент на цену изделия, до опций
 
   const hingesOK = nSash>0 && minFW>=MIN_W_HINGES && maxFW<=MAX_W_HINGES;
   const useHinges = S.hinges && hingesOK;
@@ -554,14 +668,26 @@ function calc(){
 
   const item = ek*(1+MARKUP)*S.qty;
   const netto = item + LIEFERUNG;
-  return {W,H,n,fields,stulp:lay.stulp,area:W*H/1e6,perim,nSash,maxSashW,maxSashH,
-          hingesOK,useHinges,sys,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
+
+  /* теплотехника по EN ISO 10077-1: Uw = (Ag·Ug + Af·Uf + lg·Ψ) / A */
+  const T=sys.th, A=W*H/1e6;
+  const uw = (glassLicht*T.ug + (A-glassLicht)*T.uf + glassEdge*T.psi) / A;
+  const rw = A>2.2 ? T.rw-1 : T.rw;
+  const mullLen = lay.stulp ? (n-1)*H/1000 : (n-1)*(H-2*G.frame)/1000;
+  const kg = glassArea*T.glassKg + (perim+sashPerim+mullLen)*T.frameKg;
+
+  return {W,H,n,fields,stulp:lay.stulp,area:A,perim,nSash,maxSashW,maxSashH,
+          hingesOK,useHinges,sys,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
 }
 
 /* ═══════════ ЧЕРТЁЖ ═══════════ */
-function drawSvg(c){
+function planSvg(c,{mini=false,outside=false}={}){
   const G=c.sys.geo;
-  const VW=620,VH=470,PL=26,PT=24,PR=80,PB=72;
+  const VW=620,VH=470;
+  const PL=mini?10:26, PT=mini?10:24, PR=mini?10:80, PB=mini?10:72;
+  /* цвет рамы: снаружи виден при любой ламинации, изнутри — только при двусторонней */
+  const showTone = outside ? (S.color!=='none') : (S.color==='both');
+  const FR = showTone ? TONES[S.tone].hex : '#fdfefe';
   const aw=VW-PL-PR, ah=VH-PT-PB;
   const s=Math.min(aw/c.W, ah/c.H), w=c.W*s, h=c.H*s;
   const x0=PL+(aw-w)/2, y0=PT+(ah-h)/2;
@@ -571,7 +697,7 @@ function drawSvg(c){
   const p=[];
   const dl=(a,b,d,e)=>p.push(`<line x1="${a}" y1="${b}" x2="${d}" y2="${e}" ${dc}/>`);
 
-  p.push(`<rect x="${x0}" y="${y0}" width="${w}" height="${h}" rx="2" fill="#fdfefe" ${ink}/>`);
+  p.push(`<rect x="${x0}" y="${y0}" width="${w}" height="${h}" rx="2" fill="${FR}" ${ink}/>`);
 
   let cx=x0;
   c.fields.forEach((f,i)=>{
@@ -592,17 +718,15 @@ function drawSvg(c){
         g+= (f.hinge==='left')
           ? `<path d="M${ax+bw} ${ay} L${ax} ${ay+bh/2} L${ax+bw} ${ay+bh}" ${sym}/>`
           : `<path d="M${ax} ${ay} L${ax+bw} ${ay+bh/2} L${ax} ${ay+bh}" ${sym}/>`;
-      const hy = S.tuer ? (y0+h) - (1070/c.H)*h : gy+gh/2;
-      const hx = (f.hinge==='left') ? gx+gw-2 : gx+2;
-      g+=`<rect x="${hx-2.5}" y="${hy-10}" width="5" height="20" rx="2" fill="#16202b"/>`;
     } else {
       g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="url(#gl)" ${thin}/>`;
       g+=`<path d="M${gx} ${gy+gh*0.72} L${gx+gw} ${gy+gh*0.18} L${gx+gw} ${gy+gh*0.34} L${gx} ${gy+gh*0.88} Z" fill="url(#sheen)"/>`;
     }
-    if(i===S.sel)
+    if(i===S.sel && !mini)
       g+=`<rect x="${gx+1}" y="${gy+1}" width="${gw-2}" height="${gh-2}" fill="none"
             stroke="#2f7fb0" stroke-width="2" stroke-dasharray="5 3"/>`;
-    g+=`<rect class="hit" x="${cx}" y="${y0}" width="${fwPx}" height="${h}"/></g>`;
+    if(!mini) g+=`<rect class="hit" x="${cx}" y="${y0}" width="${fwPx}" height="${h}"/>`;
+    g+=`</g>`;
     p.push(g);
 
     if(i<c.fields.length-1){
@@ -610,9 +734,9 @@ function drawSvg(c){
       if(c.stulp)
         p.push(`<line x1="${mx}" y1="${y0+G.frame*s}" x2="${mx}" y2="${y0+h-G.frame*s}" stroke="#16202b" stroke-width="2"/>`);
       else
-        p.push(`<rect x="${mx-G.mullion/2*s}" y="${y0+G.frame*s}" width="${G.mullion*s}" height="${h-2*G.frame*s}" fill="#fdfefe" ${thin}/>`);
+        p.push(`<rect x="${mx-G.mullion/2*s}" y="${y0+G.frame*s}" width="${G.mullion*s}" height="${h-2*G.frame*s}" fill="${FR}" ${thin}/>`);
     }
-    if(c.fields.length>1){
+    if(c.fields.length>1 && !mini){
       const fy=y0+h+21;
       dl(cx,fy,cx+fwPx,fy); dl(cx,fy-4,cx,fy+4); dl(cx+fwPx,fy-4,cx+fwPx,fy+4);
       p.push(`<text x="${cx+fwPx/2}" y="${fy-6}" text-anchor="middle" font-family="Inter" font-size="11" fill="#2f7fb0">${Math.round(f.w)}</text>`);
@@ -623,17 +747,23 @@ function drawSvg(c){
   if(S.tuer){
     const th=Math.max(4, 60*s);
     p.push(`<rect x="${x0}" y="${y0+h-th}" width="${w}" height="${th}" fill="#c9d4dd" ${thin}/>`);
-    p.push(`<text x="${x0+w/2}" y="${y0+h-th/2+4}" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#16202b">ПОРОГ</text>`);
+    if(!mini) p.push(`<text x="${x0+w/2}" y="${y0+h-th/2+4}" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#16202b">ПОРОГ</text>`);
   }
 
-  const by=y0+h+(c.fields.length>1?50:24);
-  dl(x0,by,x0+w,by); dl(x0,by-5,x0,by+5); dl(x0+w,by-5,x0+w,by+5);
-  p.push(`<text x="${x0+w/2}" y="${by-8}" text-anchor="middle" font-family="Inter" font-size="13" font-weight="500" fill="#2f7fb0">${c.W}</text>`);
-  const rx=x0+w+32;
-  dl(rx,y0,rx,y0+h); dl(rx-5,y0,rx+5,y0); dl(rx-5,y0+h,rx+5,y0+h);
-  p.push(`<text x="${rx+6}" y="${y0+h/2}" font-family="Inter" font-size="13" font-weight="500" fill="#2f7fb0" text-anchor="middle" transform="rotate(-90 ${rx+6} ${y0+h/2})">${c.H}</text>`);
+  if(!mini){
+    const by=y0+h+(c.fields.length>1?50:24);
+    dl(x0,by,x0+w,by); dl(x0,by-5,x0,by+5); dl(x0+w,by-5,x0+w,by+5);
+    p.push(`<text x="${x0+w/2}" y="${by-8}" text-anchor="middle" font-family="Inter" font-size="13" font-weight="500" fill="#2f7fb0">${c.W}</text>`);
+    const rx=x0+w+32;
+    dl(rx,y0,rx,y0+h); dl(rx-5,y0,rx+5,y0); dl(rx-5,y0+h,rx+5,y0+h);
+    p.push(`<text x="${rx+6}" y="${y0+h/2}" font-family="Inter" font-size="13" font-weight="500" fill="#2f7fb0" text-anchor="middle" transform="rotate(-90 ${rx+6} ${y0+h/2})">${c.H}</text>`);
+  }
 
-  $('draw').innerHTML =
+  /* вид снаружи — то же самое зеркально; подписей там нет, поэтому текст не переворачивается */
+  const body = outside ? `<g transform="translate(${VW},0) scale(-1,1)">${p.join('')}</g>` : p.join('');
+  const uid = mini ? (outside?'o':'m') : 'a';   // свои id градиентов, иначе миниатюры конфликтуют
+
+  return (
     `<defs>
        <linearGradient id="gl" x1="0" y1="0" x2="0.75" y2="1">
          <stop offset="0"   stop-color="#e6f3fc"/>
@@ -647,7 +777,14 @@ function drawSvg(c){
          <stop offset="0.5" stop-color="#fff" stop-opacity=".55"/>
          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
        </linearGradient>
-     </defs>` + p.join('');
+     </defs>` + body
+  ).replace(/id="gl"/g,`id="gl-${uid}"`).replace(/id="sheen"/g,`id="sheen-${uid}"`)
+   .replace(/url\(#gl\)/g,`url(#gl-${uid})`).replace(/url\(#sheen\)/g,`url(#sheen-${uid})`);
+}
+
+function drawSvg(c){
+  $('draw').innerHTML     = planSvg(c);
+  $('draw-out').innerHTML = planSvg(c,{mini:true,outside:true});
 
   $('draw').querySelectorAll('.fld').forEach(g=>{
     const pick=()=>{ S.sel=+g.dataset.i; render(); };
@@ -688,6 +825,19 @@ function render(){
     b.setAttribute('aria-pressed', b.dataset.l===S.layout));
   $('s-iglo5').setAttribute('aria-pressed',  S.sys==='iglo5');
   $('s-energy').setAttribute('aria-pressed', S.sys==='energy');
+  $('c-none').setAttribute('aria-pressed', S.color==='none');
+  $('c-out').setAttribute('aria-pressed',  S.color==='out');
+  $('c-both').setAttribute('aria-pressed', S.color==='both');
+  $('colornote').textContent = LAM[S.color].note;
+  const sw=$('swatches');
+  if(S.color==='none'){ sw.innerHTML=''; }
+  else {
+    sw.innerHTML = Object.entries(TONES).map(([k,t])=>
+      `<button type="button" data-tone="${k}" title="${t.label}" aria-label="${t.label}"
+         aria-pressed="${S.tone===k}" style="background:${t.hex}"></button>`).join('');
+    sw.querySelectorAll('[data-tone]').forEach(b=>
+      b.addEventListener('click',()=>{ S.tone=b.dataset.tone; render(); }));
+  }
   $('b-std').setAttribute('aria-pressed', !c.useHinges);
   $('b-hid').setAttribute('aria-pressed',  c.useHinges);
   $('b-hid').disabled = !c.hingesOK;
@@ -705,7 +855,14 @@ function render(){
   $('sp-link').innerHTML = c.useHinges
     ? '<a href="https://www.maco.eu/de-CH/Produkte-Services/Fensterlosungen/Dreh-Kipp/MACO-Multi-Power/MULTI-POWER-mit-Lastabtragung" target="_blank" rel="noopener">о фурнитуре MACO →</a>'
     : '';
-  $('sp-griff').textContent = S.tuer ? 'Hoppe, белая, высота 1070 мм' : 'Hoppe, белая';
+  $('sp-color').textContent = S.color==='none' ? LAM[S.color].spec
+    : LAM[S.color].spec.replace('Цвет', TONES[S.tone].label) + ' · ' + TONES[S.tone].spec;
+  const griffCol = S.color==='both' ? 'в цвет профиля' : 'белая';
+  $('sp-griff').textContent = c.nSash===0 ? 'нет — все поля глухие'
+    : `${c.sys.griff}, ${griffCol}` + (S.tuer ? ', высота 1070 мм' : '');
+  $('sp-uw').textContent = num(c.uw)+' Вт/м²·К';
+  $('sp-rw').textContent = '≈ '+c.rw+' дБ';
+  $('sp-kg').textContent = '≈ '+num(c.kg,0)+' кг'+(S.qty>1?` (× ${S.qty} = ${num(c.kg*S.qty,0)} кг)`:'');
 
   $('f-size').textContent = `${c.W} × ${c.H}`;
   $('f-area').textContent = num(c.area)+' м²';
@@ -718,6 +875,7 @@ function render(){
   $('p-netto').textContent  = eur(c.netto);
   $('p-vat').textContent    = eur(c.vat);
   $('p-brutto').textContent = eur(c.brutto);
+  $('d-price').textContent  = eur(c.brutto);
 
   $('warn').textContent = (c.maxSashW>1200 || c.maxSashH>1800)
     ? 'Створка крупнее стандартной — уточните возможность у нас.' : '';
@@ -729,31 +887,63 @@ function describe(){
   const parts=S.fields.map(f=>TYPES[f.type].label +
     (TYPES[f.type].movable ? (f.hinge==='left'?' (петли слева)':' (петли справа)') : ''));
   const ex=[c.sys.name];
+  if(S.color!=='none') ex.push(TONES[S.tone].label+' '+(S.color==='both'?'с двух сторон':'снаружи'));
   if(S.tuer) ex.push('порог');
   if(c.useHinges) ex.push('скрытые петли');
   if(S.regel && c.nSash>0) ex.push('клапан');
-  return (stulp?'Штульп: ':'') + parts.join(' + ') + ' · ' + ex.join(', ');
+  return (stulp?'Штульп: ':'') + parts.join(' + ') + ' · ' + ex.join(', ')
+         + ' · Uw ' + num(c.uw);
 }
 function renderList(){
   const box=$('list-box');
+  const cnt=$('cnt'), total=list.reduce((a,p)=>a+p.qty,0);
+  cnt.textContent=total; cnt.hidden = total===0;
   if(!list.length){
     box.innerHTML='<p class="empty">Пока пусто. Соберите окно выше и нажмите «Добавить в заявку».</p>';
     return;
   }
   const sum=list.reduce((a,p)=>a+p.item,0), netto=sum+LIEFERUNG, vat=netto*VAT;
+  const nPos=list.reduce((a,p)=>a+p.qty,0),
+        sArea=list.reduce((a,p)=>a+p.area,0),
+        sKg=list.reduce((a,p)=>a+p.kg,0);
   box.innerHTML=`<table class="list">
-    <tr><th>№</th><th>Размер</th><th>Комплектация</th><th class="num">Шт</th><th class="num">Нетто</th><th></th></tr>
-    ${list.map((p,i)=>`<tr><td>${i+1}</td><td>${p.size}</td><td>${p.desc}</td>
+    <tr><th>№</th><th></th><th>Размер</th><th>Комплектация</th><th class="num">Шт</th><th class="num">Нетто</th><th></th></tr>
+    ${list.map((p,i)=>`<tr><td>${i+1}</td>
+      <td class="thumb">${p.svg?`<svg viewBox="0 0 620 470">${p.svg}</svg>`:''}</td>
+      <td>${p.size}</td><td>${p.desc}</td>
       <td class="num">${p.qty}</td><td class="num">${eur(p.item)}</td>
       <td class="num"><button class="del" type="button" data-del="${i}" aria-label="удалить">×</button></td></tr>`).join('')}
-    <tr><td colspan="4">Доставка</td><td class="num">${eur(LIEFERUNG)}</td><td></td></tr>
-    <tr><td colspan="4">Нетто</td><td class="num">${eur(netto)}</td><td></td></tr>
-    <tr><td colspan="4">НДС 20 %</td><td class="num">${eur(vat)}</td><td></td></tr>
-    <tr class="grand"><td colspan="4">Брутто</td><td class="num">${eur(netto+vat)}</td><td></td></tr>
-  </table>`;
+    <tr><td colspan="5">Доставка</td><td class="num">${eur(LIEFERUNG)}</td><td></td></tr>
+    <tr><td colspan="5">Нетто</td><td class="num">${eur(netto)}</td><td></td></tr>
+    <tr><td colspan="5">НДС 20 %</td><td class="num">${eur(vat)}</td><td></td></tr>
+    <tr class="grand"><td colspan="5">Брутто</td><td class="num">${eur(netto+vat)}</td><td></td></tr>
+  </table>
+  <p class="note">Всего изделий: ${nPos} шт · площадь ${num(sArea)} м² ·
+     вес ≈ ${num(sKg,0)} кг &nbsp;·&nbsp;
+     <a href="#" id="clr" style="color:var(--accent)">очистить заявку</a></p>`;
+  const clr=box.querySelector('#clr');
+  if(clr) clr.addEventListener('click',e=>{
+    e.preventDefault();
+    if(confirm('Удалить все позиции из заявки?')){ list=[]; saveCart(); renderList(); }
+  });
   box.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',e=>{
-    list.splice(+e.currentTarget.dataset.del,1); renderList();
+    list.splice(+e.currentTarget.dataset.del,1); saveCart(); renderList();
   }));
+}
+
+/* Корзина переживает обновление страницы. Если браузер запретил хранилище
+   (режим инкогнито, строгие настройки) — молча работаем без сохранения. */
+const CART_KEY='okna-korb-v1';
+function saveCart(){
+  try{ localStorage.setItem(CART_KEY, JSON.stringify(list)); }catch(e){}
+}
+function loadCart(){
+  try{
+    const raw=localStorage.getItem(CART_KEY);
+    if(raw){ const d=JSON.parse(raw); if(Array.isArray(d)) list=d; }
+  }catch(e){ list=[]; }
+  list=list.filter(p=>p&&p.size&&typeof p.item==='number')
+           .map(p=>({area:0,kg:0,...p}));
 }
 
 function addAddress(){
@@ -817,6 +1007,14 @@ $('presets').querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=
 
 $('s-iglo5').addEventListener('click', ()=>{ S.sys='iglo5';  render(); });
 $('s-energy').addEventListener('click',()=>{ S.sys='energy'; render(); });
+$('d-add').addEventListener('click',()=>$('add').click());
+$('pdf').addEventListener('click',()=>{
+  if(!list.length){ $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
+  window.print();
+});
+$('c-none').addEventListener('click',  ()=>{ S.color='none'; render(); });
+$('c-out').addEventListener('click',   ()=>{ S.color='out';  render(); });
+$('c-both').addEventListener('click',  ()=>{ S.color='both'; render(); });
 $('b-std').addEventListener('click',   ()=>{ S.hinges=false; render(); });
 $('b-hid').addEventListener('click',   ()=>{ S.hinges=true;  render(); });
 $('o-tuer').addEventListener('change', e=>{ S.tuer=e.target.checked;  render(); });
@@ -832,17 +1030,19 @@ $('h').addEventListener('input',render);
 
 $('add').addEventListener('click',()=>{
   const c=calc();
-  list.push({size:`${c.W} × ${c.H} мм`, desc:describe(), qty:S.qty, item:c.item});
+  list.push({size:`${c.W} × ${c.H} мм`, desc:describe(), qty:S.qty, item:c.item,
+             area:c.area*S.qty, kg:c.kg*S.qty, svg:planSvg(c,{mini:true})});
+  saveCart();
   renderList();
   $('korb').scrollIntoView({behavior:'smooth',block:'start'});
 });
 $('add-addr').addEventListener('click',addAddress);
 
-$('send').addEventListener('click',()=>{
-  if(!list.length){ $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
+function buildBody(){
   const sum=list.reduce((a,p)=>a+p.item,0), netto=sum+LIEFERUNG, brutto=netto*(1+VAT);
+  const sKg=list.reduce((a,p)=>a+p.kg,0), sArea=list.reduce((a,p)=>a+p.area,0);
   const fio=[$('c-fam').value,$('c-imya').value,$('c-otch').value].filter(x=>x.trim()).join(' ');
-  const body=[
+  return [
     'ЗАЯВКА С САЙТА','',
     `ФИО: ${fio||'—'}`,
     `Телефон: ${$('c-tel').value||'—'}`,
@@ -850,17 +1050,39 @@ $('send').addEventListener('click',()=>{
     ...(collectAddr().length?collectAddr().concat(''):['Адрес доставки: —','']),
     'Состав заявки:',
     ...list.map((p,i)=>`${i+1}. ${p.size} — ${p.desc} — ${p.qty} шт — ${eur(p.item)} нетто`),'',
+    `Итого: ${num(sArea)} м², ≈ ${num(sKg,0)} кг`,'',
     `Доставка: ${eur(LIEFERUNG)}`,
     `Нетто: ${eur(netto)}`,
     `Брутто: ${eur(brutto)}`,'',
     `Примечание: ${$('c-note').value||'—'}`,'',
     'Цены ориентировочные, без монтажа.'
   ].join('\n');
-  $('send-hint').textContent='Откроется почтовая программа с готовым письмом.';
-  location.href = `mailto:${MAIL}?subject=${encodeURIComponent('Заявка с сайта — окна')}&body=${encodeURIComponent(body)}`;
+}
+
+$('send').addEventListener('click',()=>{
+  if(!list.length){ $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
+  $('send-hint').textContent='Откроется почтовая программа с готовым письмом. Если она не открылась — нажмите «Скопировать текст заявки».';
+  location.href = `mailto:${MAIL}?subject=${encodeURIComponent('Заявка с сайта — окна')}&body=${encodeURIComponent(buildBody())}`;
+});
+
+$('copy').addEventListener('click',async ()=>{
+  if(!list.length){ $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
+  const txt=buildBody();
+  try{
+    await navigator.clipboard.writeText(txt);
+    $('send-hint').textContent='Текст заявки скопирован — вставьте его в WhatsApp или в письмо.';
+  }catch(e){
+    const ta=document.createElement('textarea');
+    ta.value=txt; ta.style.cssText='position:fixed;left:-9999px'; document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); $('send-hint').textContent='Текст заявки скопирован.'; }
+    catch(e2){ $('send-hint').textContent='Скопировать не удалось — выделите текст заявки вручную.'; }
+    ta.remove();
+  }
 });
 
 addAddress();
+loadCart();
 render();
 renderList();
 </script>
