@@ -11,14 +11,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#eef2f6; --card:#fff; --ink:#16202b; --ink-2:#3d4d5c; --muted:#6b7b8a;
-  --line:#dde5ec; --line-2:#eef2f6;
-  --accent:#2f7fb0; --accent-d:#245f85; --accent-l:#e8f3fa;
+  /* Тёплая нейтральная база, один сдержанный акцент.
+     Чтобы сменить акцент на стальной синий — поменяйте три строки accent на
+     #2c4a63 / #21384b / #e8eef3, остальное трогать не нужно. */
+  --bg:#f6f4f1; --card:#fff; --ink:#1c1b18; --ink-2:#4c4a45; --muted:#8a857c;
+  --line:#e5e1d9; --line-2:#efece6;
+  --accent:#2f5d4f; --accent-d:#244a3f; --accent-l:#e9f0ec;
   --ok:#2b7a55; --warn:#a8482f;
   --sans:"Inter",system-ui,-apple-system,sans-serif;
   --head:"Manrope",var(--sans);
-  --sh:0 1px 2px rgba(22,32,43,.05), 0 6px 20px rgba(22,32,43,.07);
-  --r:14px;
+  --sh:0 1px 2px rgba(28,27,24,.04);
+  --r:12px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -37,18 +40,18 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font
 @media(max-width:760px){.top nav a.hide-s{display:none}}
 
 /* ── Первый экран ────────────────────────────────────── */
-.hero{padding:44px 0 30px}
+.hero{padding:64px 0 38px}
 .hero h1{font-family:var(--head);font-weight:800;font-size:clamp(28px,4.6vw,44px);
-  line-height:1.12;letter-spacing:-.02em;margin:0 0 14px;max-width:19ch}
-.hero p{font-size:17px;color:var(--ink-2);max-width:56ch;margin:0 0 22px}
+  line-height:1.08;letter-spacing:-.025em;margin:0 0 18px;max-width:19ch}
+.hero p{font-size:17.5px;color:var(--ink-2);max-width:54ch;margin:0 0 26px;line-height:1.6}
 .pills{display:flex;flex-wrap:wrap;gap:9px}
-.pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 15px;
-  font-size:14px;color:var(--ink-2);box-shadow:var(--sh)}
+.pill{background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 15px;
+  font-size:14px;color:var(--ink-2)}
 .pill b{color:var(--ink);font-weight:600}
 
 /* ── Общее ───────────────────────────────────────────── */
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
-  box-shadow:var(--sh);padding:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+@media(max-width:620px){.card{padding:18px}}
 /* образцы цвета */
 .swatches{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .swatches button{width:38px;height:38px;border-radius:9px;border:2px solid var(--line);
@@ -71,7 +74,7 @@ td.thumb svg{width:78px;height:60px;display:block}
   .dock{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;
     align-items:center;justify-content:space-between;gap:12px;
     background:#fff;border-top:1px solid var(--line);padding:10px 16px;
-    box-shadow:0 -4px 18px rgba(22,32,43,.10)}
+    box-shadow:0 -3px 14px rgba(28,27,24,.07)}
   .dock .d-sum{display:flex;flex-direction:column;line-height:1.2}
   .dock .d-sum span{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
   .dock .d-sum b{font-family:var(--head);font-size:19px}
@@ -85,10 +88,10 @@ td.thumb svg{width:78px;height:60px;display:block}
   .card{box-shadow:none;border:0;padding:0}
   h2.sec{margin:0 0 12px}
 }
-h2.sec{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:-.01em;margin:44px 0 16px}
+h2.sec{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.015em;margin:56px 0 18px}
 .lbl{font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
 
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:18px;align-items:start}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:22px;align-items:start}
 @media(max-width:980px){.layout{grid-template-columns:1fr}}
 .stage{position:sticky;top:82px}
 @media(max-width:980px){.stage{position:static}}
@@ -99,9 +102,9 @@ h2.sec{font-family:var(--head);font-weight:700;font-size:24px;letter-spacing:-.0
 svg.plan{width:100%;height:auto;display:block;touch-action:manipulation}
 .fld{cursor:pointer}
 .fld .hit{fill:transparent}
-.fld:hover .hit{fill:rgba(47,127,176,.10)}
+.fld:hover .hit{fill:rgba(47,93,79,.09)}
 .fld:focus{outline:none}
-.fld:focus-visible .hit{fill:rgba(47,127,176,.16)}
+.fld:focus-visible .hit{fill:rgba(47,93,79,.15)}
 
 /* Спецификация сбоку */
 .spec{border-left:1px solid var(--line);padding-left:16px}
@@ -112,7 +115,7 @@ svg.plan{width:100%;height:auto;display:block;touch-action:manipulation}
 .spec dt{font-size:12px;color:var(--muted);margin-top:11px}
 .spec dt:first-child{margin-top:0}
 .spec dd{margin:1px 0 0;font-size:13.5px;font-weight:500;line-height:1.35}
-.spec a{color:var(--accent);font-size:12.5px;text-decoration:none;border-bottom:1px solid #b9d9ea}
+.spec a{color:var(--accent);font-size:12.5px;text-decoration:none;border-bottom:1px solid var(--line)}
 .spec a:hover{border-color:var(--accent)}
 
 .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
@@ -132,15 +135,15 @@ svg.plan{width:100%;height:auto;display:block;touch-action:manipulation}
 .seg{display:flex;background:var(--line-2);border-radius:10px;padding:3px;gap:3px}
 .seg button{flex:1;border:0;background:transparent;border-radius:8px;padding:8px 6px;cursor:pointer;
   font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink-2);white-space:nowrap}
-.seg button[aria-pressed="true"]{background:#fff;color:var(--accent);font-weight:600;
-  box-shadow:0 1px 3px rgba(22,32,43,.12)}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--ink);font-weight:600;
+  box-shadow:inset 0 0 0 1px var(--line)}
 .seg button:disabled{opacity:.4;cursor:default}
 
 .field{margin-bottom:16px}
 .field>.lbl{display:block;margin-bottom:7px}
 .dimrow{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .dimrow input[type=number]{width:104px;font-family:var(--sans);font-size:16px;font-weight:600;
-  padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fbfcfd;
+  padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--line-2);
   text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
 .dimrow .unit{color:var(--muted);font-size:13.5px}
 input[type=number]:focus,input[type=text]:focus{outline:2px solid var(--accent);outline-offset:-1px;background:#fff}
@@ -168,7 +171,7 @@ details.how summary{cursor:pointer;font-size:13.5px;color:var(--accent);list-sty
 details.how summary::-webkit-details-marker{display:none}
 details.how summary::before{content:"▸ ";font-size:11px}
 details.how[open] summary::before{content:"▾ "}
-.howbox{border:1px solid var(--line);border-radius:11px;padding:12px;margin-top:9px;background:#fbfdfe}
+.howbox{border:1px solid var(--line);border-radius:11px;padding:12px;margin-top:9px;background:var(--line-2)}
 .howbox p{margin:9px 0 0;font-size:13px;color:var(--ink-2)}
 .howbox a{color:var(--accent)}
 
@@ -187,7 +190,7 @@ details.how[open] summary::before{content:"▾ "}
 .price tr.sum td{border-top:1px solid var(--line-2);padding-top:9px}
 .price tr.total td{padding-top:8px}
 .price tr.total td:first-child{font-weight:600;color:var(--ink);vertical-align:middle}
-.price tr.total td:last-child{font-family:var(--head);font-size:27px;font-weight:800;color:var(--accent-d);letter-spacing:-.02em}
+.price tr.total td:last-child{font-family:var(--head);font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.025em}
 
 .btn{width:100%;border:0;border-radius:11px;padding:14px 18px;cursor:pointer;
   font-family:var(--head);font-size:16px;font-weight:700;background:var(--accent);color:#fff;margin-top:14px}
@@ -254,8 +257,9 @@ footer ul{list-style:none;padding:0;margin:0}
        фурнитура MACO, стеклопакет на выбор — двухкамерный или энергосберегающий.</p>
     <div class="pills">
       <span class="pill"><b>Ug от 0,5</b> Вт/м²·К</span>
-      <span class="pill"><b>Доставка 100 €</b> по всей стране</span>
-      <span class="pill">Минимальной суммы заказа <b>нет</b></span>
+      <span class="pill">Доставка <b>бесплатно от 4200 €</b></span>
+      <span class="pill">Срок <b>3–4 недели</b></span>
+      <span class="pill">Срочно — <b>2 недели</b> по запросу</span>
       <span class="pill">Замер и монтаж — <b>по запросу</b></span>
     </div>
   </div>
@@ -342,11 +346,22 @@ footer ul{list-style:none;padding:0;margin:0}
     </div>
 
     <div class="field">
+      <span class="lbl">Профиль</span>
+      <div class="seg" role="group" aria-label="Профиль">
+        <button type="button" id="pr-70">70 мм</button>
+        <button type="button" id="pr-82">82 мм</button>
+      </div>
+      <p class="note" id="profnote"></p>
+    </div>
+
+    <div class="field">
       <span class="lbl">Стеклопакет</span>
       <div class="seg" role="group" aria-label="Стеклопакет">
-        <button type="button" id="s-iglo5">2 стекла · Ug 1,1</button>
-        <button type="button" id="s-energy">3 стекла · Ug 0,5</button>
+        <button type="button" id="g-ug11">2 стекла<br>Ug 1,1</button>
+        <button type="button" id="g-ug06">3 стекла<br>Ug 0,6</button>
+        <button type="button" id="g-ug05">3 стекла<br>Ug 0,5</button>
       </div>
+      <p class="note" id="glasnote"></p>
     </div>
 
     <div class="field">
@@ -419,13 +434,15 @@ footer ul{list-style:none;padding:0;margin:0}
     <div class="price">
       <table>
         <tr><td>Изделие <span id="p-qty"></span></td><td id="p-window">—</td></tr>
-        <tr><td>Доставка</td><td id="p-liefer">—</td></tr>
         <tr class="sum"><td>Нетто</td><td id="p-netto">—</td></tr>
         <tr><td>НДС 20 %</td><td id="p-vat">—</td></tr>
         <tr class="total"><td>Брутто</td><td id="p-brutto">—</td></tr>
       </table>
-      <p class="note">Ориентировочная цена без монтажа. Размеры указывает заказчик.
-         Выезд на замер — за отдельную плату.</p>
+      <p class="note">Цена изделия без доставки и монтажа. Размеры указывает заказчик,
+         выезд на замер — за отдельную плату.<br>
+         Доставка по Австрии бесплатно при заказе от 4200 € нетто; на меньшую сумму —
+         по договорённости.<br>Срок поставки 3–4 недели, срочное исполнение за 2 недели —
+         по предварительному запросу.</p>
     </div>
 
     <button class="btn" type="button" id="add">Добавить в заявку</button>
@@ -509,8 +526,7 @@ footer ul{list-style:none;padding:0;margin:0}
 <script>
 /* ═══════════ ЦЕНЫ ═══════════ */
 const SYS = {
-  iglo5: { name:'2 стекла', profil:'Drutex IGLO 5, 5 камер, 70 мм',
-           glas:'4/16/4, Ug 1,1 Вт/м²·К', ug:'1,1',
+  iglo5: { profil:'Drutex IGLO 5, 5 камер, 70 мм', tiefe:70, frameKg:2.75,
     geo:{ frame:66, mullion:84, stulp:68, sashInset:100, glassAdd:32 },
     r:{ perim:9.96, glass:47.56, sashPerim:9.93, mullion:21.10, mullionFix:8.80,
         stulpBar:1.02, sash:36.11, min:63.20 },
@@ -521,9 +537,8 @@ const SYS = {
        rw — Rw из того же документа (33 дБ; на 2000×1400 стоит 32, отсюда минус 1 дБ
        на крупных изделиях). Вес: стекло 4/16/4 = 20 кг/м², профиль 2,75 кг/пог. м —
        фит по позициям 1, 5, 7, 12, 13, расхождение до 4 %. */
-    th:{ ug:1.1, uf:1.096, psi:0.0814, rw:33, glassKg:20.0, frameKg:2.75 } },
-  energy:{ name:'3 стекла', profil:'Drutex IGLO ENERGY, 6 камер, 82 мм',
-           glas:'4/18/4/18/4, Ug 0,5 Вт/м²·К', ug:'0,5',
+  },
+  energy:{ profil:'Drutex IGLO ENERGY, 6 камер, 82 мм', tiefe:82, frameKg:3.33,
     geo:{ frame:74, mullion:100, stulp:80, sashInset:100, glassAdd:42 },
     r:{ perim:14.77, glass:55.78, sashPerim:14.73, mullion:31.29, mullionFix:13.05,
         stulpBar:1.52, sash:53.55, min:93.70 },
@@ -531,7 +546,34 @@ const SYS = {
     /* По ENERGY в 599203 только одна позиция (№9): Uw 0,93, Rw 37, 67,31 кг.
        psi взят тот же, что у IGLO 5, uf подобран под эту точку — на других размерах
        возможно расхождение до 0,03. Проверить, когда будет вторая позиция. */
-    th:{ ug:0.5, uf:0.795, psi:0.0814, rw:37, glassKg:30.0, frameKg:3.33 } }
+  }
+};
+
+/* ═══ СТЕКЛОПАКЕТЫ ═══
+   Профиль и стеклопакет — разные вещи. В 70-мм профиль Drutex ставит и два стекла,
+   и три (подтверждение 601902: пакет 4/U14/4/U14/4 с тёплой рамкой, Ug 0,60).
+   Пакет Ug 0,5 идёт только в 82-мм профиле — двух стёкол в 82 мм у нас нет ни в одном
+   документе, и смысла в таком сочетании нет, поэтому комбинация закрыта.
+   add — доплата к цене 70-мм окна с двумя стёклами. Получена сравнением шести позиций
+   601902 с уже откалиброванной моделью: на крупных изделиях сходится до 0,6 %,
+   на мелких ±7 %. ВАЖНО: в 601902 система называется IGLO 5, а базовые ставки сняты
+   с IGLO 5 CLASSIC — значит в этих 26,69 € сидит и разница между системами, не только
+   стекло. Разделить можно, только просчитав одно окно в обеих системах.
+   uf/psi/rw — подобраны по шести значениям Uw из 601902, совпадение до 0,01.
+   Вес: три стекла по 4 мм = 30 кг/м² (проверено на поз. 1 и 5, расхождение до 1 %). */
+const GLAS = {
+  ug11:{ prof:'iglo5', label:'2 стекла · Ug 1,1', short:'2 стекла',
+         glas:'4/16/4, Ug 1,1 Вт/м²·К',
+         add:{m2:0, m:0},
+         th:{ ug:1.1, uf:1.096, psi:0.0814, rw:33, glassKg:20.0 } },
+  ug06:{ prof:'iglo5', label:'3 стекла · Ug 0,6', short:'3 стекла Ug 0,6',
+         glas:'4/14/4/14/4 с тёплой рамкой, Ug 0,6 Вт/м²·К',
+         add:{m2:26.69, m:1.04},
+         th:{ ug:0.6, uf:1.437, psi:0.0111, rw:36, glassKg:30.0 } },
+  ug05:{ prof:'energy', label:'3 стекла · Ug 0,5', short:'3 стекла Ug 0,5',
+         glas:'4/18/4/18/4, Ug 0,5 Вт/м²·К',
+         add:{m2:0, m:0},
+         th:{ ug:0.5, uf:0.795, psi:0.0814, rw:37, glassKg:30.0 } }
 };
 const OPT = { hinges:28.18, schwelle:58.70, regel:14.09 };
 /* Ламинация (цветная плёнка). Доплата у Drutex считается процентом от цены изделия,
@@ -551,8 +593,10 @@ const OPT = { hinges:28.18, schwelle:58.70, regel:14.09 };
    как цвета той же стандартной палитры; отдельно их цену Drutex не подтверждал. */
 const TONES = {
   anthrazit:{ label:'Антрацит',    hex:'#3b4145', spec:'Anthrazitgrau REN 701605-167' },
-  eiche:    { label:'Золотой дуб', hex:'#a06e33', spec:'Golden Oak REN 2178001-167' },
-  nuss:     { label:'Орех тёмный', hex:'#5b3a22', spec:'Nussbaum' },
+  eiche:    { label:'Золотой дуб', hex:'#a06e33', spec:'Golden Oak REN 2178001-167',
+              css:'repeating-linear-gradient(96deg,#a06e33,#a06e33 3px,#8f5f28 3px,#8f5f28 5px,#ab7839 5px,#ab7839 8px)' },
+  nuss:     { label:'Орех тёмный', hex:'#5b3a22', spec:'Nussbaum',
+              css:'repeating-linear-gradient(96deg,#5b3a22,#5b3a22 3px,#4a2d19 3px,#4a2d19 5px,#66432a 5px,#66432a 8px)' },
   grau:     { label:'Серый',       hex:'#7c8388', spec:'Fenstergrau' },
   moos:     { label:'Тёмно-зелёный',hex:'#39493c', spec:'Moosgrün' }
 };
@@ -570,7 +614,9 @@ const LAM = {
          note:'Плёнка снаружи и внутри, ядро профиля в цвет, ручка и накладки петель в цвет.' }
 };
 const MIN_W_HINGES = 500, MAX_W_HINGES = 1500;   // габарит поля, мм
-const MARKUP = 0.30, VAT = 0.20, LIEFERUNG = 100, MAIL = 'bengameen62570@gmail.com';
+const MARKUP = 0.30, VAT = 0.20, MAIL = 'bengameen62570@gmail.com';
+const FREI = 4200;                    // нетто, от которого доставка бесплатная
+const FRIST = 'Срок поставки 3–4 недели. Срочное исполнение за 2 недели — по предварительному запросу.';
 
 const $ = id => document.getElementById(id);
 const eur = v => v.toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €';
@@ -593,7 +639,7 @@ const LAYOUTS = {
 function defHinge(i,n){ if(n===1) return 'right'; return (i===n-1) ? 'left' : 'right'; }
 
 const S = {
-  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', color:'none', tone:'anthrazit',
+  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
   fields:[{type:'fix',hinge:'right'},{type:'dk',hinge:'left'}]
 };
@@ -627,7 +673,7 @@ function icon(type,hinge){
 
 /* ═══════════ РАСЧЁТ ═══════════ */
 function calc(){
-  const sys=SYS[S.sys], G=sys.geo, R=sys.r;
+  const sys=SYS[S.sys], G=sys.geo, R=sys.r, gl=GLAS[S.glas];
   const W=S.W, H=S.H, lay=LAYOUTS[S.layout], n=lay.n, fw=W/n;
   const divider = lay.stulp ? G.stulp : G.mullion;
   let glassArea=0, glassLicht=0, glassEdge=0, sashPerim=0, nSash=0,
@@ -658,6 +704,7 @@ function calc(){
   const perim=2*(W+H)/1000;
   let ek = perim*R.perim + glassArea*R.glass + sashPerim*R.sashPerim + dividerCost + nSash*R.sash;
   ek = Math.max(ek, R.min);
+  ek += glassArea*gl.add.m2 + perim*gl.add.m;   // доплата за стеклопакет
   ek *= 1 + LAM[S.color][S.sys];      // ламинация — процент на цену изделия, до опций
 
   const hingesOK = nSash>0 && minFW>=MIN_W_HINGES && maxFW<=MAX_W_HINGES;
@@ -667,17 +714,17 @@ function calc(){
   if(S.regel && nSash>0) ek += OPT.regel;
 
   const item = ek*(1+MARKUP)*S.qty;
-  const netto = item + LIEFERUNG;
+  const netto = item;
 
   /* теплотехника по EN ISO 10077-1: Uw = (Ag·Ug + Af·Uf + lg·Ψ) / A */
-  const T=sys.th, A=W*H/1e6;
+  const T=gl.th, A=W*H/1e6;
   const uw = (glassLicht*T.ug + (A-glassLicht)*T.uf + glassEdge*T.psi) / A;
   const rw = A>2.2 ? T.rw-1 : T.rw;
   const mullLen = lay.stulp ? (n-1)*H/1000 : (n-1)*(H-2*G.frame)/1000;
-  const kg = glassArea*T.glassKg + (perim+sashPerim+mullLen)*T.frameKg;
+  const kg = glassArea*T.glassKg + (perim+sashPerim+mullLen)*sys.frameKg;
 
   return {W,H,n,fields,stulp:lay.stulp,area:A,perim,nSash,maxSashW,maxSashH,
-          hingesOK,useHinges,sys,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
+          hingesOK,useHinges,sys,gl,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
 }
 
 /* ═══════════ ЧЕРТЁЖ ═══════════ */
@@ -691,9 +738,9 @@ function planSvg(c,{mini=false,outside=false}={}){
   const aw=VW-PL-PR, ah=VH-PT-PB;
   const s=Math.min(aw/c.W, ah/c.H), w=c.W*s, h=c.H*s;
   const x0=PL+(aw-w)/2, y0=PT+(ah-h)/2;
-  const ink='stroke="#16202b" stroke-width="1.7"', thin='stroke="#16202b" stroke-width="1"';
-  const sym='stroke="#6b7b8a" stroke-width="1.2" fill="none"';
-  const dc='stroke="#2f7fb0" stroke-width=".9"';
+  const ink='stroke="#2a2823" stroke-width="1.6"', thin='stroke="#57544d" stroke-width=".9"';
+  const sym='stroke="#8d887f" stroke-width="1.1" fill="none"';
+  const dc='stroke="#b3ada2" stroke-width=".8"';   // размерные линии — тонкие и тихие
   const p=[];
   const dl=(a,b,d,e)=>p.push(`<line x1="${a}" y1="${b}" x2="${d}" y2="${e}" ${dc}/>`);
 
@@ -724,7 +771,7 @@ function planSvg(c,{mini=false,outside=false}={}){
     }
     if(i===S.sel && !mini)
       g+=`<rect x="${gx+1}" y="${gy+1}" width="${gw-2}" height="${gh-2}" fill="none"
-            stroke="#2f7fb0" stroke-width="2" stroke-dasharray="5 3"/>`;
+            stroke="#2f5d4f" stroke-width="2" stroke-dasharray="5 3"/>`;
     if(!mini) g+=`<rect class="hit" x="${cx}" y="${y0}" width="${fwPx}" height="${h}"/>`;
     g+=`</g>`;
     p.push(g);
@@ -739,24 +786,24 @@ function planSvg(c,{mini=false,outside=false}={}){
     if(c.fields.length>1 && !mini){
       const fy=y0+h+21;
       dl(cx,fy,cx+fwPx,fy); dl(cx,fy-4,cx,fy+4); dl(cx+fwPx,fy-4,cx+fwPx,fy+4);
-      p.push(`<text x="${cx+fwPx/2}" y="${fy-6}" text-anchor="middle" font-family="Inter" font-size="11" fill="#2f7fb0">${Math.round(f.w)}</text>`);
+      p.push(`<text x="${cx+fwPx/2}" y="${fy-6}" text-anchor="middle" font-family="Inter" font-size="11" fill="#8a857c">${Math.round(f.w)}</text>`);
     }
     cx+=fwPx;
   });
 
   if(S.tuer){
     const th=Math.max(4, 60*s);
-    p.push(`<rect x="${x0}" y="${y0+h-th}" width="${w}" height="${th}" fill="#c9d4dd" ${thin}/>`);
-    if(!mini) p.push(`<text x="${x0+w/2}" y="${y0+h-th/2+4}" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#16202b">ПОРОГ</text>`);
+    p.push(`<rect x="${x0}" y="${y0+h-th}" width="${w}" height="${th}" fill="#d9d4cb" ${thin}/>`);
+    if(!mini) p.push(`<text x="${x0+w/2}" y="${y0+h-th/2+4}" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#4c4a45">ПОРОГ</text>`);
   }
 
   if(!mini){
     const by=y0+h+(c.fields.length>1?50:24);
     dl(x0,by,x0+w,by); dl(x0,by-5,x0,by+5); dl(x0+w,by-5,x0+w,by+5);
-    p.push(`<text x="${x0+w/2}" y="${by-8}" text-anchor="middle" font-family="Inter" font-size="13" font-weight="500" fill="#2f7fb0">${c.W}</text>`);
+    p.push(`<text x="${x0+w/2}" y="${by-8}" text-anchor="middle" font-family="Inter" font-size="13" font-weight="500" fill="#8a857c">${c.W}</text>`);
     const rx=x0+w+32;
     dl(rx,y0,rx,y0+h); dl(rx-5,y0,rx+5,y0); dl(rx-5,y0+h,rx+5,y0+h);
-    p.push(`<text x="${rx+6}" y="${y0+h/2}" font-family="Inter" font-size="13" font-weight="500" fill="#2f7fb0" text-anchor="middle" transform="rotate(-90 ${rx+6} ${y0+h/2})">${c.H}</text>`);
+    p.push(`<text x="${rx+6}" y="${y0+h/2}" font-family="Inter" font-size="13" font-weight="500" fill="#8a857c" text-anchor="middle" transform="rotate(-90 ${rx+6} ${y0+h/2})">${c.H}</text>`);
   }
 
   /* вид снаружи — то же самое зеркально; подписей там нет, поэтому текст не переворачивается */
@@ -765,16 +812,15 @@ function planSvg(c,{mini=false,outside=false}={}){
 
   return (
     `<defs>
-       <linearGradient id="gl" x1="0" y1="0" x2="0.75" y2="1">
-         <stop offset="0"   stop-color="#e6f3fc"/>
-         <stop offset="0.34" stop-color="#c9e3f6"/>
-         <stop offset="0.50" stop-color="#f3fafd"/>
-         <stop offset="0.66" stop-color="#c2dff2"/>
-         <stop offset="1"   stop-color="#dbeaf7"/>
+       <linearGradient id="gl" x1="0" y1="0" x2="0.6" y2="1">
+         <stop offset="0"    stop-color="#eef2f3"/>
+         <stop offset="0.45" stop-color="#e3e9ea"/>
+         <stop offset="0.75" stop-color="#dfe6e6"/>
+         <stop offset="1"    stop-color="#e9eeee"/>
        </linearGradient>
        <linearGradient id="sheen" x1="0" y1="1" x2="1" y2="0">
          <stop offset="0" stop-color="#fff" stop-opacity="0"/>
-         <stop offset="0.5" stop-color="#fff" stop-opacity=".55"/>
+         <stop offset="0.5" stop-color="#fff" stop-opacity=".30"/>
          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
        </linearGradient>
      </defs>` + body
@@ -823,8 +869,19 @@ function render(){
 
   $('layout').querySelectorAll('button').forEach(b=>
     b.setAttribute('aria-pressed', b.dataset.l===S.layout));
-  $('s-iglo5').setAttribute('aria-pressed',  S.sys==='iglo5');
-  $('s-energy').setAttribute('aria-pressed', S.sys==='energy');
+  $('pr-70').setAttribute('aria-pressed', S.sys==='iglo5');
+  $('pr-82').setAttribute('aria-pressed', S.sys==='energy');
+  $('profnote').textContent = S.sys==='iglo5'
+    ? 'Монтажная глубина 70 мм — стандарт для замены окон.'
+    : 'Монтажная глубина 82 мм — глубже, тяжелее, ставится только пакет Ug 0,5.';
+  Object.entries(GLAS).forEach(([k,v])=>{
+    const b=$('g-'+k), ok = v.prof===S.sys;
+    b.disabled = !ok;
+    b.setAttribute('aria-pressed', S.glas===k);
+  });
+  $('glasnote').textContent = S.sys==='iglo5'
+    ? 'Пакет Ug 0,5 доступен только в профиле 82 мм.'
+    : 'В профиле 82 мм — только трёхкамерный пакет Ug 0,5.';
   $('c-none').setAttribute('aria-pressed', S.color==='none');
   $('c-out').setAttribute('aria-pressed',  S.color==='out');
   $('c-both').setAttribute('aria-pressed', S.color==='both');
@@ -834,7 +891,7 @@ function render(){
   else {
     sw.innerHTML = Object.entries(TONES).map(([k,t])=>
       `<button type="button" data-tone="${k}" title="${t.label}" aria-label="${t.label}"
-         aria-pressed="${S.tone===k}" style="background:${t.hex}"></button>`).join('');
+         aria-pressed="${S.tone===k}" style="background:${t.css||t.hex}"></button>`).join('');
     sw.querySelectorAll('[data-tone]').forEach(b=>
       b.addEventListener('click',()=>{ S.tone=b.dataset.tone; render(); }));
   }
@@ -849,7 +906,7 @@ function render(){
   $('q-minus').disabled = S.qty<=1;
 
   $('sp-profil').textContent = c.sys.profil;
-  $('sp-glas').textContent   = c.sys.glas;
+  $('sp-glas').textContent   = c.gl.glas;
   $('sp-besch').textContent  = c.useHinges
     ? 'MACO MULTI POWER, скрытые петли' : 'MACO MULTI-MATIC';
   $('sp-link').innerHTML = c.useHinges
@@ -870,7 +927,6 @@ function render(){
   $('f-sash').textContent = c.nSash+' из '+c.n;
 
   $('p-window').textContent = eur(c.item);
-  $('p-liefer').textContent = eur(LIEFERUNG);
   $('p-qty').textContent    = S.qty>1 ? `× ${S.qty} шт` : '';
   $('p-netto').textContent  = eur(c.netto);
   $('p-vat').textContent    = eur(c.vat);
@@ -886,7 +942,7 @@ function describe(){
   const c=calc(), stulp=LAYOUTS[S.layout].stulp;
   const parts=S.fields.map(f=>TYPES[f.type].label +
     (TYPES[f.type].movable ? (f.hinge==='left'?' (петли слева)':' (петли справа)') : ''));
-  const ex=[c.sys.name];
+  const ex=[c.gl.short];
   if(S.color!=='none') ex.push(TONES[S.tone].label+' '+(S.color==='both'?'с двух сторон':'снаружи'));
   if(S.tuer) ex.push('порог');
   if(c.useHinges) ex.push('скрытые петли');
@@ -902,7 +958,8 @@ function renderList(){
     box.innerHTML='<p class="empty">Пока пусто. Соберите окно выше и нажмите «Добавить в заявку».</p>';
     return;
   }
-  const sum=list.reduce((a,p)=>a+p.item,0), netto=sum+LIEFERUNG, vat=netto*VAT;
+  const sum=list.reduce((a,p)=>a+p.item,0), netto=sum, vat=netto*VAT;
+  const frei=netto>=FREI;
   const nPos=list.reduce((a,p)=>a+p.qty,0),
         sArea=list.reduce((a,p)=>a+p.area,0),
         sKg=list.reduce((a,p)=>a+p.kg,0);
@@ -913,11 +970,15 @@ function renderList(){
       <td>${p.size}</td><td>${p.desc}</td>
       <td class="num">${p.qty}</td><td class="num">${eur(p.item)}</td>
       <td class="num"><button class="del" type="button" data-del="${i}" aria-label="удалить">×</button></td></tr>`).join('')}
-    <tr><td colspan="5">Доставка</td><td class="num">${eur(LIEFERUNG)}</td><td></td></tr>
+    <tr><td colspan="5">Доставка</td><td class="num">${frei?'бесплатно':'по договорённости'}</td><td></td></tr>
     <tr><td colspan="5">Нетто</td><td class="num">${eur(netto)}</td><td></td></tr>
     <tr><td colspan="5">НДС 20 %</td><td class="num">${eur(vat)}</td><td></td></tr>
     <tr class="grand"><td colspan="5">Брутто</td><td class="num">${eur(netto+vat)}</td><td></td></tr>
   </table>
+  <p class="note">${frei
+      ? 'Доставка по Австрии включена в цену.'
+      : `До бесплатной доставки не хватает ${eur(FREI-netto)} нетто — на меньшую сумму стоимость доставки обсуждаем отдельно.`}
+     <br>${FRIST}</p>
   <p class="note">Всего изделий: ${nPos} шт · площадь ${num(sArea)} м² ·
      вес ≈ ${num(sKg,0)} кг &nbsp;·&nbsp;
      <a href="#" id="clr" style="color:var(--accent)">очистить заявку</a></p>`;
@@ -1005,8 +1066,15 @@ $('presets').querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=
   render();
 }));
 
-$('s-iglo5').addEventListener('click', ()=>{ S.sys='iglo5';  render(); });
-$('s-energy').addEventListener('click',()=>{ S.sys='energy'; render(); });
+$('pr-70').addEventListener('click',()=>{
+  S.sys='iglo5'; if(GLAS[S.glas].prof!=='iglo5') S.glas='ug06'; render();
+});
+$('pr-82').addEventListener('click',()=>{
+  S.sys='energy'; S.glas='ug05'; render();
+});
+Object.keys(GLAS).forEach(k=>$('g-'+k).addEventListener('click',()=>{
+  S.glas=k; S.sys=GLAS[k].prof; render();
+}));
 $('d-add').addEventListener('click',()=>$('add').click());
 $('pdf').addEventListener('click',()=>{
   if(!list.length){ $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
@@ -1039,7 +1107,7 @@ $('add').addEventListener('click',()=>{
 $('add-addr').addEventListener('click',addAddress);
 
 function buildBody(){
-  const sum=list.reduce((a,p)=>a+p.item,0), netto=sum+LIEFERUNG, brutto=netto*(1+VAT);
+  const sum=list.reduce((a,p)=>a+p.item,0), netto=sum, brutto=netto*(1+VAT);
   const sKg=list.reduce((a,p)=>a+p.kg,0), sArea=list.reduce((a,p)=>a+p.area,0);
   const fio=[$('c-fam').value,$('c-imya').value,$('c-otch').value].filter(x=>x.trim()).join(' ');
   return [
@@ -1051,11 +1119,12 @@ function buildBody(){
     'Состав заявки:',
     ...list.map((p,i)=>`${i+1}. ${p.size} — ${p.desc} — ${p.qty} шт — ${eur(p.item)} нетто`),'',
     `Итого: ${num(sArea)} м², ≈ ${num(sKg,0)} кг`,'',
-    `Доставка: ${eur(LIEFERUNG)}`,
+    `Доставка: ${netto>=FREI?'бесплатно (заказ от 4200 € нетто)':'по договорённости'}`,
     `Нетто: ${eur(netto)}`,
     `Брутто: ${eur(brutto)}`,'',
     `Примечание: ${$('c-note').value||'—'}`,'',
-    'Цены ориентировочные, без монтажа.'
+    'Цены ориентировочные, без монтажа.',
+    FRIST
   ].join('\n');
 }
 
