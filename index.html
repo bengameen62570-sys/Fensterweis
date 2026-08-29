@@ -282,6 +282,7 @@ footer ul{list-style:none;padding:0;margin:0}
       <aside class="spec">
         <h3>Спецификация</h3>
         <dl>
+          <dt>Форма</dt><dd id="sp-shape">—</dd>
           <dt>Профиль</dt><dd id="sp-profil">—</dd>
           <dt>Стеклопакет</dt><dd id="sp-glas">—</dd>
           <dt>Фурнитура</dt><dd id="sp-besch">—</dd>
@@ -325,6 +326,26 @@ footer ul{list-style:none;padding:0;margin:0}
         <span class="unit">мм</span>
       </div>
       <input type="range" id="hr" value="1400" min="400" max="2500" step="10" tabindex="-1" aria-hidden="true">
+    </div>
+
+    <div class="field">
+      <span class="lbl">Форма верха</span>
+      <div class="seg" role="group" aria-label="Форма верха">
+        <button type="button" id="sh-rect">прямо-<br>угольное</button>
+        <button type="button" id="sh-arch">арка<br>с отсечкой</button>
+        <button type="button" id="sh-full">арка<br>без отсечки</button>
+      </div>
+      <div id="risebar" style="display:none;margin-top:10px">
+        <div class="dimrow">
+          <span class="lbl" style="min-width:64px">Подъём</span>
+          <input type="number" id="rise" step="10">
+          <span class="unit">мм</span>
+          <button class="chip" type="button" id="halfround">полукруг</button>
+        </div>
+        <input type="range" id="riser" step="10">
+      </div>
+      <p class="note" id="shapenote"></p>
+      <p class="note warn" id="archwarn"></p>
     </div>
 
     <div class="field">
@@ -561,6 +582,42 @@ const SYS = {
    стекло. Разделить можно, только просчитав одно окно в обеих системах.
    uf/psi/rw — подобраны по шести значениям Uw из 601902, совпадение до 0,01.
    Вес: три стекла по 4 мм = 30 кг/м² (проверено на поз. 1 и 5, расхождение до 1 %). */
+/* ═══ ФОРМА ВЕРХА ═══
+   Надбавка за гнутьё, взятая из подписанных оферт Drutex.
+   arch (арка с отсечкой, глухое арочное поле сверху + прямые створки снизу):
+     оферта 1500356, поз. 2 и 3 — 930×1730, полукруг R465, антрацит, пакет Ug 0,6 —
+     336,66 €. Тот же прямоугольник с горизонтальным импостом по нашей модели —
+     258,88 €, отношение 1,30. Коэффициент здесь подогнан не под ручное сравнение, а под
+     саму эту формулу — она сама считает площадь сегмента и длину дуги, поэтому её база
+     ниже: k = 1,37 воспроизводит фактические 336,66 € до цента. Одна точка, полукруг.
+     Стекла в арке при этом МЕНЬШЕ (1,50 м² против 1,61), то есть чистая надбавка
+     за гнутьё ещё выше.
+   archfull (арка без отсечки, гнутые створки):
+     оферта 1500356, поз. 1 — 1655×1100, сегмент 365, штульп, ENERGY CLASSIC — 630,98 €.
+     Наш прямоугольник в обычной ENERGY даёт 387 €, отношение 1,63. Но ENERGY CLASSIC
+     дешевле обычной ENERGY, а штульп наша модель и так занижает на 5–9 %, поэтому
+     под нашу формулу точно ложится k = 1,74. Настоящий коэффициент, скорее всего,
+     чуть ниже — ENERGY CLASSIC дешевле обычной ENERGY, а штульп мы и так занижаем.
+     ЭТО ОЦЕНКА ПО ОДНОЙ ТОЧКЕ В ЧУЖОЙ СИСТЕМЕ, проверить отдельным просчётом.
+   ВАЖНО: на всех трёх арочных позициях Drutex поставил «Garantiebereich überschritten» —
+   изделия вне гарантийных пределов. Поэтому в интерфейсе стоит предупреждение. */
+const ARCH = {
+  rect:    { k:1.00, label:'Прямоугольное', short:'' },
+  arch:    { k:1.37, label:'Арка с отсечкой',
+             short:'арка с отсечкой',
+             note:'Глухое арочное поле сверху, под ним импост, ниже обычные створки.' },
+  archfull:{ k:1.74, label:'Арка без отсечки',
+             short:'арка без отсечки',
+             note:'Створки гнутые по дуге, импоста под аркой нет. Дороже и сложнее в изготовлении.' }
+};
+/* Круговой сегмент по хорде и подъёму: площадь, длина дуги. */
+function seg(chord, rise){
+  if(rise<=0 || chord<=0) return {area:0, arc:chord, R:0};
+  const R=(chord*chord/4 + rise*rise)/(2*rise);
+  const th=2*Math.asin(Math.min(1, chord/(2*R)));
+  return { area:R*R*(th-Math.sin(th))/2, arc:R*th, R };
+}
+
 const GLAS = {
   ug11:{ prof:'iglo5', label:'2 стекла · Ug 1,1', short:'2 стекла',
          glas:'4/16/4, Ug 1,1 Вт/м²·К',
@@ -639,7 +696,7 @@ const LAYOUTS = {
 function defHinge(i,n){ if(n===1) return 'right'; return (i===n-1) ? 'left' : 'right'; }
 
 const S = {
-  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', color:'none', tone:'anthrazit',
+  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', shape:'rect', rise:600, color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
   fields:[{type:'fix',hinge:'right'},{type:'dk',hinge:'left'}]
 };
@@ -662,8 +719,8 @@ function icon(type,hinge){
   let s='';
   if(type==='dk'||type==='kipp') s+=`<path d="M${L} ${B} L${w/2} ${T} L${R} ${B}" ${st}/>`;
   if(type==='dk'||type==='dreh') s+= (hinge==='left')
-      ? `<path d="M${R} ${T} L${L} ${h/2} L${R} ${B}" ${st}/>`
-      : `<path d="M${L} ${T} L${R} ${h/2} L${L} ${B}" ${st}/>`;
+      ? `<path d="M${L} ${T} L${R} ${h/2} L${L} ${B}" ${st}/>`
+      : `<path d="M${R} ${T} L${L} ${h/2} L${R} ${B}" ${st}/>`;
   return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true">
     <defs><linearGradient id="gi" x1="0" y1="0" x2=".8" y2="1">
       <stop offset="0" stop-color="#e9f4fc"/><stop offset=".4" stop-color="#cbe4f5"/>
@@ -676,13 +733,20 @@ function calc(){
   const sys=SYS[S.sys], G=sys.geo, R=sys.r, gl=GLAS[S.glas];
   const W=S.W, H=S.H, lay=LAYOUTS[S.layout], n=lay.n, fw=W/n;
   const divider = lay.stulp ? G.stulp : G.mullion;
+  /* Форма верха. rise — подъём арки. При отсечке створки стоят ниже арочного поля,
+     поэтому прямая часть конструкции ниже на величину подъёма. */
+  const shp=ARCH[S.shape], isArch=S.shape!=='rect';
+  const rise = isArch ? Math.min(S.rise, Math.floor(W/2), H-400) : 0;
+  const cut  = S.shape==='arch';
+  const Hs   = cut ? H-rise : H;                 // высота части со створками
+  const sgOut = isArch ? seg(W, rise) : null;
   let glassArea=0, glassLicht=0, glassEdge=0, sashPerim=0, nSash=0,
       maxSashW=0, maxSashH=0, minFW=1e9, maxFW=0;
   const fields=[];
   for(let i=0;i<n;i++){
     const left=(i===0)?G.frame:divider/2, right=(i===n-1)?G.frame:divider/2;
     const mov=TYPES[S.fields[i].type].movable;
-    let cw=fw-left-right, ch=H-2*G.frame;
+    let cw=fw-left-right, ch=Hs-2*G.frame;
     if(mov){ cw-=G.sashInset; ch-=G.sashInset; }
     const gw=cw+G.glassAdd, gh=ch+G.glassAdd;
     glassArea+=gw*gh/1e6;                        // Glasmaß — по нему считаем вес
@@ -695,16 +759,35 @@ function calc(){
   }
   let dividerCost=0;
   for(let i=0;i<n-1;i++){
-    if(lay.stulp) dividerCost += (H/1000)*R.stulpBar;
+    if(lay.stulp) dividerCost += (Hs/1000)*R.stulpBar;
     else {
       const bothFix=!fields[i].movable && !fields[i+1].movable;
-      dividerCost += (H/1000)*(bothFix?R.mullionFix:R.mullion);
+      dividerCost += (Hs/1000)*(bothFix?R.mullionFix:R.mullion);
     }
   }
-  const perim=2*(W+H)/1000;
+
+  let archGlass=0;
+  if(cut){
+    /* арочное глухое поле сверху + горизонтальный импост под ним */
+    const sgIn = seg(W-2*G.frame, Math.max(1, rise-G.frame));
+    archGlass = sgIn.area/1e6;
+    glassArea += archGlass; glassLicht += archGlass;
+    glassEdge += (sgIn.arc + (W-2*G.frame))/1000;
+    dividerCost += ((W-2*G.frame)/1000)*R.mullion;
+  } else if(isArch){
+    /* створки гнутые: из прямоугольного стекла уходят два верхних угла */
+    const sgIn = seg(W-2*G.frame, Math.max(1, rise-G.frame));
+    const loss = ((W-2*G.frame)*rise - sgIn.area)/1e6;
+    glassArea = Math.max(0.05, glassArea-loss);
+    glassLicht = Math.max(0.05, glassLicht-loss);
+  }
+
+  /* периметр: низ + две боковины до пяты арки + дуга */
+  const perim = isArch ? (W + 2*(H-rise) + sgOut.arc)/1000 : 2*(W+H)/1000;
   let ek = perim*R.perim + glassArea*R.glass + sashPerim*R.sashPerim + dividerCost + nSash*R.sash;
   ek = Math.max(ek, R.min);
   ek += glassArea*gl.add.m2 + perim*gl.add.m;   // доплата за стеклопакет
+  ek *= shp.k;                        // надбавка за гнутьё
   ek *= 1 + LAM[S.color][S.sys];      // ламинация — процент на цену изделия, до опций
 
   const hingesOK = nSash>0 && minFW>=MIN_W_HINGES && maxFW<=MAX_W_HINGES;
@@ -717,13 +800,16 @@ function calc(){
   const netto = item;
 
   /* теплотехника по EN ISO 10077-1: Uw = (Ag·Ug + Af·Uf + lg·Ψ) / A */
-  const T=gl.th, A=W*H/1e6;
+  const T=gl.th;
+  const A = isArch ? (W*H - (W*rise - sgOut.area))/1e6 : W*H/1e6;
   const uw = (glassLicht*T.ug + (A-glassLicht)*T.uf + glassEdge*T.psi) / A;
   const rw = A>2.2 ? T.rw-1 : T.rw;
-  const mullLen = lay.stulp ? (n-1)*H/1000 : (n-1)*(H-2*G.frame)/1000;
+  const mullLen = (lay.stulp ? (n-1)*Hs : (n-1)*(Hs-2*G.frame))/1000
+                + (cut ? (W-2*G.frame)/1000 : 0);
   const kg = glassArea*T.glassKg + (perim+sashPerim+mullLen)*sys.frameKg;
 
   return {W,H,n,fields,stulp:lay.stulp,area:A,perim,nSash,maxSashW,maxSashH,
+          shape:S.shape,isArch,cut,rise,Hs,shp,
           hingesOK,useHinges,sys,gl,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
 }
 
@@ -744,13 +830,26 @@ function planSvg(c,{mini=false,outside=false}={}){
   const p=[];
   const dl=(a,b,d,e)=>p.push(`<line x1="${a}" y1="${b}" x2="${d}" y2="${e}" ${dc}/>`);
 
-  p.push(`<rect x="${x0}" y="${y0}" width="${w}" height="${h}" rx="2" fill="${FR}" ${ink}/>`);
+  /* контур изделия: прямоугольник или арка. inset — отступ внутрь (толщина рамы) */
+  const riseP = c.isArch ? c.rise*s : 0;
+  const outline=(inset)=>{
+    const xa=x0+inset, xb=x0+w-inset, yb=y0+h-inset;
+    if(!c.isArch) return `M${xa} ${y0+inset} H${xb} V${yb} H${xa} Z`;
+    const yr=y0+riseP, ch=w-2*inset, ri=Math.max(.5, riseP-inset);
+    const Rp=(ch*ch/4+ri*ri)/(2*ri);
+    return `M${xa} ${yb} V${yr} A${Rp} ${Rp} 0 0 1 ${xb} ${yr} V${yb} Z`;
+  };
+  p.push(`<path d="${outline(0)}" fill="${FR}" ${ink}/>`);
+
+  /* створки живут ниже арочного поля, если выбрана отсечка */
+  const yTop = y0 + (c.cut ? riseP : 0);
+  const hh   = h - (c.cut ? riseP : 0);
 
   let cx=x0;
   c.fields.forEach((f,i)=>{
     const fwPx=f.w*s;
-    const gx=cx+f.left*s, gy=y0+G.frame*s;
-    const gw=fwPx-(f.left+f.right)*s, gh=h-2*G.frame*s;
+    const gx=cx+f.left*s, gy=yTop+G.frame*s;
+    const gw=fwPx-(f.left+f.right)*s, gh=hh-2*G.frame*s;
     let g=`<g class="fld" data-i="${i}" tabindex="0" role="button" aria-label="Часть ${i+1}: ${TYPES[f.type].label}">`;
 
     if(f.movable){
@@ -762,9 +861,10 @@ function planSvg(c,{mini=false,outside=false}={}){
       if(f.type==='dk'||f.type==='kipp')
         g+=`<path d="M${ax} ${ay+bh} L${ax+bw/2} ${ay} L${ax+bw} ${ay+bh}" ${sym}/>`;
       if(f.type==='dk'||f.type==='dreh')
+        /* основание треугольника — на стороне петель, вершина смотрит к ручке */
         g+= (f.hinge==='left')
-          ? `<path d="M${ax+bw} ${ay} L${ax} ${ay+bh/2} L${ax+bw} ${ay+bh}" ${sym}/>`
-          : `<path d="M${ax} ${ay} L${ax+bw} ${ay+bh/2} L${ax} ${ay+bh}" ${sym}/>`;
+          ? `<path d="M${ax} ${ay} L${ax+bw} ${ay+bh/2} L${ax} ${ay+bh}" ${sym}/>`
+          : `<path d="M${ax+bw} ${ay} L${ax} ${ay+bh/2} L${ax+bw} ${ay+bh}" ${sym}/>`;
     } else {
       g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="url(#gl)" ${thin}/>`;
       g+=`<path d="M${gx} ${gy+gh*0.72} L${gx+gw} ${gy+gh*0.18} L${gx+gw} ${gy+gh*0.34} L${gx} ${gy+gh*0.88} Z" fill="url(#sheen)"/>`;
@@ -772,16 +872,16 @@ function planSvg(c,{mini=false,outside=false}={}){
     if(i===S.sel && !mini)
       g+=`<rect x="${gx+1}" y="${gy+1}" width="${gw-2}" height="${gh-2}" fill="none"
             stroke="#2f5d4f" stroke-width="2" stroke-dasharray="5 3"/>`;
-    if(!mini) g+=`<rect class="hit" x="${cx}" y="${y0}" width="${fwPx}" height="${h}"/>`;
+    if(!mini) g+=`<rect class="hit" x="${cx}" y="${yTop}" width="${fwPx}" height="${hh}"/>`;
     g+=`</g>`;
     p.push(g);
 
     if(i<c.fields.length-1){
       const mx=cx+fwPx;
       if(c.stulp)
-        p.push(`<line x1="${mx}" y1="${y0+G.frame*s}" x2="${mx}" y2="${y0+h-G.frame*s}" stroke="#16202b" stroke-width="2"/>`);
+        p.push(`<line x1="${mx}" y1="${yTop+G.frame*s}" x2="${mx}" y2="${yTop+hh-G.frame*s}" stroke="#2a2823" stroke-width="2"/>`);
       else
-        p.push(`<rect x="${mx-G.mullion/2*s}" y="${y0+G.frame*s}" width="${G.mullion*s}" height="${h-2*G.frame*s}" fill="${FR}" ${thin}/>`);
+        p.push(`<rect x="${mx-G.mullion/2*s}" y="${yTop+G.frame*s}" width="${G.mullion*s}" height="${hh-2*G.frame*s}" fill="${FR}" ${thin}/>`);
     }
     if(c.fields.length>1 && !mini){
       const fy=y0+h+21;
@@ -790,6 +890,13 @@ function planSvg(c,{mini=false,outside=false}={}){
     }
     cx+=fwPx;
   });
+
+  if(c.cut){
+    const fr=G.frame*s, xa=x0+fr, xb=x0+w-fr, yr=y0+riseP-fr;
+    const ch=w-2*fr, ri=Math.max(.5, riseP-fr), Rp=(ch*ch/4+ri*ri)/(2*ri);
+    p.push(`<path d="M${xa} ${yr} A${Rp} ${Rp} 0 0 1 ${xb} ${yr} Z" fill="url(#gl)" ${thin}/>`);
+    p.push(`<rect x="${xa}" y="${yr}" width="${w-2*fr}" height="${G.mullion*s}" fill="${FR}" ${thin}/>`);
+  }
 
   if(S.tuer){
     const th=Math.max(4, 60*s);
@@ -806,8 +913,15 @@ function planSvg(c,{mini=false,outside=false}={}){
     p.push(`<text x="${rx+6}" y="${y0+h/2}" font-family="Inter" font-size="13" font-weight="500" fill="#8a857c" text-anchor="middle" transform="rotate(-90 ${rx+6} ${y0+h/2})">${c.H}</text>`);
   }
 
+  /* «арка без отсечки» — гнутые створки: всё содержимое режем по контуру изделия */
+  let inner = p.join('');
+  if(c.isArch && !c.cut)
+    inner = `<clipPath id="cp"><path d="${outline(0)}"/></clipPath>`
+          + `<g clip-path="url(#cp)">${inner}</g>`
+          + `<path d="${outline(0)}" fill="none" ${ink}/>`;
+
   /* вид снаружи — то же самое зеркально; подписей там нет, поэтому текст не переворачивается */
-  const body = outside ? `<g transform="translate(${VW},0) scale(-1,1)">${p.join('')}</g>` : p.join('');
+  const body = outside ? `<g transform="translate(${VW},0) scale(-1,1)">${inner}</g>` : inner;
   const uid = mini ? (outside?'o':'m') : 'a';   // свои id градиентов, иначе миниатюры конфликтуют
 
   return (
@@ -825,7 +939,8 @@ function planSvg(c,{mini=false,outside=false}={}){
        </linearGradient>
      </defs>` + body
   ).replace(/id="gl"/g,`id="gl-${uid}"`).replace(/id="sheen"/g,`id="sheen-${uid}"`)
-   .replace(/url\(#gl\)/g,`url(#gl-${uid})`).replace(/url\(#sheen\)/g,`url(#sheen-${uid})`);
+   .replace(/url\(#gl\)/g,`url(#gl-${uid})`).replace(/url\(#sheen\)/g,`url(#sheen-${uid})`)
+   .replace(/id="cp"/g,`id="cp-${uid}"`).replace(/url\(#cp\)/g,`url(#cp-${uid})`);
 }
 
 function drawSvg(c){
@@ -869,6 +984,25 @@ function render(){
 
   $('layout').querySelectorAll('button').forEach(b=>
     b.setAttribute('aria-pressed', b.dataset.l===S.layout));
+  $('sh-rect').setAttribute('aria-pressed', S.shape==='rect');
+  $('sh-arch').setAttribute('aria-pressed', S.shape==='arch');
+  $('sh-full').setAttribute('aria-pressed', S.shape==='archfull');
+  const arch = S.shape!=='rect';
+  $('risebar').style.display = arch ? 'block' : 'none';
+  if(arch){
+    const rmax=Math.min(Math.floor(S.W/2), S.H-400);
+    S.rise=Math.min(Math.max(100, S.rise), Math.max(100, rmax));
+    $('rise').min=100; $('rise').max=rmax; $('rise').value=S.rise;
+    $('riser').min=100; $('riser').max=rmax; $('riser').value=S.rise;
+  }
+  $('shapenote').textContent = arch
+    ? ARCH[S.shape].note + ` Подъём до ${Math.min(Math.floor(S.W/2), S.H-400)} мм при этой ширине.`
+    : '';
+  $('archwarn').textContent = arch
+    ? 'Арочные изделия выходят за гарантийные пределы производителя. '
+     +'Возможность изготовления и гарантию уточняем у Drutex по каждому размеру до заказа. '
+     +'Цена ориентировочная.'
+    : '';
   $('pr-70').setAttribute('aria-pressed', S.sys==='iglo5');
   $('pr-82').setAttribute('aria-pressed', S.sys==='energy');
   $('profnote').textContent = S.sys==='iglo5'
@@ -905,6 +1039,8 @@ function render(){
   $('q-val').textContent = S.qty;
   $('q-minus').disabled = S.qty<=1;
 
+  $('sp-shape').textContent = c.isArch
+    ? `${c.shp.label}, подъём ${c.rise} мм` : 'Прямоугольное';
   $('sp-profil').textContent = c.sys.profil;
   $('sp-glas').textContent   = c.gl.glas;
   $('sp-besch').textContent  = c.useHinges
@@ -943,6 +1079,7 @@ function describe(){
   const parts=S.fields.map(f=>TYPES[f.type].label +
     (TYPES[f.type].movable ? (f.hinge==='left'?' (петли слева)':' (петли справа)') : ''));
   const ex=[c.gl.short];
+  if(c.isArch) ex.push(`${c.shp.short} ${c.rise} мм`);
   if(S.color!=='none') ex.push(TONES[S.tone].label+' '+(S.color==='both'?'с двух сторон':'снаружи'));
   if(S.tuer) ex.push('порог');
   if(c.useHinges) ex.push('скрытые петли');
@@ -1066,6 +1203,14 @@ $('presets').querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=
   render();
 }));
 
+$('sh-rect').addEventListener('click',()=>{ S.shape='rect';     render(); });
+$('sh-arch').addEventListener('click',()=>{ S.shape='arch';
+  if(!S.riseSet) S.rise=Math.floor(S.W/2); render(); });
+$('sh-full').addEventListener('click',()=>{ S.shape='archfull';
+  if(!S.riseSet) S.rise=Math.floor(S.W/2); render(); });
+$('halfround').addEventListener('click',()=>{ S.rise=Math.floor(S.W/2); S.riseSet=false; render(); });
+$('rise').addEventListener('input', e=>{ S.rise=+e.target.value||100; S.riseSet=true; render(); });
+$('riser').addEventListener('input',e=>{ S.rise=+e.target.value||100; S.riseSet=true; render(); });
 $('pr-70').addEventListener('click',()=>{
   S.sys='iglo5'; if(GLAS[S.glas].prof!=='iglo5') S.glas='ug06'; render();
 });
