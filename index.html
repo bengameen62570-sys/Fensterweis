@@ -455,6 +455,15 @@ footer ul{list-style:none;padding:0;margin:0}
           <span>Безопасное стекло, триплекс 33.1 внутри</span></label>
         <label class="opt"><input type="checkbox" id="o-roll">
           <span>Наружная рольставня</span></label>
+        <label class="opt"><input type="checkbox" id="o-zip">
+          <span>Зип-штора наружная (SUN WINNER)</span></label>
+      </div>
+      <div id="zipbar" style="display:none;margin-top:10px">
+        <div class="seg" role="group" aria-label="Система зип-шторы">
+          <button type="button" id="z-slim">95 SLIM</button>
+          <button type="button" id="z-std">95 Standard</button>
+        </div>
+        <p class="note" id="zipnote"></p>
       </div>
       <div id="rollbar" style="display:none;margin-top:10px">
         <div class="seg" role="group" aria-label="Привод рольставни">
@@ -710,6 +719,32 @@ const OPT = { hinges:28.18, schwelle:58.70, regel:14.09,
    Высота полотна = высота окна + ящик, ящик подбирается по высоте. */
 const ROLL = { m2:35.65, gurt:39.50, motor:92.50,
   box:(H)=> H<=1450 ? 137 : H<=1700 ? 165 : 180 };
+
+/* ═══ ЗИП-ШТОРЫ SUN WINNER (WIN SCREEN, ADAPTIVE ZIP SYSTEM 95) ═══
+   Сметы ZK 1597 и ZK 1598 от 24.08.2026. Прайсовые цены до скидки, все на ширине 1100:
+      система 95 SLIM:     1500 мм — 296 €   2100 — 348 €   2200 — 363 €
+      система 95 Standard: 1500 мм — 313 €   2100 — 373 €   2200 — 392 €
+   Мотор проводной ZIP 10 Нм — 111 €, выключатель Smoove Uno WT — 21 €,
+   монтажные кронштейны 39 € за 10 шт, то есть 3,90 € на штору.
+   Скидка в сметах 31 % и 33 % — берём 33 %, то есть закупка = прайс × 0,67.
+   ЧЕГО НЕ ХВАТАЕТ: все пять позиций одной ширины 1100 мм, поэтому зависимость цены
+   от ширины не проверена — считаем пропорционально ширине. Ткань в сметах не указана
+   вообще, а у зип-штор она делит цену на группы. Нужен полный прайс SUN WINNER. */
+const ZIP = {
+  disc:0.67, motor:111, schalter:21, halter:3.90,
+  sys:{ slim:{ label:'95 SLIM', pts:[[1500,296],[2100,348],[2200,363]] },
+        std: {  label:'95 Standard', pts:[[1500,313],[2100,373],[2200,392]] } },
+  price(W,H,k){
+    const pts=ZIP.sys[k].pts;
+    let p;
+    if(H<=pts[0][0]) p=pts[0][1] + (H-pts[0][0])*(pts[1][1]-pts[0][1])/(pts[1][0]-pts[0][0]);
+    else if(H>=pts[2][0]) p=pts[2][1] + (H-pts[2][0])*(pts[2][1]-pts[1][1])/(pts[2][0]-pts[1][0]);
+    else { const i = H<=pts[1][0] ? 0 : 1;
+           p = pts[i][1] + (H-pts[i][0])*(pts[i+1][1]-pts[i][1])/(pts[i+1][0]-pts[i][0]); }
+    p = Math.max(p, 120) * (W/1100);                 // цена снята на ширине 1100
+    return (p + ZIP.motor + ZIP.schalter + ZIP.halter) * ZIP.disc;
+  }
+};
 /* Ламинация (цветная плёнка). Доплата у Drutex считается процентом от цены изделия,
    а не за метр — проверено на четырёх парах одинаковых окон.
    Источник: Auftragsbestätigung 599203 от 18.08.2026.
@@ -775,7 +810,7 @@ function defHinge(i,n){ if(n===1) return 'right'; return (i===n-1) ? 'left' : 'r
 
 const S = {
   W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', shape:'rect', rise:600,
-  vsg:false, spross:false, mesh:false, roll:false, rollDrive:'gurt', color:'none', tone:'anthrazit',
+  vsg:false, spross:false, mesh:false, roll:false, rollDrive:'gurt', zip:false, zipSys:'slim', color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
   fields:[{type:'fix',hinge:'right'},{type:'dk',hinge:'left'}]
 };
@@ -876,6 +911,7 @@ function calc(){
     const hr=(H+ROLL.box(H))/1000;
     ek += (S.rollDrive==='motor'?ROLL.motor:ROLL.gurt) + (W/1000)*hr*ROLL.m2;
   }
+  if(S.zip) ek += ZIP.price(W, H, S.zipSys);
   const alu = S.sys==='alu', sonderfarbe = alu && S.color!=='none';
   if(sonderfarbe) ek += OPT.aluFarbe;   // покраска в цвет — фикс на изделие
   ek = ek*shp.k + (shp.add||0);       // надбавка за гнутьё
@@ -901,7 +937,7 @@ function calc(){
 
   return {W,H,n,fields,stulp:lay.stulp,area:A,perim,nSash,maxSashW,maxSashH,
           shape:S.shape,isArch,cut,rise,Hs,shp,alu,sonderfarbe,
-          roll:S.roll&&!alu, mesh:S.mesh&&!alu, spross:S.spross&&!alu,
+          roll:S.roll&&!alu, zip:S.zip&&!alu, mesh:S.mesh&&!alu, spross:S.spross&&!alu,
           vsg:S.vsg&&!alu, regel:S.regel&&!alu&&nSash>0,
           hingesOK,useHinges,sys,gl,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
 }
@@ -916,7 +952,7 @@ function planSvg(c,{mini=false,outside=false}={}){
   const FR = showTone ? TONES[S.tone].hex : '#fdfefe';
   const aw=VW-PL-PR, ah=VH-PT-PB;
   /* если выбрана рольставня, над окном нужно место под ящик */
-  const rollBox = c.roll ? ROLL.box(c.H) : 0;
+  const rollBox = c.roll ? ROLL.box(c.H) : (c.zip ? 120 : 0);
   const s=Math.min(aw/c.W, ah/(c.H+rollBox)), w=c.W*s, h=c.H*s, bx=rollBox*s;
   const x0=PL+(aw-w)/2, y0=PT+(ah-h-bx)/2+bx;
   const ink='stroke="#2a2823" stroke-width="1.6"', thin='stroke="#57544d" stroke-width=".9"';
@@ -934,17 +970,21 @@ function planSvg(c,{mini=false,outside=false}={}){
     const Rp=(ch*ch/4+ri*ri)/(2*ri);
     return `M${xa} ${yb} V${yr} A${Rp} ${Rp} 0 0 1 ${xb} ${yr} V${yb} Z`;
   };
-  if(c.roll){
-    /* ролета красится в тот же цвет, что окно снаружи; на цену это не влияет */
+  if(c.roll || c.zip){
+    /* Ролета и зип-штора ставятся снаружи: короб сверху, направляющие по бокам.
+       Цвет короба повторяет цвет окна снаружи, на цену это не влияет. */
     const rc = S.color==='none' ? '#f1eee9' : TONES[S.tone].roll;
-    const dark = S.color!=='none' && S.tone!=='eiche';
-    p.push(`<rect x="${x0-2}" y="${y0-bx}" width="${w+4}" height="${bx}" fill="${rc}" ${ink}/>`);
-    for(let k=1;k<5;k++){
-      const yy=y0-bx+bx*k/5;
-      p.push(`<line x1="${x0-2}" y1="${yy}" x2="${x0+w+2}" y2="${yy}" stroke="${dark?'#ffffff':'#a9a297'}" stroke-width=".7" opacity=".35"/>`);
+    const gw2 = Math.max(3, 53*s);                    // направляющая 53 мм
+    if(outside){
+      p.push(`<rect x="${x0-gw2}" y="${y0}" width="${gw2}" height="${h}" fill="${rc}" ${thin}/>`);
+      p.push(`<rect x="${x0+w}" y="${y0}" width="${gw2}" height="${h}" fill="${rc}" ${thin}/>`);
     }
-    if(!mini) p.push(`<text x="${x0+w+8}" y="${y0-bx/2+4}" font-family="Inter" font-size="10.5" fill="#8a857c">`
-      + `ролета ${S.rollDrive==='motor'?'мотор':'ремень'}</text>`);
+    /* короб — сплошной прямоугольник, из-под него выступает одна ламель */
+    const lam = Math.max(3, bx*0.16);
+    p.push(`<rect x="${x0-gw2/2}" y="${y0-bx}" width="${w+gw2}" height="${bx-lam}" rx="1.5" fill="${rc}" ${ink}/>`);
+    p.push(`<rect x="${x0-gw2/2+2}" y="${y0-lam}" width="${w+gw2-4}" height="${lam}" rx="1" fill="${rc}" ${thin}/>`);
+    if(!mini) p.push(`<text x="${x0+w+gw2+6}" y="${y0-bx/2+4}" font-family="Inter" font-size="10.5" fill="#8a857c">`
+      + (c.zip ? `зип-штора ${ZIP.sys[S.zipSys].label}` : `ролета ${S.rollDrive==='motor'?'мотор':'ремень'}`) + `</text>`);
   }
   p.push(`<path d="${outline(0)}" fill="${FR}" ${ink}/>`);
 
@@ -1181,7 +1221,7 @@ function render(){
   });
   $('sh-arch').disabled = isAlu; $('sh-full').disabled = isAlu;
   ['o-tuer','o-regel','o-mesh','o-spross','o-vsg','o-roll']
-    .forEach(id=>$(id).disabled = isAlu);
+    .concat(['o-zip']).forEach(id=>$(id).disabled = isAlu);
   $('alunote').textContent = isAlu
     ? 'В алюминии просчитаны только прямоугольные окна с импостом. Штульп, арки, '
       + 'алюминиевый порог и приточный клапан отдельно не считались — запрашиваем у Drutex.'
@@ -1210,6 +1250,14 @@ function render(){
   $('o-mesh').checked = S.mesh;  $('o-spross').checked = S.spross;
   $('o-vsg').checked  = S.vsg;   $('o-roll').checked   = S.roll;
   $('rollbar').style.display = S.roll ? 'block' : 'none';
+  $('o-zip').checked = S.zip;
+  $('zipbar').style.display = S.zip ? 'block' : 'none';
+  $('z-slim').setAttribute('aria-pressed', S.zipSys==='slim');
+  $('z-std').setAttribute('aria-pressed',  S.zipSys==='std');
+  if(S.zip) $('zipnote').textContent =
+    'Кассета с направляющими и полотном на молнии, привод — мотор с выключателем. '
+    + 'Цена снята с одной ширины 1100 мм и пересчитана пропорционально; ткань не выбрана — '
+    + 'уточняем у поставщика.';
   $('rd-gurt').setAttribute('aria-pressed', S.rollDrive==='gurt');
   $('rd-motor').setAttribute('aria-pressed', S.rollDrive==='motor');
   if(S.roll){
@@ -1274,6 +1322,7 @@ function describe(){
   if(S.spross) ex.push('шпросы');
   if(S.mesh)   ex.push('москитка');
   if(S.roll)   ex.push('рольставня ' + (S.rollDrive==='motor'?'с мотором':'на ремне'));
+  if(S.zip)    ex.push('зип-штора ' + ZIP.sys[S.zipSys].label);
   return (stulp?'Штульп: ':'') + parts.join(' + ') + ' · ' + ex.join(', ')
          + ' · Uw ' + num(c.uw);
 }
@@ -1416,7 +1465,7 @@ $('pr-alu').addEventListener('click',()=>{
   S.sys='alu'; S.glas='ug05a';
   if(LAYOUTS[S.layout].stulp) setLayout('2');     // штульпа в алюминии не считаем
   S.shape='rect'; S.tuer=false; S.regel=false;
-  S.mesh=false; S.spross=false; S.vsg=false; S.roll=false;
+  S.mesh=false; S.spross=false; S.vsg=false; S.roll=false; S.zip=false;
   render();
 });
 Object.keys(GLAS).forEach(k=>$('g-'+k).addEventListener('click',()=>{
@@ -1437,7 +1486,10 @@ $('o-regel').addEventListener('change',e=>{ S.regel=e.target.checked; render(); 
 $('o-mesh').addEventListener('change',  e=>{ S.mesh=e.target.checked;   render(); });
 $('o-spross').addEventListener('change',e=>{ S.spross=e.target.checked; render(); });
 $('o-vsg').addEventListener('change',   e=>{ S.vsg=e.target.checked;    render(); });
-$('o-roll').addEventListener('change',  e=>{ S.roll=e.target.checked;   render(); });
+$('o-roll').addEventListener('change',  e=>{ S.roll=e.target.checked; if(S.roll) S.zip=false; render(); });
+$('o-zip').addEventListener('change',   e=>{ S.zip=e.target.checked;  if(S.zip) S.roll=false; render(); });
+$('z-slim').addEventListener('click',   ()=>{ S.zipSys='slim'; render(); });
+$('z-std').addEventListener('click',    ()=>{ S.zipSys='std';  render(); });
 $('rd-gurt').addEventListener('click',  ()=>{ S.rollDrive='gurt';  render(); });
 $('rd-motor').addEventListener('click', ()=>{ S.rollDrive='motor'; render(); });
 $('hg-left').addEventListener('click', ()=>{ S.fields[S.sel].hinge='left';  render(); });
