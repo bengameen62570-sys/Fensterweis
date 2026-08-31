@@ -53,11 +53,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
 @media(max-width:620px){.card{padding:18px}}
 /* образцы цвета */
-.swatches{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.swatches{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.swatches .sw{display:flex;flex-direction:column;align-items:center;gap:4px;width:62px}
 .swatches button{width:38px;height:38px;border-radius:9px;border:2px solid var(--line);
-  cursor:pointer;padding:0;position:relative}
+  cursor:pointer;padding:0}
 .swatches button[aria-pressed="true"]{border-color:var(--accent);
   box-shadow:0 0 0 3px var(--accent-l)}
+.swatches .nm{font-size:10.5px;line-height:1.15;color:var(--muted);text-align:center}
+.swatches .sw button[aria-pressed="true"] + .nm{color:var(--ink);font-weight:600}
 /* вид снаружи */
 .outside{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
 .outside svg{width:100%;max-width:270px;height:auto;display:block}
@@ -346,6 +349,7 @@ footer ul{list-style:none;padding:0;margin:0}
       </div>
       <p class="note" id="shapenote"></p>
       <p class="note warn" id="archwarn"></p>
+      <p class="note" id="alunote"></p>
     </div>
 
     <div class="field">
@@ -371,6 +375,7 @@ footer ul{list-style:none;padding:0;margin:0}
       <div class="seg" role="group" aria-label="Профиль">
         <button type="button" id="pr-70">70 мм</button>
         <button type="button" id="pr-82">82 мм</button>
+        <button type="button" id="pr-alu">алюминий</button>
       </div>
       <p class="note" id="profnote"></p>
     </div>
@@ -381,6 +386,7 @@ footer ul{list-style:none;padding:0;margin:0}
         <button type="button" id="g-ug11">2 стекла<br>Ug 1,1</button>
         <button type="button" id="g-ug06">3 стекла<br>Ug 0,6</button>
         <button type="button" id="g-ug05">3 стекла<br>Ug 0,5</button>
+        <button type="button" id="g-ug05a" hidden>3 стекла<br>Ug 0,5</button>
       </div>
       <p class="note" id="glasnote"></p>
     </div>
@@ -393,6 +399,7 @@ footer ul{list-style:none;padding:0;margin:0}
         <button type="button" id="c-both">с двух сторон</button>
       </div>
       <p class="note" id="colornote"></p>
+      <p class="note" id="colorfee"></p>
       <div class="swatches" id="swatches"></div>
     </div>
 
@@ -440,7 +447,23 @@ footer ul{list-style:none;padding:0;margin:0}
           <span>Балконная дверь с алюминиевым порогом</span></label>
         <label class="opt"><input type="checkbox" id="o-regel">
           <span>Приточный клапан REGEL-air</span></label>
+        <label class="opt"><input type="checkbox" id="o-mesh">
+          <span>Москитная сетка на створку</span></label>
+        <label class="opt"><input type="checkbox" id="o-spross">
+          <span>Шпросы наклеенные 27 мм</span></label>
+        <label class="opt"><input type="checkbox" id="o-vsg">
+          <span>Безопасное стекло, триплекс 33.1 внутри</span></label>
+        <label class="opt"><input type="checkbox" id="o-roll">
+          <span>Наружная рольставня</span></label>
       </div>
+      <div id="rollbar" style="display:none;margin-top:10px">
+        <div class="seg" role="group" aria-label="Привод рольставни">
+          <button type="button" id="rd-gurt">ремень</button>
+          <button type="button" id="rd-motor">мотор</button>
+        </div>
+        <p class="note" id="rollnote"></p>
+      </div>
+      <p class="note" id="optnote"></p>
     </div>
 
     <div class="field">
@@ -550,7 +573,7 @@ const SYS = {
   iglo5: { profil:'Drutex IGLO 5, 5 камер, 70 мм', tiefe:70, frameKg:2.75,
     geo:{ frame:66, mullion:84, stulp:68, sashInset:100, glassAdd:32 },
     r:{ perim:9.96, glass:47.56, sashPerim:9.93, mullion:21.10, mullionFix:8.80,
-        stulpBar:1.02, sash:36.11, min:63.20 },
+        stulpBar:7.50, sash:36.11, min:63.20, hoherFluegel:16.00 },
     griff:'Alu Mistral',
     /* th — теплотехника и вес. Uf и psi подобраны так, чтобы формула EN ISO 10077-1
        давала ровно те Uw, что стоят в Auftragsbestätigung 599203: 1,42 / 1,43 / 1,41 /
@@ -562,11 +585,29 @@ const SYS = {
   energy:{ profil:'Drutex IGLO ENERGY, 6 камер, 82 мм', tiefe:82, frameKg:3.33,
     geo:{ frame:74, mullion:100, stulp:80, sashInset:100, glassAdd:42 },
     r:{ perim:14.77, glass:55.78, sashPerim:14.73, mullion:31.29, mullionFix:13.05,
-        stulpBar:1.52, sash:53.55, min:93.70 },
+        stulpBar:7.50, sash:53.55, min:93.70, hoherFluegel:16.00 },
     griff:'Alu Nevada',
     /* По ENERGY в 599203 только одна позиция (№9): Uw 0,93, Rw 37, 67,31 кг.
        psi взят тот же, что у IGLO 5, uf подобран под эту точку — на других размерах
        возможно расхождение до 0,03. Проверить, когда будет вторая позиция. */
+  },
+
+  /* ═══ АЛЮМИНИЙ MB-79N E ═══
+     Ставки сняты с подтверждения 613654 от 31.08.2026 — семь позиций, каждая отличается
+     от базовой одним параметром. Модель воспроизводит их с отклонением до 3,5 %:
+       1000×1350 ПО      537,74 против 557,39   (−3,5 %)
+       1000×1350 глухое  335,22 против 335,22
+       1500×1350 ПО      679,69 против 686,71   (−1,0 %)
+       1000×2000 ПО      690,21 против 671,21   (+2,8 %)
+       1500×1350 фикс+ПО 728,53 против 728,53
+       600×600 ПО        290,53 против 282,85   (+2,7 %)
+     Геометрия из тех же позиций: рама 69,5, импост 94,5, створка съедает 89 мм.
+     Минимальной цены не видно — на 600×600 модель работает без ограничителя. */
+  alu:   { profil:'Алюминий MB-79N E, 79 мм', tiefe:79, frameKg:1.67,
+           griff:'Alu Mistral',
+    geo:{ frame:69.5, mullion:94.5, stulp:94.5, sashInset:89, glassAdd:32 },
+    r:{ perim:38.04, glass:140.95, sashPerim:22.59, mullion:68.99, mullionFix:68.99,
+        stulpBar:0, sash:139.74, min:0 }
   }
 };
 
@@ -587,6 +628,12 @@ const SYS = {
    arch (арка с отсечкой, глухое арочное поле сверху + прямые створки снизу):
      оферта 1500356, поз. 2 и 3 — 930×1730, полукруг R465, антрацит, пакет Ug 0,6 —
      336,66 €. Тот же прямоугольник с горизонтальным импостом по нашей модели —
+     ОБНОВЛЕНО 31.08.2026 по подтверждению 613631: вторая арка — 1200×1400, сегмент 300,
+     белая, 2 стекла — стоит 289,68 при базе 195,12, то есть надбавка 94,56 €.
+     На первой арке надбавка выходит 80,5 €. В евро они близки, а в процентах расходятся
+     сильно (1,37 против 1,48), поэтому арка с отсечкой считается ФИКСИРОВАННОЙ доплатой
+     87 € — среднее по двум точкам, обе воспроизводятся в пределах 3 %.
+     Ниже — прежний расчёт через коэффициент, оставлен для истории:
      258,88 €, отношение 1,30. Коэффициент здесь подогнан не под ручное сравнение, а под
      саму эту формулу — она сама считает площадь сегмента и длину дуги, поэтому её база
      ниже: k = 1,37 воспроизводит фактические 336,66 € до цента. Одна точка, полукруг.
@@ -603,10 +650,10 @@ const SYS = {
    изделия вне гарантийных пределов. Поэтому в интерфейсе стоит предупреждение. */
 const ARCH = {
   rect:    { k:1.00, label:'Прямоугольное', short:'' },
-  arch:    { k:1.37, label:'Арка с отсечкой',
+  arch:    { k:1.00, add:87, label:'Арка с отсечкой',
              short:'арка с отсечкой',
              note:'Глухое арочное поле сверху, под ним импост, ниже обычные створки.' },
-  archfull:{ k:1.74, label:'Арка без отсечки',
+  archfull:{ k:1.74, add:0, label:'Арка без отсечки',
              short:'арка без отсечки',
              note:'Створки гнутые по дуге, импоста под аркой нет. Дороже и сложнее в изготовлении.' }
 };
@@ -627,12 +674,42 @@ const GLAS = {
          glas:'4/14/4/14/4 с тёплой рамкой, Ug 0,6 Вт/м²·К',
          add:{m2:26.69, m:1.04},
          th:{ ug:0.6, uf:1.437, psi:0.0111, rw:36, glassKg:30.0 } },
+  /* тот же пакет, что в 82-мм ПВХ, но в алюминии рама холоднее: Uf и psi подобраны
+     по шести значениям Uw из 613654 — совпадение на всех шести до 0,01.
+     Вес: стекло 29,7 кг/м², профиль 1,67 кг/м — расхождение до 1 %. */
+  ug05a:{ prof:'alu', label:'3 стекла · Ug 0,5', short:'3 стекла Ug 0,5',
+         glas:'4/18/4/18/4, Ug 0,5 Вт/м²·К',
+         add:{m2:0, m:0},
+         th:{ ug:0.5, uf:2.039, psi:0.0667, rw:34, glassKg:29.7 } },
   ug05:{ prof:'energy', label:'3 стекла · Ug 0,5', short:'3 стекла Ug 0,5',
          glas:'4/18/4/18/4, Ug 0,5 Вт/м²·К',
          add:{m2:0, m:0},
-         th:{ ug:0.5, uf:0.795, psi:0.0814, rw:37, glassKg:30.0 } }
+         th:{ ug:0.5, uf:0.795, psi:0.0814, rw:37, glassKg:30.0 } },
 };
-const OPT = { hinges:28.18, schwelle:58.70, regel:14.09 };
+const OPT = { hinges:28.18, schwelle:58.70, regel:14.09,
+  /* Цвет в алюминии — порошковая покраска, а не плёнка, поэтому не процент, а фикс.
+     613654: то же окно в 9016 с двух сторон 557,39, снаружи RAL 8014 — 597,07,
+     разница 39,68 € на изделие. Плюс отдельной строкой на заказ:
+     «Aufpreis für Fenster in Sonderfarbe — Produktionsvorbereitung» 283,08 €.
+     В заказе 605634 (14 окон в тех же цветах) этой строки не было — уточнить у Drutex,
+     с какого объёма она не начисляется. */
+  aluFarbe:39.68, aluVorb:283.08,
+  /* Подтверждение 613631 от 31.08.2026, всё от базы 1200×1400 ПО = 184,82 €.
+     Москитная сетка — отдельной строкой в подтверждении: 41,14 € на створку.
+     Шпросы: 214,07 − 184,82 = 29,25 € на изделие при делении 2×2. Drutex написал,
+       что шпрос 18 мм недоступен, поставил 27 мм наклеенные с двух сторон + дуплекс,
+       максимальное поле 1000×1000 мм.
+     Безопасное стекло (триплекс 33.1 внутрь): 229,61 − 184,82 = 44,79 € на 1,2 м² стекла
+       = 37,30 €/м². Одна точка. */
+  mesh:41.14, spross:29.25, vsg:37.30 };
+
+/* Рольставня Vorsatzrollladen 45°, алюминий 37 мм, направляющие 53 мм.
+   Три точки: 2000×1665 мотор 211,20 · 900×2280 мотор 165,64 · 1200×1537 ремень 105,22.
+   Полотно 35,65 €/м² одинаково у обоих приводов, разница в постоянной части:
+   ремень 39,50 €, мотор Simu T5 92,50 € — мотор дороже примерно на 53 €.
+   Высота полотна = высота окна + ящик, ящик подбирается по высоте. */
+const ROLL = { m2:35.65, gurt:39.50, motor:92.50,
+  box:(H)=> H<=1450 ? 137 : H<=1700 ? 165 : 180 };
 /* Ламинация (цветная плёнка). Доплата у Drutex считается процентом от цены изделия,
    а не за метр — проверено на четырёх парах одинаковых окон.
    Источник: Auftragsbestätigung 599203 от 18.08.2026.
@@ -649,24 +726,25 @@ const OPT = { hinges:28.18, schwelle:58.70, regel:14.09 };
    на одном и том же окне стоят ровно одинаково — 229,79 €. Остальные оттенки взяты
    как цвета той же стандартной палитры; отдельно их цену Drutex не подтверждал. */
 const TONES = {
-  anthrazit:{ label:'Антрацит',    hex:'#3b4145', spec:'Anthrazitgrau REN 701605-167' },
-  eiche:    { label:'Золотой дуб', hex:'#a06e33', spec:'Golden Oak REN 2178001-167',
+  anthrazit:{ label:'Антрацит',    hex:'#3b4145', roll:'#3b4145', spec:'Anthrazitgrau REN 701605-167' },
+  eiche:    { label:'Золотой дуб', hex:'#a06e33', roll:'#d8c4a0', spec:'Golden Oak REN 2178001-167',
               css:'repeating-linear-gradient(96deg,#a06e33,#a06e33 3px,#8f5f28 3px,#8f5f28 5px,#ab7839 5px,#ab7839 8px)' },
-  nuss:     { label:'Орех тёмный', hex:'#5b3a22', spec:'Nussbaum',
+  nuss:     { label:'Орех тёмный', hex:'#5b3a22', roll:'#6b4a30', spec:'Nussbaum',
               css:'repeating-linear-gradient(96deg,#5b3a22,#5b3a22 3px,#4a2d19 3px,#4a2d19 5px,#66432a 5px,#66432a 8px)' },
-  grau:     { label:'Серый',       hex:'#7c8388', spec:'Fenstergrau' },
-  moos:     { label:'Тёмно-зелёный',hex:'#39493c', spec:'Moosgrün' }
+  grau:     { label:'Серый',       hex:'#7c8388', roll:'#9aa0a4', spec:'Fenstergrau' },
+  /* у ролеты нет тёмно-зелёного в стандартной палитре — рисуем ближайший серый */
+  moos:     { label:'Тёмно-зелёный',hex:'#39493c', roll:'#9aa0a4', spec:'Moosgrün' }
 };
 
 const LAM = {
-  none:{ iglo5:0,     energy:0,
+  none:{ iglo5:0,     energy:0,     alu:0,
          spec:'Белый / ядро белое', short:'белый',
          note:'Профиль белый снаружи и внутри.' },
-  out: { iglo5:0.124, energy:0.116,
+  out: { iglo5:0.124, energy:0.116, alu:0,
          spec:'Цвет снаружи / внутри белый', short:'цвет снаружи',
          note:'Плёнка снаружи, внутри белый. Антрацит, золотой дуб и другие цвета '
              +'стандартной палитры Renolit — по одной цене.' },
-  both:{ iglo5:0.201, energy:0.189,
+  both:{ iglo5:0.201, energy:0.189, alu:0,
          spec:'Цвет снаружи и внутри / ядро в цвет', short:'цвет с двух сторон',
          note:'Плёнка снаружи и внутри, ядро профиля в цвет, ручка и накладки петель в цвет.' }
 };
@@ -696,7 +774,8 @@ const LAYOUTS = {
 function defHinge(i,n){ if(n===1) return 'right'; return (i===n-1) ? 'left' : 'right'; }
 
 const S = {
-  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', shape:'rect', rise:600, color:'none', tone:'anthrazit',
+  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', shape:'rect', rise:600,
+  vsg:false, spross:false, mesh:false, roll:false, rollDrive:'gurt', color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
   fields:[{type:'fix',hinge:'right'},{type:'dk',hinge:'left'}]
 };
@@ -787,7 +866,19 @@ function calc(){
   let ek = perim*R.perim + glassArea*R.glass + sashPerim*R.sashPerim + dividerCost + nSash*R.sash;
   ek = Math.max(ek, R.min);
   ek += glassArea*gl.add.m2 + perim*gl.add.m;   // доплата за стеклопакет
-  ek *= shp.k;                        // надбавка за гнутьё
+  /* Высокая створка в штульпе: 613631 поз.2 и оферта 1500347 поз.7 обе занижались
+     примерно на 16 € на створку. На одностворчатых балконных дверях этого нет. */
+  if(lay.stulp && Hs>1700) ek += nSash*(R.hoherFluegel||0);
+  if(S.vsg)    ek += glassArea*OPT.vsg;
+  if(S.spross) ek += OPT.spross;
+  if(S.mesh)   ek += nSash*OPT.mesh;
+  if(S.roll){
+    const hr=(H+ROLL.box(H))/1000;
+    ek += (S.rollDrive==='motor'?ROLL.motor:ROLL.gurt) + (W/1000)*hr*ROLL.m2;
+  }
+  const alu = S.sys==='alu', sonderfarbe = alu && S.color!=='none';
+  if(sonderfarbe) ek += OPT.aluFarbe;   // покраска в цвет — фикс на изделие
+  ek = ek*shp.k + (shp.add||0);       // надбавка за гнутьё
   ek *= 1 + LAM[S.color][S.sys];      // ламинация — процент на цену изделия, до опций
 
   const hingesOK = nSash>0 && minFW>=MIN_W_HINGES && maxFW<=MAX_W_HINGES;
@@ -809,7 +900,9 @@ function calc(){
   const kg = glassArea*T.glassKg + (perim+sashPerim+mullLen)*sys.frameKg;
 
   return {W,H,n,fields,stulp:lay.stulp,area:A,perim,nSash,maxSashW,maxSashH,
-          shape:S.shape,isArch,cut,rise,Hs,shp,
+          shape:S.shape,isArch,cut,rise,Hs,shp,alu,sonderfarbe,
+          roll:S.roll&&!alu, mesh:S.mesh&&!alu, spross:S.spross&&!alu,
+          vsg:S.vsg&&!alu, regel:S.regel&&!alu&&nSash>0,
           hingesOK,useHinges,sys,gl,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
 }
 
@@ -822,8 +915,10 @@ function planSvg(c,{mini=false,outside=false}={}){
   const showTone = outside ? (S.color!=='none') : (S.color==='both');
   const FR = showTone ? TONES[S.tone].hex : '#fdfefe';
   const aw=VW-PL-PR, ah=VH-PT-PB;
-  const s=Math.min(aw/c.W, ah/c.H), w=c.W*s, h=c.H*s;
-  const x0=PL+(aw-w)/2, y0=PT+(ah-h)/2;
+  /* если выбрана рольставня, над окном нужно место под ящик */
+  const rollBox = c.roll ? ROLL.box(c.H) : 0;
+  const s=Math.min(aw/c.W, ah/(c.H+rollBox)), w=c.W*s, h=c.H*s, bx=rollBox*s;
+  const x0=PL+(aw-w)/2, y0=PT+(ah-h-bx)/2+bx;
   const ink='stroke="#2a2823" stroke-width="1.6"', thin='stroke="#57544d" stroke-width=".9"';
   const sym='stroke="#8d887f" stroke-width="1.1" fill="none"';
   const dc='stroke="#b3ada2" stroke-width=".8"';   // размерные линии — тонкие и тихие
@@ -839,6 +934,18 @@ function planSvg(c,{mini=false,outside=false}={}){
     const Rp=(ch*ch/4+ri*ri)/(2*ri);
     return `M${xa} ${yb} V${yr} A${Rp} ${Rp} 0 0 1 ${xb} ${yr} V${yb} Z`;
   };
+  if(c.roll){
+    /* ролета красится в тот же цвет, что окно снаружи; на цену это не влияет */
+    const rc = S.color==='none' ? '#f1eee9' : TONES[S.tone].roll;
+    const dark = S.color!=='none' && S.tone!=='eiche';
+    p.push(`<rect x="${x0-2}" y="${y0-bx}" width="${w+4}" height="${bx}" fill="${rc}" ${ink}/>`);
+    for(let k=1;k<5;k++){
+      const yy=y0-bx+bx*k/5;
+      p.push(`<line x1="${x0-2}" y1="${yy}" x2="${x0+w+2}" y2="${yy}" stroke="${dark?'#ffffff':'#a9a297'}" stroke-width=".7" opacity=".35"/>`);
+    }
+    if(!mini) p.push(`<text x="${x0+w+8}" y="${y0-bx/2+4}" font-family="Inter" font-size="10.5" fill="#8a857c">`
+      + `ролета ${S.rollDrive==='motor'?'мотор':'ремень'}</text>`);
+  }
   p.push(`<path d="${outline(0)}" fill="${FR}" ${ink}/>`);
 
   /* Гнутая створка: режем по трём контурам — наружный край рамы, внутренний край рамы
@@ -867,6 +974,23 @@ function planSvg(c,{mini=false,outside=false}={}){
       const ax=gx+in_, ay=gy+in_, bw=gw-2*in_, bh=gh-2*in_;
       g+=`<rect x="${ax}" y="${ay}" width="${bw}" height="${bh}" fill="url(#gl)" ${thin}${cB}/>`;
       g+=`<path d="M${ax} ${ay+bh*0.72} L${ax+bw} ${ay+bh*0.18} L${ax+bw} ${ay+bh*0.34} L${ax} ${ay+bh*0.88} Z" fill="url(#sheen)"${cB}/>`;
+      if(c.spross) g+=`<path d="M${ax+bw/2} ${ay} V${ay+bh} M${ax} ${ay+bh/2} H${ax+bw}"
+            stroke="#2a2823" stroke-width="2" fill="none"${cB}/>`;
+      if(c.mesh) g+=`<rect x="${ax}" y="${ay}" width="${bw}" height="${bh}" fill="url(#net)"
+            stroke="#8d887f" stroke-width=".8" stroke-dasharray="4 3" opacity=".8"${cB}/>`;
+      /* накладные петли видны сверху и снизу со стороны навески; скрытые не рисуем */
+      if(!c.useHinges){
+        const hxp = f.hinge==='left' ? gx : gx+gw;
+        const hw=Math.max(4, G.frame*0.34*s), hh2=Math.max(7, gh*0.075);
+        [gy+gh*0.12, gy+gh*0.88-hh2].forEach(hy=>{
+          g+=`<rect x="${hxp-hw/2}" y="${hy}" width="${hw}" height="${hh2}" rx="1.5"
+                fill="#cfcac1" stroke="#57544d" stroke-width=".8"${cA}/>`;
+        });
+      }
+      if(c.vsg && !mini) g+=`<text x="${ax+bw-6}" y="${ay+14}" text-anchor="end"
+            font-family="Inter" font-size="10.5" fill="#57544d">VSG</text>`;
+      if(c.regel) g+=`<rect x="${ax+bw/2-14}" y="${ay-in_/2-3}" width="28" height="6" rx="2"
+            fill="#d9d4cb" ${thin}/>`;
       if(f.type==='dk'||f.type==='kipp'){
         /* в гнутой створке вершину откида опускаем под дугу, иначе её срезает */
         const apex = ay + (bend ? riseP*0.55 : 0);
@@ -880,6 +1004,10 @@ function planSvg(c,{mini=false,outside=false}={}){
     } else {
       g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="url(#gl)" ${thin}${cA}/>`;
       g+=`<path d="M${gx} ${gy+gh*0.72} L${gx+gw} ${gy+gh*0.18} L${gx+gw} ${gy+gh*0.34} L${gx} ${gy+gh*0.88} Z" fill="url(#sheen)"${cA}/>`;
+      if(c.spross) g+=`<path d="M${gx+gw/2} ${gy} V${gy+gh} M${gx} ${gy+gh/2} H${gx+gw}"
+            stroke="#2a2823" stroke-width="2" fill="none"${cA}/>`;
+      if(c.vsg && !mini) g+=`<text x="${gx+gw-6}" y="${gy+14}" text-anchor="end"
+            font-family="Inter" font-size="10.5" fill="#57544d">VSG</text>`;
     }
     if(i===S.sel && !mini)
       g+=`<rect x="${gx+1}" y="${gy+1}" width="${gw-2}" height="${gh-2}" fill="none"
@@ -940,6 +1068,9 @@ function planSvg(c,{mini=false,outside=false}={}){
 
   return (
     `<defs>
+       <pattern id="net" width="4" height="4" patternUnits="userSpaceOnUse">
+         <path d="M0 0H4M0 2H4M0 0V4M2 0V4" stroke="#a29c93" stroke-width=".38" opacity=".7"/>
+       </pattern>
        <linearGradient id="gl" x1="0" y1="0" x2="0.6" y2="1">
          <stop offset="0"    stop-color="#eef2f3"/>
          <stop offset="0.45" stop-color="#e3e9ea"/>
@@ -954,6 +1085,7 @@ function planSvg(c,{mini=false,outside=false}={}){
      </defs>` + body
   ).replace(/id="gl"/g,`id="gl-${uid}"`).replace(/id="sheen"/g,`id="sheen-${uid}"`)
    .replace(/url\(#gl\)/g,`url(#gl-${uid})`).replace(/url\(#sheen\)/g,`url(#sheen-${uid})`)
+   .replace(/id="net"/g,`id="net-${uid}"`).replace(/url\(#net\)/g,`url(#net-${uid})`)
    .replace(/id="ca"/g,`id="ca-${uid}"`).replace(/url\(#ca\)/g,`url(#ca-${uid})`)
    .replace(/id="cb"/g,`id="cb-${uid}"`).replace(/url\(#cb\)/g,`url(#cb-${uid})`);
 }
@@ -1013,24 +1145,47 @@ function render(){
   $('shapenote').textContent = arch
     ? ARCH[S.shape].note + ` Подъём до ${Math.min(Math.floor(S.W/2), S.H-400)} мм при этой ширине.`
     : '';
+  $('colorfee').textContent = c.sonderfarbe
+    ? `Покраска в цвет: +${eur(OPT.aluFarbe*(1+MARKUP))} на изделие. Дополнительно `
+      + `${eur(OPT.aluVorb*(1+MARKUP))} за подготовку производства — один раз на заказ.`
+    : '';
   $('archwarn').textContent = arch
     ? 'Арочные изделия выходят за гарантийные пределы производителя. '
      +'Возможность изготовления и гарантию уточняем у Drutex по каждому размеру до заказа. '
      +'Цена ориентировочная.'
     : '';
+  const isAlu = S.sys==='alu';
   $('pr-70').setAttribute('aria-pressed', S.sys==='iglo5');
   $('pr-82').setAttribute('aria-pressed', S.sys==='energy');
-  $('profnote').textContent = S.sys==='iglo5'
-    ? 'Монтажная глубина 70 мм — стандарт для замены окон.'
-    : 'Монтажная глубина 82 мм — глубже, тяжелее, ставится только пакет Ug 0,5.';
+  $('pr-alu').setAttribute('aria-pressed', isAlu);
+  $('profnote').textContent =
+      S.sys==='iglo5'  ? 'Монтажная глубина 70 мм — стандарт для замены окон.'
+    : S.sys==='energy' ? 'Монтажная глубина 82 мм — глубже, тяжелее, ставится только пакет Ug 0,5.'
+    : 'Алюминий MB-79N, 79 мм. Тоньше рама и больше стекла, но теплее ПВХ он не будет: '
+      + 'при том же стеклопакете Uw выходит примерно на 0,3 выше.';
   Object.entries(GLAS).forEach(([k,v])=>{
     const b=$('g-'+k), ok = v.prof===S.sys;
+    if(k==='ug05')  b.hidden = isAlu;      // в алюминии тот же пакет идёт своей кнопкой
+    if(k==='ug05a') b.hidden = !isAlu;
     b.disabled = !ok;
     b.setAttribute('aria-pressed', S.glas===k);
   });
-  $('glasnote').textContent = S.sys==='iglo5'
-    ? 'Пакет Ug 0,5 доступен только в профиле 82 мм.'
-    : 'В профиле 82 мм — только трёхкамерный пакет Ug 0,5.';
+  $('glasnote').textContent =
+      S.sys==='iglo5'  ? 'Пакет Ug 0,5 доступен только в профиле 82 мм и в алюминии.'
+    : S.sys==='energy' ? 'В профиле 82 мм — только трёхкамерный пакет Ug 0,5.'
+    : 'В алюминии просчитан один пакет — трёхкамерный Ug 0,5.';
+
+  /* в алюминии у нас нет ни одной цены на штульп, арки, порог и клапан */
+  $('layout').querySelectorAll('button').forEach(b=>{
+    if(b.dataset.l==='stulp') b.disabled = isAlu;
+  });
+  $('sh-arch').disabled = isAlu; $('sh-full').disabled = isAlu;
+  ['o-tuer','o-regel','o-mesh','o-spross','o-vsg','o-roll']
+    .forEach(id=>$(id).disabled = isAlu);
+  $('alunote').textContent = isAlu
+    ? 'В алюминии просчитаны только прямоугольные окна с импостом. Штульп, арки, '
+      + 'алюминиевый порог и приточный клапан отдельно не считались — запрашиваем у Drutex.'
+    : '';
   $('c-none').setAttribute('aria-pressed', S.color==='none');
   $('c-out').setAttribute('aria-pressed',  S.color==='out');
   $('c-both').setAttribute('aria-pressed', S.color==='both');
@@ -1039,8 +1194,9 @@ function render(){
   if(S.color==='none'){ sw.innerHTML=''; }
   else {
     sw.innerHTML = Object.entries(TONES).map(([k,t])=>
-      `<button type="button" data-tone="${k}" title="${t.label}" aria-label="${t.label}"
-         aria-pressed="${S.tone===k}" style="background:${t.css||t.hex}"></button>`).join('');
+      `<span class="sw"><button type="button" data-tone="${k}" aria-label="${t.label}"
+         aria-pressed="${S.tone===k}" style="background:${t.css||t.hex}"></button>
+       <span class="nm">${t.label}</span></span>`).join('');
     sw.querySelectorAll('[data-tone]').forEach(b=>
       b.addEventListener('click',()=>{ S.tone=b.dataset.tone; render(); }));
   }
@@ -1051,6 +1207,21 @@ function render(){
     : 'Для такой ширины створки скрытые петли невозможны.';
   $('o-tuer').checked = S.tuer;
   $('o-regel').checked = S.regel;
+  $('o-mesh').checked = S.mesh;  $('o-spross').checked = S.spross;
+  $('o-vsg').checked  = S.vsg;   $('o-roll').checked   = S.roll;
+  $('rollbar').style.display = S.roll ? 'block' : 'none';
+  $('rd-gurt').setAttribute('aria-pressed', S.rollDrive==='gurt');
+  $('rd-motor').setAttribute('aria-pressed', S.rollDrive==='motor');
+  if(S.roll){
+    const box=ROLL.box(S.H);
+    $('rollnote').textContent = `Ящик ${box} мм, полотно ${S.W} × ${S.H+box} мм. `
+      + `Ставится снаружи поверх окна — проём должен быть на ${box} мм выше окна.`;
+  }
+  const notes=[];
+  if(S.spross) notes.push('Шпрос 18 мм у Drutex недоступен, считается 27 мм наклеенный '
+    + 'с двух сторон. Максимальный размер поля между шпросами — 1000 × 1000 мм.');
+  if(S.mesh)   notes.push('Цена сетки снята с одной позиции 1090 × 1290 и от размера пока не зависит.');
+  $('optnote').textContent = notes.join(' ');
   $('q-val').textContent = S.qty;
   $('q-minus').disabled = S.qty<=1;
 
@@ -1099,6 +1270,10 @@ function describe(){
   if(S.tuer) ex.push('порог');
   if(c.useHinges) ex.push('скрытые петли');
   if(S.regel && c.nSash>0) ex.push('клапан');
+  if(S.vsg)    ex.push('триплекс');
+  if(S.spross) ex.push('шпросы');
+  if(S.mesh)   ex.push('москитка');
+  if(S.roll)   ex.push('рольставня ' + (S.rollDrive==='motor'?'с мотором':'на ремне'));
   return (stulp?'Штульп: ':'') + parts.join(' + ') + ' · ' + ex.join(', ')
          + ' · Uw ' + num(c.uw);
 }
@@ -1110,7 +1285,10 @@ function renderList(){
     box.innerHTML='<p class="empty">Пока пусто. Соберите окно выше и нажмите «Добавить в заявку».</p>';
     return;
   }
-  const sum=list.reduce((a,p)=>a+p.item,0), netto=sum, vat=netto*VAT;
+  let sum=list.reduce((a,p)=>a+p.item,0);
+  const vorb = list.some(p=>p.farbe) ? OPT.aluVorb*(1+MARKUP) : 0;
+  sum += vorb;
+  const netto=sum, vat=netto*VAT;
   const frei=netto>=FREI;
   const nPos=list.reduce((a,p)=>a+p.qty,0),
         sArea=list.reduce((a,p)=>a+p.area,0),
@@ -1122,6 +1300,8 @@ function renderList(){
       <td>${p.size}</td><td>${p.desc}</td>
       <td class="num">${p.qty}</td><td class="num">${eur(p.item)}</td>
       <td class="num"><button class="del" type="button" data-del="${i}" aria-label="удалить">×</button></td></tr>`).join('')}
+    ${vorb ? `<tr><td colspan="5">Подготовка производства (окраска по RAL)</td>
+      <td class="num">${eur(vorb)}</td><td></td></tr>` : ''}
     <tr><td colspan="5">Доставка</td><td class="num">${frei?'бесплатно':'по договорённости'}</td><td></td></tr>
     <tr><td colspan="5">Нетто</td><td class="num">${eur(netto)}</td><td></td></tr>
     <tr><td colspan="5">НДС 20 %</td><td class="num">${eur(vat)}</td><td></td></tr>
@@ -1232,6 +1412,13 @@ $('pr-70').addEventListener('click',()=>{
 $('pr-82').addEventListener('click',()=>{
   S.sys='energy'; S.glas='ug05'; render();
 });
+$('pr-alu').addEventListener('click',()=>{
+  S.sys='alu'; S.glas='ug05a';
+  if(LAYOUTS[S.layout].stulp) setLayout('2');     // штульпа в алюминии не считаем
+  S.shape='rect'; S.tuer=false; S.regel=false;
+  S.mesh=false; S.spross=false; S.vsg=false; S.roll=false;
+  render();
+});
 Object.keys(GLAS).forEach(k=>$('g-'+k).addEventListener('click',()=>{
   S.glas=k; S.sys=GLAS[k].prof; render();
 }));
@@ -1247,6 +1434,12 @@ $('b-std').addEventListener('click',   ()=>{ S.hinges=false; render(); });
 $('b-hid').addEventListener('click',   ()=>{ S.hinges=true;  render(); });
 $('o-tuer').addEventListener('change', e=>{ S.tuer=e.target.checked;  render(); });
 $('o-regel').addEventListener('change',e=>{ S.regel=e.target.checked; render(); });
+$('o-mesh').addEventListener('change',  e=>{ S.mesh=e.target.checked;   render(); });
+$('o-spross').addEventListener('change',e=>{ S.spross=e.target.checked; render(); });
+$('o-vsg').addEventListener('change',   e=>{ S.vsg=e.target.checked;    render(); });
+$('o-roll').addEventListener('change',  e=>{ S.roll=e.target.checked;   render(); });
+$('rd-gurt').addEventListener('click',  ()=>{ S.rollDrive='gurt';  render(); });
+$('rd-motor').addEventListener('click', ()=>{ S.rollDrive='motor'; render(); });
 $('hg-left').addEventListener('click', ()=>{ S.fields[S.sel].hinge='left';  render(); });
 $('hg-right').addEventListener('click',()=>{ S.fields[S.sel].hinge='right'; render(); });
 $('q-plus').addEventListener('click',  ()=>{ if(S.qty<99){ S.qty++; render(); }});
@@ -1259,7 +1452,7 @@ $('h').addEventListener('input',render);
 $('add').addEventListener('click',()=>{
   const c=calc();
   list.push({size:`${c.W} × ${c.H} мм`, desc:describe(), qty:S.qty, item:c.item,
-             area:c.area*S.qty, kg:c.kg*S.qty, svg:planSvg(c,{mini:true})});
+             area:c.area*S.qty, kg:c.kg*S.qty, farbe:c.sonderfarbe, svg:planSvg(c,{mini:true})});
   saveCart();
   renderList();
   $('korb').scrollIntoView({behavior:'smooth',block:'start'});
@@ -1267,7 +1460,8 @@ $('add').addEventListener('click',()=>{
 $('add-addr').addEventListener('click',addAddress);
 
 function buildBody(){
-  const sum=list.reduce((a,p)=>a+p.item,0), netto=sum, brutto=netto*(1+VAT);
+  const vorb = list.some(p=>p.farbe) ? OPT.aluVorb*(1+MARKUP) : 0;
+  const sum=list.reduce((a,p)=>a+p.item,0)+vorb, netto=sum, brutto=netto*(1+VAT);
   const sKg=list.reduce((a,p)=>a+p.kg,0), sArea=list.reduce((a,p)=>a+p.area,0);
   const fio=[$('c-fam').value,$('c-imya').value,$('c-otch').value].filter(x=>x.trim()).join(' ');
   return [
@@ -1279,6 +1473,7 @@ function buildBody(){
     'Состав заявки:',
     ...list.map((p,i)=>`${i+1}. ${p.size} — ${p.desc} — ${p.qty} шт — ${eur(p.item)} нетто`),'',
     `Итого: ${num(sArea)} м², ≈ ${num(sKg,0)} кг`,'',
+    ...(vorb ? [`Подготовка производства (окраска по RAL): ${eur(vorb)}`] : []),
     `Доставка: ${netto>=FREI?'бесплатно (заказ от 4200 € нетто)':'по договорённости'}`,
     `Нетто: ${eur(netto)}`,
     `Брутто: ${eur(brutto)}`,'',
