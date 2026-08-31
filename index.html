@@ -91,6 +91,14 @@ td.thumb svg{width:78px;height:60px;display:block}
   .card{box-shadow:none;border:0;padding:0}
   h2.sec{margin:0 0 12px}
 }
+.bulk{border:1px solid var(--line);border-radius:11px;padding:12px 13px;margin-bottom:14px;
+  background:var(--line-2)}
+.bulkrow{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px}
+.bulkrow>span:first-child{min-width:96px;font-size:12.5px;color:var(--muted);padding-top:6px}
+.bulk .chips{margin:0;gap:6px}
+.bulk .chip{padding:5px 11px;font-size:12px;border-radius:999px}
+.bulk .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);font-weight:600}
+@media(max-width:620px){ .bulkrow{flex-direction:column;gap:4px} .bulkrow>span:first-child{padding:0} }
 h2.sec{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.015em;margin:56px 0 18px}
 .lbl{font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
 
@@ -130,12 +138,22 @@ svg.plan{width:100%;height:auto;display:block;touch-action:manipulation}
 
 /* ── Управление ──────────────────────────────────────── */
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;
+.chips{gap:8px}
+.chip span{display:block;font-size:10.5px;color:var(--muted);margin-top:1px}
+.chip svg{width:100%;height:46px;display:block;margin-bottom:4px}
+#presets .chip{width:98px;padding:7px 6px;text-align:center;font-size:11px;line-height:1.25;
+  white-space:normal;hyphens:auto}
+.chip{border:1px solid var(--line);background:#fff;border-radius:14px;padding:6px 13px;
   font-size:14px;color:var(--ink-2);cursor:pointer;font-family:var(--sans)}
 .chip:hover{border-color:var(--accent);color:var(--accent)}
 .chip:active{transform:translateY(1px)}
 
 .seg{display:flex;background:var(--line-2);border-radius:10px;padding:3px;gap:3px}
+.seg button svg{display:block;width:46px;height:34px;margin:0 auto 3px;
+  fill:none;stroke:currentColor;stroke-width:1.4;opacity:.75}
+.seg button svg .gl{fill:var(--line-2);stroke:currentColor;stroke-width:1}
+.seg button[aria-pressed="true"] svg{opacity:1}
+.seg button small{display:block;font-size:10.5px;font-weight:400;opacity:.72;margin-top:1px}
 .seg button{flex:1;border:0;background:transparent;border-radius:8px;padding:8px 6px;cursor:pointer;
   font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink-2);white-space:nowrap}
 .seg button[aria-pressed="true"]{background:#fff;color:var(--ink);font-weight:600;
@@ -310,7 +328,7 @@ footer ul{list-style:none;padding:0;margin:0}
 
   <!-- ═══ УПРАВЛЕНИЕ ═══ -->
   <section class="card">
-    <p class="lbl" style="margin:0 0 9px">Готовые варианты</p>
+    <p class="lbl" style="margin:0 0 9px">Типовые окна — можно начать отсюда</p>
     <div class="chips" id="presets"></div>
 
     <div class="field">
@@ -334,9 +352,20 @@ footer ul{list-style:none;padding:0;margin:0}
     <div class="field">
       <span class="lbl">Форма верха</span>
       <div class="seg" role="group" aria-label="Форма верха">
-        <button type="button" id="sh-rect">прямо-<br>угольное</button>
-        <button type="button" id="sh-arch">арка<br>с отсечкой</button>
-        <button type="button" id="sh-full">арка<br>без отсечки</button>
+        <button type="button" id="sh-rect">
+          <svg viewBox="0 0 46 34" aria-hidden="true"><rect x="3" y="4" width="40" height="26" rx="1.5"/>
+            <rect x="7" y="8" width="32" height="18" class="gl"/></svg>прямо-<br>угольное</button>
+        <button type="button" id="sh-arch">
+          <svg viewBox="0 0 46 34" aria-hidden="true">
+            <path d="M3 30 V15 A20 20 0 0 1 43 15 V30 Z"/>
+            <path d="M7 13.5 A16 16 0 0 1 39 13.5 Z" class="gl"/>
+            <line x1="6" y1="15" x2="40" y2="15" stroke-width="2"/>
+            <rect x="7" y="17.5" width="32" height="8.5" class="gl"/></svg>арка<br>с отсечкой</button>
+        <button type="button" id="sh-full">
+          <svg viewBox="0 0 46 34" aria-hidden="true">
+            <path d="M3 30 V15 A20 20 0 0 1 43 15 V30 Z"/>
+            <path d="M7 26 V15 A16 16 0 0 1 39 15 V26 Z" class="gl"/>
+            <path d="M10 24 V15.5 A13 13 0 0 1 36 15.5 V24 Z" fill="none" stroke-width="1"/></svg>арка<br>без отсечки</button>
       </div>
       <div id="risebar" style="display:none;margin-top:10px">
         <div class="dimrow">
@@ -373,9 +402,9 @@ footer ul{list-style:none;padding:0;margin:0}
     <div class="field">
       <span class="lbl">Профиль</span>
       <div class="seg" role="group" aria-label="Профиль">
-        <button type="button" id="pr-70">70 мм</button>
-        <button type="button" id="pr-82">82 мм</button>
-        <button type="button" id="pr-alu">алюминий</button>
+        <button type="button" id="pr-70">70 мм<br><small>5 камер</small></button>
+        <button type="button" id="pr-82">82 мм<br><small>6 камер</small></button>
+        <button type="button" id="pr-alu">алюминий<br><small>79 мм</small></button>
       </div>
       <p class="note" id="profnote"></p>
     </div>
@@ -408,6 +437,17 @@ footer ul{list-style:none;padding:0;margin:0}
       <div class="seg" role="group" aria-label="Фурнитура">
         <button type="button" id="b-std">обычная</button>
         <button type="button" id="b-hid">скрытые петли</button>
+      </div>
+      <div id="fwbar" style="display:none;margin-bottom:10px">
+        <div class="dimrow">
+          <span class="lbl" style="min-width:64px">Ширина</span>
+          <input type="number" id="fw" step="10">
+          <span class="unit">мм</span>
+          <button class="chip" type="button" id="fw-eqf">поровну по раме</button>
+          <button class="chip" type="button" id="fw-eqg">поровну по стеклу</button>
+        </div>
+        <input type="range" id="fwr" step="10">
+        <p class="note" id="fwnote"></p>
       </div>
       <p class="note" id="hingenote"></p>
       <details class="how">
@@ -676,22 +716,22 @@ function seg(chord, rise){
 
 const GLAS = {
   ug11:{ prof:'iglo5', label:'2 стекла · Ug 1,1', short:'2 стекла',
-         glas:'4/16/4, Ug 1,1 Вт/м²·К',
+         glas:'4/16/4 с аргоном, Ug 1,1 Вт/м²·К',
          add:{m2:0, m:0},
          th:{ ug:1.1, uf:1.096, psi:0.0814, rw:33, glassKg:20.0 } },
   ug06:{ prof:'iglo5', label:'3 стекла · Ug 0,6', short:'3 стекла Ug 0,6',
-         glas:'4/14/4/14/4 с тёплой рамкой, Ug 0,6 Вт/м²·К',
+         glas:'4/14/4/14/4 с аргоном, тёплая рамка, Ug 0,6 Вт/м²·К',
          add:{m2:26.69, m:1.04},
          th:{ ug:0.6, uf:1.437, psi:0.0111, rw:36, glassKg:30.0 } },
   /* тот же пакет, что в 82-мм ПВХ, но в алюминии рама холоднее: Uf и psi подобраны
      по шести значениям Uw из 613654 — совпадение на всех шести до 0,01.
      Вес: стекло 29,7 кг/м², профиль 1,67 кг/м — расхождение до 1 %. */
   ug05a:{ prof:'alu', label:'3 стекла · Ug 0,5', short:'3 стекла Ug 0,5',
-         glas:'4/18/4/18/4, Ug 0,5 Вт/м²·К',
+         glas:'4/18/4/18/4 с аргоном, Ug 0,5 Вт/м²·К',
          add:{m2:0, m:0},
          th:{ ug:0.5, uf:2.039, psi:0.0667, rw:34, glassKg:29.7 } },
   ug05:{ prof:'energy', label:'3 стекла · Ug 0,5', short:'3 стекла Ug 0,5',
-         glas:'4/18/4/18/4, Ug 0,5 Вт/м²·К',
+         glas:'4/18/4/18/4 с аргоном, Ug 0,5 Вт/м²·К',
          add:{m2:0, m:0},
          th:{ ug:0.5, uf:0.795, psi:0.0814, rw:37, glassKg:30.0 } },
 };
@@ -810,6 +850,8 @@ function defHinge(i,n){ if(n===1) return 'right'; return (i===n-1) ? 'left' : 'r
 
 const S = {
   W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', shape:'rect', rise:600,
+  /* какой пакет был выбран в каждом профиле — чтобы при возврате не подставлялся чужой */
+  glasMem:{iglo5:'ug11', energy:'ug05', alu:'ug05a'},
   vsg:false, spross:false, mesh:false, roll:false, rollDrive:'gurt', zip:false, zipSys:'slim', color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
   fields:[{type:'fix',hinge:'right'},{type:'dk',hinge:'left'}]
@@ -817,6 +859,8 @@ const S = {
 let list = [], addrCount = 0;
 
 const PRESETS = [
+  {t:'Одна створка', W:1000, H:1500, l:'1', f:[['dk',null]]},
+  {t:'Две створки', W:1500, H:1500, l:'2', f:[['dk','left'],['dk','right']]},
   {t:'Кухонное',   W:800,  H:1000, l:'1', f:[['dk',null]]},
   {t:'Подвальное', W:600,  H:600,  l:'1', f:[['kipp',null]]},
   {t:'Стандарт',   W:1200, H:1400, l:'2', f:[['fix',null],['dk',null]]},
@@ -842,16 +886,62 @@ function icon(type,hinge){
       <stop offset="1" stop-color="#dceaf6"/></linearGradient></defs>${box}${s}</svg>`;
 }
 
+/* Ширины частей. Если пользователь их не трогал, делим поровну; если задал —
+   держим заданные и подгоняем сумму под общую ширину. */
+function fieldWidths(){
+  const n=LAYOUTS[S.layout].n, W=S.W;
+  let ws=S.fields.map(f=>f.w||0);
+  if(ws.some(x=>!x) || ws.reduce((a,b)=>a+b,0)<=0) ws=Array(n).fill(W/n);
+  const sum=ws.reduce((a,b)=>a+b,0);
+  if(Math.abs(sum-W)>0.5) ws=ws.map(x=>x*W/sum);   // сохраняем пропорции
+  return ws;
+}
+/* Равное деление в двух смыслах.
+   'frame' — поровну по раме: одинаковая ширина частей по наружному размеру.
+             Стекло при этом разной ширины: у крайних частей рама 66 мм, у средних
+             половина импоста, а у створок ещё уходит нахлёст.
+   'glass' — поровну по стеклу: подбираем ширины частей так, чтобы видимое стекло
+             (Glaslicht) было одинаковым. Снаружи части получаются разной ширины. */
+function equalize(mode){
+  if(mode==='frame'){ S.fields.forEach(f=>f.w=0); return; }
+  const lay=LAYOUTS[S.layout], n=lay.n, G=SYS[S.sys].geo;
+  const div = lay.stulp ? G.stulp : G.mullion;
+  const extra = S.fields.map((f,i)=>
+    ((i===0)?G.frame:div/2) + ((i===n-1)?G.frame:div/2)
+    + (TYPES[f.type].movable ? G.sashInset : 0));
+  const C = (S.W - extra.reduce((a,b)=>a+b,0)) / n;
+  S.fields.forEach((f,i)=> f.w = Math.round(C + extra[i]));
+}
+
+/* Пользователь задал ширину одной части — остальные делят остаток пропорционально. */
+function setFieldWidth(i, val){
+  const n=LAYOUTS[S.layout].n, W=S.W, MIN=300;
+  if(n<2) return;
+  let ws=fieldWidths().slice();
+  val=Math.max(MIN, Math.min(val, W-MIN*(n-1)));
+  const restOld=ws.reduce((a,b,j)=>j===i?a:a+b,0), restNew=W-val;
+  ws=ws.map((x,j)=> j===i ? val : (restOld>0 ? x*restNew/restOld : restNew/(n-1)));
+  S.fields.forEach((f,j)=>f.w=Math.round(ws[j]));
+}
+
 /* ═══════════ РАСЧЁТ ═══════════ */
 function calc(){
   const sys=SYS[S.sys], G=sys.geo, R=sys.r, gl=GLAS[S.glas];
-  const W=S.W, H=S.H, lay=LAYOUTS[S.layout], n=lay.n, fw=W/n;
+  const W=S.W, H=S.H;
+  const layEff = (S.sys==='alu' && LAYOUTS[S.layout].stulp) ? '2' : S.layout;
+  const lay=LAYOUTS[layEff], n=lay.n;
+  const ws=fieldWidths();                        // ширины частей, в сумме дают W
   const divider = lay.stulp ? G.stulp : G.mullion;
   /* Форма верха. rise — подъём арки. При отсечке створки стоят ниже арочного поля,
      поэтому прямая часть конструкции ниже на величину подъёма. */
-  const shp=ARCH[S.shape], isArch=S.shape!=='rect';
+  /* В алюминии часть возможностей не просчитана. Мы их не стираем из состояния —
+     просто не учитываем в расчёте, чтобы при возврате на ПВХ всё вернулось как было. */
+  const aluSys = S.sys==='alu';
+  const on = k => S[k] && !aluSys;                     // опция действует?
+  const shapeEff = aluSys ? 'rect' : S.shape;
+  const shp=ARCH[shapeEff], isArch=shapeEff!=='rect';
   const rise = isArch ? Math.min(S.rise, Math.floor(W/2), H-400) : 0;
-  const cut  = S.shape==='arch';
+  const cut  = shapeEff==='arch';
   const Hs   = cut ? H-rise : H;                 // высота части со створками
   const sgOut = isArch ? seg(W, rise) : null;
   let glassArea=0, glassLicht=0, glassEdge=0, sashPerim=0, nSash=0,
@@ -860,6 +950,7 @@ function calc(){
   for(let i=0;i<n;i++){
     const left=(i===0)?G.frame:divider/2, right=(i===n-1)?G.frame:divider/2;
     const mov=TYPES[S.fields[i].type].movable;
+    const fw=ws[i];
     let cw=fw-left-right, ch=Hs-2*G.frame;
     if(mov){ cw-=G.sashInset; ch-=G.sashInset; }
     const gw=cw+G.glassAdd, gh=ch+G.glassAdd;
@@ -904,14 +995,14 @@ function calc(){
   /* Высокая створка в штульпе: 613631 поз.2 и оферта 1500347 поз.7 обе занижались
      примерно на 16 € на створку. На одностворчатых балконных дверях этого нет. */
   if(lay.stulp && Hs>1700) ek += nSash*(R.hoherFluegel||0);
-  if(S.vsg)    ek += glassArea*OPT.vsg;
-  if(S.spross) ek += OPT.spross;
-  if(S.mesh)   ek += nSash*OPT.mesh;
-  if(S.roll){
+  if(on('vsg'))    ek += glassArea*OPT.vsg;
+  if(on('spross')) ek += OPT.spross;
+  if(on('mesh'))   ek += nSash*OPT.mesh;
+  if(on('roll')){
     const hr=(H+ROLL.box(H))/1000;
     ek += (S.rollDrive==='motor'?ROLL.motor:ROLL.gurt) + (W/1000)*hr*ROLL.m2;
   }
-  if(S.zip) ek += ZIP.price(W, H, S.zipSys);
+  if(on('zip')) ek += ZIP.price(W, H, S.zipSys);
   const alu = S.sys==='alu', sonderfarbe = alu && S.color!=='none';
   if(sonderfarbe) ek += OPT.aluFarbe;   // покраска в цвет — фикс на изделие
   ek = ek*shp.k + (shp.add||0);       // надбавка за гнутьё
@@ -920,8 +1011,8 @@ function calc(){
   const hingesOK = nSash>0 && minFW>=MIN_W_HINGES && maxFW<=MAX_W_HINGES;
   const useHinges = S.hinges && hingesOK;
   if(useHinges) ek += nSash*OPT.hinges;
-  if(S.tuer)    ek += (W/1000)*OPT.schwelle;
-  if(S.regel && nSash>0) ek += OPT.regel;
+  if(on('tuer'))    ek += (W/1000)*OPT.schwelle;
+  if(on('regel') && nSash>0) ek += OPT.regel;
 
   const item = ek*(1+MARKUP)*S.qty;
   const netto = item;
@@ -937,8 +1028,10 @@ function calc(){
 
   return {W,H,n,fields,stulp:lay.stulp,area:A,perim,nSash,maxSashW,maxSashH,
           shape:S.shape,isArch,cut,rise,Hs,shp,alu,sonderfarbe,
-          roll:S.roll&&!alu, zip:S.zip&&!alu, mesh:S.mesh&&!alu, spross:S.spross&&!alu,
-          vsg:S.vsg&&!alu, regel:S.regel&&!alu&&nSash>0,
+          roll:on('roll'), zip:on('zip'), mesh:on('mesh'), spross:on('spross'),
+          vsg:on('vsg'), regel:on('regel')&&nSash>0, tuer:on('tuer'),
+          shapeEff, layEff, lostInAlu: aluSys && (S.shape!=='rect' || LAYOUTS[S.layout].stulp
+            || ['tuer','regel','vsg','spross','mesh','roll','zip'].some(k=>S[k])),
           hingesOK,useHinges,sys,gl,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
 }
 
@@ -1085,7 +1178,7 @@ function planSvg(c,{mini=false,outside=false}={}){
     p.push(`<path d="${outline(0)}" fill="none" ${ink}/>`);
   }
 
-  if(S.tuer){
+  if(c.tuer){
     const th=Math.max(4, 60*s);
     p.push(`<rect x="${x0}" y="${y0+h-th}" width="${w}" height="${th}" fill="#d9d4cb" ${thin}/>`);
     if(!mini) p.push(`<text x="${x0+w/2}" y="${y0+h-th/2+4}" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#4c4a45">ПОРОГ</text>`);
@@ -1168,6 +1261,7 @@ function render(){
   const c = calc();
   drawSvg(c);
   drawTiles();
+  if(typeof drawPresets==='function') drawPresets();
 
   $('layout').querySelectorAll('button').forEach(b=>
     b.setAttribute('aria-pressed', b.dataset.l===S.layout));
@@ -1199,10 +1293,12 @@ function render(){
   $('pr-82').setAttribute('aria-pressed', S.sys==='energy');
   $('pr-alu').setAttribute('aria-pressed', isAlu);
   $('profnote').textContent =
-      S.sys==='iglo5'  ? 'Монтажная глубина 70 мм — стандарт для замены окон.'
-    : S.sys==='energy' ? 'Монтажная глубина 82 мм — глубже, тяжелее, ставится только пакет Ug 0,5.'
-    : 'Алюминий MB-79N, 79 мм. Тоньше рама и больше стекла, но теплее ПВХ он не будет: '
-      + 'при том же стеклопакете Uw выходит примерно на 0,3 выше.';
+      S.sys==='iglo5'  ? 'ПВХ, 5 камер, монтажная глубина 70 мм — стандарт для замены окон. '
+      + 'Окно 1200 × 1400: Uw 1,42 с двумя стёклами и 1,14 с тремя.'
+    : S.sys==='energy' ? 'ПВХ, 6 камер, монтажная глубина 82 мм, усиленная рама. '
+      + 'То же окно 1200 × 1400 — Uw 0,93, самый тёплый вариант.'
+    : 'Алюминий с терморазрывом MB-79N, монтажная глубина 79 мм. Рама тоньше, стекла больше, '
+      + 'но теплее ПВХ он не будет: окно 1000 × 1350 даёт Uw 1,24 при том же пакете Ug 0,5.';
   Object.entries(GLAS).forEach(([k,v])=>{
     const b=$('g-'+k), ok = v.prof===S.sys;
     if(k==='ug05')  b.hidden = isAlu;      // в алюминии тот же пакет идёт своей кнопкой
@@ -1210,10 +1306,11 @@ function render(){
     b.disabled = !ok;
     b.setAttribute('aria-pressed', S.glas===k);
   });
-  $('glasnote').textContent =
+  const argon = 'Камеры между стёклами заполнены аргоном. ';
+  $('glasnote').textContent = argon + (
       S.sys==='iglo5'  ? 'Пакет Ug 0,5 доступен только в профиле 82 мм и в алюминии.'
     : S.sys==='energy' ? 'В профиле 82 мм — только трёхкамерный пакет Ug 0,5.'
-    : 'В алюминии просчитан один пакет — трёхкамерный Ug 0,5.';
+    : 'В алюминии просчитан один пакет — трёхкамерный Ug 0,5.');
 
   /* в алюминии у нас нет ни одной цены на штульп, арки, порог и клапан */
   $('layout').querySelectorAll('button').forEach(b=>{
@@ -1222,7 +1319,11 @@ function render(){
   $('sh-arch').disabled = isAlu; $('sh-full').disabled = isAlu;
   ['o-tuer','o-regel','o-mesh','o-spross','o-vsg','o-roll']
     .concat(['o-zip']).forEach(id=>$(id).disabled = isAlu);
-  $('alunote').textContent = isAlu
+  $('alunote').textContent = isAlu && c.lostInAlu
+    ? 'Штульп, арки, порог, клапан, сетки, шпросы, триплекс и ролеты в алюминии мы не '
+      + 'просчитывали, поэтому сейчас они не учитываются. Настройки сохранены — вернётесь '
+      + 'на ПВХ, и они снова включатся.'
+    : isAlu
     ? 'В алюминии просчитаны только прямоугольные окна с импостом. Штульп, арки, '
       + 'алюминиевый порог и приточный клапан отдельно не считались — запрашиваем у Drutex.'
     : '';
@@ -1243,15 +1344,30 @@ function render(){
   $('b-std').setAttribute('aria-pressed', !c.useHinges);
   $('b-hid').setAttribute('aria-pressed',  c.useHinges);
   $('b-hid').disabled = !c.hingesOK;
-  $('hingenote').textContent = c.hingesOK ? ''
-    : 'Для такой ширины створки скрытые петли невозможны.';
-  $('o-tuer').checked = S.tuer;
-  $('o-regel').checked = S.regel;
-  $('o-mesh').checked = S.mesh;  $('o-spross').checked = S.spross;
-  $('o-vsg').checked  = S.vsg;   $('o-roll').checked   = S.roll;
-  $('rollbar').style.display = S.roll ? 'block' : 'none';
-  $('o-zip').checked = S.zip;
-  $('zipbar').style.display = S.zip ? 'block' : 'none';
+  /* ширина выбранной части — только когда частей больше одной */
+  const nF=c.fields.length;
+  $('fwbar').style.display = nF>1 ? 'block' : 'none';
+  if(nF>1){
+    const cur=Math.round(c.fields[S.sel].w), mx=S.W-300*(nF-1);
+    $('fw').min=300;  $('fw').max=mx;  $('fw').value=cur;
+    $('fwr').min=300; $('fwr').max=mx; $('fwr').value=cur;
+    const gl = c.fields.map(f=>Math.round(f.w - f.left - f.right
+                 - (f.movable ? c.sys.geo.sashInset : 0)));
+    $('fwnote').textContent =
+        'Части по раме: ' + c.fields.map(f=>Math.round(f.w)).join(' + ') + ' мм. '
+      + 'Стекло: ' + gl.join(' + ') + ' мм. '
+      + 'При правке одной части остальные подстраиваются, минимум 300 мм на часть.';
+  }
+  $('hingenote').textContent =
+    (c.useHinges ? 'MACO MULTI POWER — петли скрыты в фальце, снаружи их не видно. '
+                 : 'MACO MULTI-MATIC — накладные петли, стандарт для всех окон. ')
+    + (c.hingesOK ? '' : 'Для такой ширины створки скрытые петли невозможны.');
+  $('o-tuer').checked = c.tuer;   $('o-regel').checked  = c.regel;
+  $('o-mesh').checked = c.mesh;   $('o-spross').checked = c.spross;
+  $('o-vsg').checked  = c.vsg;    $('o-roll').checked   = c.roll;
+  $('rollbar').style.display = c.roll ? 'block' : 'none';
+  $('o-zip').checked = c.zip;
+  $('zipbar').style.display = c.zip ? 'block' : 'none';
   $('z-slim').setAttribute('aria-pressed', S.zipSys==='slim');
   $('z-std').setAttribute('aria-pressed',  S.zipSys==='std');
   if(S.zip) $('zipnote').textContent =
@@ -1286,7 +1402,7 @@ function render(){
     : LAM[S.color].spec.replace('Цвет', TONES[S.tone].label) + ' · ' + TONES[S.tone].spec;
   const griffCol = S.color==='both' ? 'в цвет профиля' : 'белая';
   $('sp-griff').textContent = c.nSash===0 ? 'нет — все поля глухие'
-    : `${c.sys.griff}, ${griffCol}` + (S.tuer ? ', высота 1070 мм' : '');
+    : `${c.sys.griff}, ${griffCol}` + (c.tuer ? ', высота 1070 мм' : '');
   $('sp-uw').textContent = num(c.uw)+' Вт/м²·К';
   $('sp-rw').textContent = '≈ '+c.rw+' дБ';
   $('sp-kg').textContent = '≈ '+num(c.kg,0)+' кг'+(S.qty>1?` (× ${S.qty} = ${num(c.kg*S.qty,0)} кг)`:'');
@@ -1315,14 +1431,14 @@ function describe(){
   const ex=[c.gl.short];
   if(c.isArch) ex.push(`${c.shp.short} ${c.rise} мм`);
   if(S.color!=='none') ex.push(TONES[S.tone].label+' '+(S.color==='both'?'с двух сторон':'снаружи'));
-  if(S.tuer) ex.push('порог');
+  if(c.tuer) ex.push('порог');
   if(c.useHinges) ex.push('скрытые петли');
-  if(S.regel && c.nSash>0) ex.push('клапан');
-  if(S.vsg)    ex.push('триплекс');
-  if(S.spross) ex.push('шпросы');
-  if(S.mesh)   ex.push('москитка');
-  if(S.roll)   ex.push('рольставня ' + (S.rollDrive==='motor'?'с мотором':'на ремне'));
-  if(S.zip)    ex.push('зип-штора ' + ZIP.sys[S.zipSys].label);
+  if(c.regel)  ex.push('клапан');
+  if(c.vsg)    ex.push('триплекс');
+  if(c.spross) ex.push('шпросы');
+  if(c.mesh)   ex.push('москитка');
+  if(c.roll)   ex.push('рольставня ' + (S.rollDrive==='motor'?'с мотором':'на ремне'));
+  if(c.zip)    ex.push('зип-штора ' + ZIP.sys[S.zipSys].label);
   return (stulp?'Штульп: ':'') + parts.join(' + ') + ' · ' + ex.join(', ')
          + ' · Uw ' + num(c.uw);
 }
@@ -1342,7 +1458,38 @@ function renderList(){
   const nPos=list.reduce((a,p)=>a+p.qty,0),
         sArea=list.reduce((a,p)=>a+p.area,0),
         sKg=list.reduce((a,p)=>a+p.kg,0);
-  box.innerHTML=`<table class="list">
+  /* общее значение параметра по всем позициям, если оно у всех одинаковое */
+  const common=(k)=>{ const v=list.filter(p=>p.cfg).map(p=>p.cfg[k]);
+    return v.length && v.every(x=>x===v[0]) ? v[0] : null; };
+  const cs=common('sys'), cg=common('glas'), cc=common('color'), ct=common('tone');
+  const bt=(grp,val,label,on)=>
+    `<button type="button" class="chip" data-all="${grp}" data-v="${val}"
+       aria-pressed="${on}">${label}</button>`;
+  const glasBtns=Object.entries(GLAS)
+    .filter(([k,v])=>!cs || v.prof===cs)
+    .map(([k,v])=>bt('glas',k,v.label.replace('·','·'),cg===k)).join('');
+
+  box.innerHTML=`<div class="bulk">
+    <p class="lbl" style="margin:0 0 8px">Изменить во всех позициях сразу</p>
+    <div class="bulkrow"><span>Профиль</span><span class="chips">
+      ${bt('sys','iglo5','70 мм',cs==='iglo5')}${bt('sys','energy','82 мм',cs==='energy')}${bt('sys','alu','алюминий',cs==='alu')}
+    </span></div>
+    <div class="bulkrow"><span>Стеклопакет</span><span class="chips">${glasBtns}</span></div>
+    <div class="bulkrow"><span>Цвет</span><span class="chips">
+      ${bt('color','none','белый',cc==='none')}${bt('color','out','цвет снаружи',cc==='out')}${bt('color','both','с двух сторон',cc==='both')}
+    </span></div>
+    <div class="bulkrow"><span>Оттенок</span><span class="chips">
+      ${Object.entries(TONES).map(([k,t])=>bt('tone',k,t.label,ct===k)).join('')}
+    </span></div>
+    ${cs==='alu' && list.some(p=>p.cfg && (p.cfg.shape!=='rect'
+        || (LAYOUTS[p.cfg.layout]||{}).stulp
+        || ['tuer','regel','vsg','spross','mesh','roll','zip'].some(k=>p.cfg[k])))
+      ? `<p class="note" style="margin:8px 0 0">Штульп, арки и опции в алюминии не считаются —
+         сейчас они не учтены в цене. Настройки позиций сохранены: вернёте профиль ПВХ,
+         и они снова включатся.</p>` : ''}
+    ${lastApply?`<p class="note" style="margin:8px 0 0">${lastApply}</p>`:''}
+  </div>
+  <table class="list">
     <tr><th>№</th><th></th><th>Размер</th><th>Комплектация</th><th class="num">Шт</th><th class="num">Нетто</th><th></th></tr>
     ${list.map((p,i)=>`<tr><td>${i+1}</td>
       <td class="thumb">${p.svg?`<svg viewBox="0 0 620 470">${p.svg}</svg>`:''}</td>
@@ -1363,15 +1510,73 @@ function renderList(){
   <p class="note">Всего изделий: ${nPos} шт · площадь ${num(sArea)} м² ·
      вес ≈ ${num(sKg,0)} кг &nbsp;·&nbsp;
      <a href="#" id="clr" style="color:var(--accent)">очистить заявку</a></p>`;
+  box.querySelectorAll('[data-all]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.all, v=b.dataset.v;
+    applyAll(k==='sys' ? {sys:v} : {[k]:v});
+  }));
   const clr=box.querySelector('#clr');
   if(clr) clr.addEventListener('click',e=>{
     e.preventDefault();
-    if(confirm('Удалить все позиции из заявки?')){ list=[]; saveCart(); renderList(); }
+    if(confirm('Удалить все позиции из заявки?')){ list=[]; lastApply=''; saveCart(); renderList(); }
   });
   box.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',e=>{
     list.splice(+e.currentTarget.dataset.del,1); saveCart(); renderList();
   }));
 }
+
+/* ═══ ПЕРЕСЧЁТ ПОЗИЦИЙ ЗАЯВКИ ═══
+   У каждой позиции хранится её конфигурация. Чтобы пересчитать позицию, подставляем
+   конфигурацию в состояние, считаем и возвращаем состояние как было. Так один и тот же
+   расчёт работает и для текущего окна, и для любой позиции в заявке. */
+const CFG_KEYS=['W','H','layout','fields','tuer','hinges','regel','vsg','spross','mesh',
+                'roll','rollDrive','zip','zipSys','sys','glas','glasMem','shape','rise',
+                'color','tone','qty'];
+function cfgFromState(){
+  const o={}; CFG_KEYS.forEach(k=>o[k]=S[k]); o.sel=0;
+  return JSON.parse(JSON.stringify(o));
+}
+function withCfg(cfg, fn){
+  const bak=JSON.parse(JSON.stringify(S));
+  Object.assign(S, cfg);
+  const r=fn();
+  Object.assign(S, bak);
+  return r;
+}
+function priceItem(cfg){
+  /* Считаем по рабочей копии: сама конфигурация позиции остаётся нетронутой,
+     поэтому возврат на прежний профиль возвращает и все опции. */
+  const wc = JSON.parse(JSON.stringify(cfg));
+  if(!GLAS[wc.glas] || GLAS[wc.glas].prof!==wc.sys)
+    wc.glas = Object.keys(GLAS).find(k=>GLAS[k].prof===wc.sys);
+  return withCfg(wc, ()=>{
+    const c=calc();
+    return {item:c.item, area:c.area*cfg.qty, kg:c.kg*cfg.qty, farbe:c.sonderfarbe,
+            desc:describe(), svg:planSvg(c,{mini:true}), size:`${c.W} × ${c.H} мм`};
+  });
+}
+/* Изменить параметр сразу во всех позициях заявки. */
+function applyAll(patch){
+  const before=list.reduce((a,p)=>a+p.item,0);
+  let n=0, skipped=0;
+  list.forEach(p=>{
+    if(!p.cfg){ skipped++; return; }
+    if(patch.glas){ p.cfg.glasMem = {...(p.cfg.glasMem||{}), [p.cfg.sys]:patch.glas}; }
+    Object.assign(p.cfg, patch);
+    if(patch.sys){                       // при смене профиля берём пакет, что был у него раньше
+      const mem=(p.cfg.glasMem||{})[patch.sys];
+      p.cfg.glas = (mem && GLAS[mem] && GLAS[mem].prof===patch.sys)
+        ? mem : Object.keys(GLAS).find(k=>GLAS[k].prof===patch.sys);
+    }
+    Object.assign(p, priceItem(p.cfg)); n++;
+  });
+  const after=list.reduce((a,p)=>a+p.item,0);
+  lastApply = n ? `Пересчитано позиций: ${n}. Было ${eur(before*(1+VAT))}, `
+                + `стало ${eur(after*(1+VAT))} брутто.`
+                + (skipped?` ${skipped} позиц. из старой версии заявки пересчитать нельзя.`:'')
+                : '';
+  saveCart(); renderList();
+}
+let lastApply='';
 
 /* Корзина переживает обновление страницы. Если браузер запретил хранилище
    (режим инкогнито, строгие настройки) — молча работаем без сохранения. */
@@ -1423,11 +1628,12 @@ $('layout').querySelectorAll('button').forEach(b=>
 
 function setLayout(key){
   const lay=LAYOUTS[key], old=S.fields;
+  /* при смене деления ширины возвращаем к равным */
   S.layout=key;
   const f=[];
   for(let i=0;i<lay.n;i++)
-    f.push(old[i] ? {...old[i], hinge:(old.length===lay.n?old[i].hinge:defHinge(i,lay.n))}
-                  : {type:'fix', hinge:defHinge(i,lay.n)});
+    f.push(old[i] ? {...old[i], w:0, hinge:(old.length===lay.n?old[i].hinge:defHinge(i,lay.n))}
+                  : {type:'fix', w:0, hinge:defHinge(i,lay.n)});
   if(lay.stulp){
     if(!TYPES[f[0].type].movable) f[0].type='dreh';
     if(!TYPES[f[1].type].movable) f[1].type='dk';
@@ -1437,15 +1643,33 @@ function setLayout(key){
   if(S.sel>=lay.n) S.sel=lay.n-1;
 }
 
-$('presets').innerHTML = PRESETS.map((p,i)=>
-  `<button class="chip" type="button" data-p="${i}">${p.t}</button>`).join('');
-$('presets').querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
+/* Эскиз готового варианта: временно подставляем его в состояние, считаем и рисуем,
+   потом возвращаем как было. Кэш по профилю и цвету, чтобы не перерисовывать зря. */
+let presetKey='';
+function drawPresets(){
+  const key=[S.sys,S.glas,S.color,S.tone].join('|');
+  if(key===presetKey) return;
+  presetKey=key;
+  const bak=JSON.parse(JSON.stringify(S));
+  $('presets').innerHTML = PRESETS.map((p,i)=>{
+    Object.assign(S,{W:p.W,H:p.H,layout:p.l,sel:0,qty:1,tuer:!!p.tuer,shape:'rect',
+      hinges:false,regel:false,vsg:false,spross:false,mesh:false,roll:false,zip:false,
+      fields:p.f.map(([t,hg],j)=>({type:t, hinge:hg||defHinge(j,p.f.length)}))});
+    const svg=planSvg(calc(),{mini:true});
+    return `<button class="chip" type="button" data-p="${i}">`
+         + `<svg viewBox="0 0 620 470">${svg}</svg>${p.t}<span>${p.W} × ${p.H}</span></button>`;
+  }).join('');
+  Object.assign(S,bak);
+}
+drawPresets();
+$('presets').addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
   const p=PRESETS[+b.dataset.p];
   S.W=p.W; S.H=p.H; S.layout=p.l; S.sel=0; S.tuer=!!p.tuer;
   S.fields=p.f.map(([t,hg],i)=>({type:t, hinge:hg||defHinge(i,p.f.length)}));
   $('w').value=p.W; $('h').value=p.H;
   render();
-}));
+});
 
 $('sh-rect').addEventListener('click',()=>{ S.shape='rect';     render(); });
 $('sh-arch').addEventListener('click',()=>{ S.shape='arch';
@@ -1455,21 +1679,14 @@ $('sh-full').addEventListener('click',()=>{ S.shape='archfull';
 $('halfround').addEventListener('click',()=>{ S.rise=Math.floor(S.W/2); S.riseSet=false; render(); });
 $('rise').addEventListener('input', e=>{ S.rise=+e.target.value||100; S.riseSet=true; render(); });
 $('riser').addEventListener('input',e=>{ S.rise=+e.target.value||100; S.riseSet=true; render(); });
-$('pr-70').addEventListener('click',()=>{
-  S.sys='iglo5'; if(GLAS[S.glas].prof!=='iglo5') S.glas='ug06'; render();
-});
-$('pr-82').addEventListener('click',()=>{
-  S.sys='energy'; S.glas='ug05'; render();
-});
+$('pr-70').addEventListener('click',()=>{ S.sys='iglo5'; S.glas=S.glasMem.iglo5; render(); });
+$('pr-82').addEventListener('click',()=>{ S.sys='energy'; S.glas=S.glasMem.energy; render(); });
 $('pr-alu').addEventListener('click',()=>{
-  S.sys='alu'; S.glas='ug05a';
-  if(LAYOUTS[S.layout].stulp) setLayout('2');     // штульпа в алюминии не считаем
-  S.shape='rect'; S.tuer=false; S.regel=false;
-  S.mesh=false; S.spross=false; S.vsg=false; S.roll=false; S.zip=false;
-  render();
+  S.sys='alu'; S.glas=S.glasMem.alu;
+  render();     /* настройки не стираем — они просто не учитываются, см. calc() */
 });
 Object.keys(GLAS).forEach(k=>$('g-'+k).addEventListener('click',()=>{
-  S.glas=k; S.sys=GLAS[k].prof; render();
+  S.glas=k; S.sys=GLAS[k].prof; S.glasMem[S.sys]=k; render();
 }));
 $('d-add').addEventListener('click',()=>$('add').click());
 $('pdf').addEventListener('click',()=>{
@@ -1479,6 +1696,10 @@ $('pdf').addEventListener('click',()=>{
 $('c-none').addEventListener('click',  ()=>{ S.color='none'; render(); });
 $('c-out').addEventListener('click',   ()=>{ S.color='out';  render(); });
 $('c-both').addEventListener('click',  ()=>{ S.color='both'; render(); });
+$('fw').addEventListener('input',  e=>{ setFieldWidth(S.sel, +e.target.value||300); render(); });
+$('fwr').addEventListener('input', e=>{ setFieldWidth(S.sel, +e.target.value||300); render(); });
+$('fw-eqf').addEventListener('click',()=>{ equalize('frame'); render(); });
+$('fw-eqg').addEventListener('click',()=>{ equalize('glass'); render(); });
 $('b-std').addEventListener('click',   ()=>{ S.hinges=false; render(); });
 $('b-hid').addEventListener('click',   ()=>{ S.hinges=true;  render(); });
 $('o-tuer').addEventListener('change', e=>{ S.tuer=e.target.checked;  render(); });
@@ -1504,7 +1725,8 @@ $('h').addEventListener('input',render);
 $('add').addEventListener('click',()=>{
   const c=calc();
   list.push({size:`${c.W} × ${c.H} мм`, desc:describe(), qty:S.qty, item:c.item,
-             area:c.area*S.qty, kg:c.kg*S.qty, farbe:c.sonderfarbe, svg:planSvg(c,{mini:true})});
+             area:c.area*S.qty, kg:c.kg*S.qty, farbe:c.sonderfarbe, svg:planSvg(c,{mini:true}),
+             cfg:cfgFromState()});
   saveCart();
   renderList();
   $('korb').scrollIntoView({behavior:'smooth',block:'start'});
