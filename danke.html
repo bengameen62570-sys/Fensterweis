@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Anfrage erhalten | FensterPreis</title>
+
+<!-- ===== Google Consent Mode v2 — по умолчанию всё запрещено ===== -->
+<!-- ВНИМАНИЕ: AW-XXXXXXXXXX заменить на ID конверсии нового аккаунта Google Ads -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-XXXXXXXXXX');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4f1; --card:#fff; --ink:#1c1b18; --ink-2:#4c4a45; --muted:#8a857c;
+  --line:#e5e1d9; --line-2:#efece6;
+  --accent:#2f5d4f; --accent-d:#244a3f; --accent-l:#e9f0ec;
+  --warn:#a8482f;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --head:"Manrope",var(--sans);
+  --r:12px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:15.5px;line-height:1.62}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+
+.top{background:#fff;border-bottom:1px solid var(--line)}
+.top .wrap{max-width:1180px;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;height:64px}
+.brand{font-family:var(--head);font-weight:800;font-size:20px;letter-spacing:-.01em;
+  color:var(--ink);text-decoration:none}
+.brand span{color:var(--accent)}
+.top nav a{color:var(--ink-2);text-decoration:none;font-size:14.5px;font-weight:500}
+.top nav a:hover{color:var(--accent)}
+
+main{padding:46px 0 64px}
+h1{font-family:var(--head);font-weight:800;font-size:clamp(26px,4vw,36px);
+  letter-spacing:-.02em;line-height:1.12;margin:0 0 10px}
+.sub{color:var(--muted);font-size:14px;margin:0 0 34px}
+h2{font-family:var(--head);font-weight:700;font-size:18.5px;letter-spacing:-.01em;
+  margin:34px 0 10px}
+h3{font-family:var(--head);font-weight:600;font-size:16px;margin:22px 0 6px}
+p{margin:0 0 14px;color:var(--ink-2)}
+p strong,li strong{color:var(--ink);font-weight:600}
+ul,ol{margin:0 0 16px;padding-left:22px;color:var(--ink-2)}
+li{margin-bottom:6px}
+a{color:var(--accent)}
+
+.box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:22px 24px;margin:0 0 28px}
+@media(max-width:620px){.box{padding:16px 18px}}
+dl{margin:0;display:grid;grid-template-columns:180px 1fr;gap:10px 20px}
+@media(max-width:620px){dl{grid-template-columns:1fr;gap:2px 0}
+  dd{margin-bottom:12px}}
+dt{color:var(--muted);font-size:13.5px}
+dd{margin:0;color:var(--ink);font-weight:500}
+
+.note{border-left:3px solid var(--accent);background:var(--accent-l);
+  padding:14px 16px;border-radius:0 8px 8px 0;margin:0 0 22px}
+.note p{margin:0;color:var(--ink)}
+.note p + p{margin-top:8px}
+
+.form-box{border:1px dashed var(--line);border-radius:var(--r);padding:20px 22px;
+  background:#fbfaf8;margin:0 0 22px}
+.form-box p{margin:0 0 10px}
+
+.disclaimer{font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);
+  padding-top:18px;margin-top:38px}
+
+footer{border-top:1px solid var(--line);background:#fff;padding:22px 0}
+footer .wrap{max-width:1180px;display:flex;flex-wrap:wrap;gap:8px 22px;
+  justify-content:space-between;font-size:14px;color:var(--muted)}
+footer a{color:var(--ink-2);text-decoration:none}
+footer a:hover{color:var(--accent)}
+
+.cookie{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--ink);
+  color:#fff;padding:16px 18px;display:flex;flex-wrap:wrap;align-items:center;
+  gap:12px 20px;justify-content:space-between}
+.cookie.hidden{display:none}
+.cookie p{margin:0;color:#e9e7e3;font-size:14px;max-width:640px}
+.cookie a{color:#fff;text-decoration:underline}
+.cookie div{display:flex;gap:10px}
+.cookie button{font:inherit;font-weight:600;font-size:14px;padding:9px 18px;
+  border-radius:8px;cursor:pointer}
+.c-ok{background:#fff;color:var(--ink);border:none}
+.c-no{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
+@media(max-width:560px){.cookie div{width:100%}.cookie button{flex:1}}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="cookie hidden" id="cookie">
+  <p>Wir setzen Cookies von Google Ads ein, um die Wirksamkeit unserer Anzeigen zu
+     messen. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+  <div>
+    <button class="c-no" id="c-no">Ablehnen</button>
+    <button class="c-ok" id="c-ok">Akzeptieren</button>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Fenster<span>Preis</span></a>
+    <nav><a href="index.html">Zum Rechner</a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <h1>Ihre Anfrage ist angekommen</h1>
+    <p class="sub">Vielen Dank.</p>
+
+    <p>Wir sehen uns Ihre Konfiguration an und melden uns in der Regel innerhalb von
+       ein bis zwei Werktagen mit einem verbindlichen Angebot.</p>
+    <p>Wenn es schneller gehen soll, erreichen Sie uns direkt unter
+       <a href="tel:+4368181380389">+43 681 81380389</a>.</p>
+
+    <div class="box">
+      <dl>
+        <dt>Was als Nächstes passiert</dt>
+        <dd>Wir prüfen Maße und Ausführung und rechnen den verbindlichen Preis.</dd>
+        <dt>Lieferzeit</dt>
+        <dd>In der Regel 3 bis 4 Wochen ab Bestellung.</dd>
+        <dt>Rückfragen</dt>
+        <dd><a href="mailto:bengameen62570@gmail.com">bengameen62570@gmail.com</a></dd>
+      </dl>
+    </div>
+
+    <p><a href="index.html">Zurück zum Rechner</a></p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="jahr"></span> Veniamin Kononenko e.U.</span>
+    <span>
+      <a href="impressum.html">Impressum</a> ·
+      <a href="datenschutz.html">Datenschutz</a> ·
+      <a href="agb.html">AGB</a> ·
+      <a href="widerruf.html">Widerruf</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('jahr').textContent = new Date().getFullYear();
+
+/* Согласие на cookies — Google Consent Mode v2 */
+(function(){
+  var KEY='fensterpreis_consent', box=document.getElementById('cookie');
+  function set(ok){
+    if(typeof gtag==='function') gtag('consent','update',{
+      ad_storage:        ok?'granted':'denied',
+      ad_user_data:      ok?'granted':'denied',
+      ad_personalization:ok?'granted':'denied',
+      analytics_storage: ok?'granted':'denied'
+    });
+  }
+  var saved=localStorage.getItem(KEY);
+  if(saved==='ok') set(true);
+  else if(saved==='no') set(false);
+  else box.classList.remove('hidden');
+
+  document.getElementById('c-ok').onclick=function(){
+    localStorage.setItem(KEY,'ok'); set(true); box.classList.add('hidden');
+  };
+  document.getElementById('c-no').onclick=function(){
+    localStorage.setItem(KEY,'no'); set(false); box.classList.add('hidden');
+  };
+})();
+</script>
+</body>
+</html>

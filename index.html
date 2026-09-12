@@ -3,8 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ===== Google Consent Mode v2 — по умолчанию всё запрещено =====
+     AW-XXXXXXXXXX заменить на ID конверсии кампании для fensterpreis.at -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{
+    ad_storage:'denied', ad_user_data:'denied',
+    ad_personalization:'denied', analytics_storage:'denied'
+  });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config','AW-XXXXXXXXXX');
+</script>
 <!-- ===== НАЗВАНИЕ САЙТА: поменять в двух местах — здесь и в блоке .brand ===== -->
-<title>Окна ПВХ — расчёт стоимости онлайн</title>
+<title>FensterPreis — Kunststofffenster online berechnen</title>
 <meta name="description" content="Пластиковые окна Drutex с доставкой по Австрии. Рассчитайте стоимость онлайн за минуту.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -219,6 +235,36 @@ details.how[open] summary::before{content:"▾ "}
 .btn:active{transform:translateY(1px)}
 .btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .btn.sec:hover{background:var(--line-2)}
+/* ── Блок про монтаж на первом экране ────────────────── */
+.montage{margin-top:26px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);padding:20px 22px;max-width:62ch}
+.montage h3{font-family:var(--head);font-weight:700;font-size:16.5px;margin:0 0 8px}
+.montage p{margin:0 0 10px;color:var(--ink-2);font-size:14.5px}
+.montage ul{margin:0 0 10px;padding-left:20px;color:var(--ink-2);font-size:14.5px}
+.montage li{margin-bottom:4px}
+.montage b{color:var(--ink)}
+@media(max-width:620px){.montage{padding:16px 18px}}
+
+/* ── Cookie-баннер ───────────────────────────────────── */
+.cookie{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);
+  color:#fff;padding:14px 18px;display:flex;flex-wrap:wrap;align-items:center;
+  gap:10px 20px;justify-content:space-between}
+.cookie.hidden{display:none}
+.cookie p{margin:0;color:#e9e7e3;font-size:14px;max-width:620px}
+.cookie a{color:#fff;text-decoration:underline}
+.cookie .c-btns{display:flex;gap:10px}
+.cookie button{font:inherit;font-weight:600;font-size:14px;padding:8px 17px;
+  border-radius:8px;cursor:pointer}
+.c-ok{background:#fff;color:var(--ink);border:none}
+.c-no{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
+@media(max-width:980px){.cookie{bottom:64px}}
+@media(max-width:560px){.cookie .c-btns{width:100%}.cookie button{flex:1}}
+
+/* ── Согласие на обработку данных ────────────────────── */
+.consent{display:flex;gap:10px;align-items:flex-start;margin:14px 0 4px;
+  font-size:14px;color:var(--ink-2);line-height:1.5}
+.consent input{margin-top:3px;flex:none}
+
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* ── Корзина ─────────────────────────────────────────── */
@@ -274,10 +320,19 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 </head>
 <body>
 
+<div class="cookie hidden" id="cookie">
+  <p>Wir setzen Cookies von Google Ads ein, um die Wirksamkeit unserer Anzeigen zu
+     messen. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+  <div class="c-btns">
+    <button class="c-no" type="button" id="c-no">Ablehnen</button>
+    <button class="c-ok" type="button" id="c-ok">Akzeptieren</button>
+  </div>
+</div>
+
 <header class="top">
   <div class="wrap">
     <!-- ===== НАЗВАНИЕ САЙТА ===== -->
-    <a class="brand" href="#">Окна<span>ПВХ</span></a>
+    <a class="brand" href="#">Fenster<span>Preis</span></a>
     <nav>
       <a href="#kalk" class="hide-s">Расчёт</a>
       <a href="#korb" class="cart">Заявка<span class="cnt" id="cnt" hidden>0</span></a>
@@ -296,7 +351,20 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       <span class="pill">Доставка <b>бесплатно от 4200 €</b></span>
       <span class="pill">Срок <b>3–4 недели</b></span>
       <span class="pill">Срочно — <b>2 недели</b> по запросу</span>
-      <span class="pill">Замер и монтаж — <b>по запросу</b></span>
+      <span class="pill">Монтаж — <b>обсуждается индивидуально</b></span>
+    </div>
+
+    <div class="montage">
+      <h3>Монтаж</h3>
+      <p>Монтаж считается индивидуально — цена зависит от состояния проёма, этажа
+         и объёма работ. Ориентировочно:</p>
+      <ul>
+        <li>монтаж в пустой проём (новостройка) — <b>от 28 €/пог. м</b> периметра изделия</li>
+        <li>полная замена с демонтажом и утилизацией старого — <b>от 55 €/пог. м</b></li>
+      </ul>
+      <p>Работы по ÖNORM B5320, весь монтажный материал включён. Отдельно считаются:
+         откосы, подоконники и отливы, монтаж рольставень, выезд. Точную цену называем
+         после уточнения объекта.</p>
     </div>
   </div>
 </section>
@@ -546,10 +614,37 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
         <p class="note" id="zipnote"></p>
         <p class="note warn" id="zipwarn"></p>
       </div>
+      <div id="sprossbar" style="display:none;margin-top:10px">
+        <span class="lbl">Сетка шпросов в поле</span>
+        <div style="display:flex;gap:10px">
+          <select class="sel" id="sp-v" aria-label="Вертикальных перекладин">
+            <option value="0">0 вертикальных</option>
+            <option value="1">1 вертикальная</option>
+            <option value="2">2 вертикальные</option>
+            <option value="3">3 вертикальные</option>
+          </select>
+          <select class="sel" id="sp-h" aria-label="Горизонтальных перекладин">
+            <option value="0">0 горизонтальных</option>
+            <option value="1">1 горизонтальная</option>
+            <option value="2">2 горизонтальные</option>
+            <option value="3">3 горизонтальные</option>
+            <option value="4">4 горизонтальные</option>
+          </select>
+        </div>
+        <p class="note" id="sprossnote"></p>
+      </div>
       <div id="rollbar" style="display:none;margin-top:10px">
         <div class="seg" role="group" aria-label="Привод рольставни">
           <button type="button" id="rd-gurt">ремень</button>
           <button type="button" id="rd-motor">мотор</button>
+        </div>
+        <div style="margin-top:10px">
+          <span class="lbl">Ящик</span>
+          <select class="sel" id="rd-box" aria-label="Высота ящика рольставни">
+            <option value="137">137 мм</option>
+            <option value="165">165 мм</option>
+            <option value="180">180 мм</option>
+          </select>
         </div>
         <p class="note" id="rollnote"></p>
       </div>
@@ -746,11 +841,30 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       placeholder="этаж, сроки, какие изделия на какой адрес"></div>
   </div>
 
+  <label class="consent">
+    <input type="checkbox" id="c-dsgvo">
+    <span>Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a>
+      gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu.</span>
+  </label>
+
   <button class="btn" type="button" id="send">Отправить заявку</button>
   <button class="btn sec" type="button" id="copy" style="margin-top:10px">Скопировать текст заявки</button>
   <button class="btn sec" type="button" id="pdf" style="margin-top:10px">Скачать заявку PDF</button>
-  <p class="note" id="send-hint">Если почтовая программа не открывается — скопируйте текст
-     и пришлите его в WhatsApp или обычным письмом.</p>
+  <p class="note" id="send-hint">Заявка уйдёт нам на почту. Если что-то пойдёт не так —
+     скопируйте текст и пришлите его в WhatsApp.</p>
+
+  <!-- Скрытая форма отправки. Действие ведёт на FormSubmit;
+       ТОКЕН-FORMSUBMIT заменить на токен, который выдадут после первой отправки,
+       чтобы почта не светилась в коде страницы. -->
+  <form id="fs-form" action="https://formsubmit.co/bengameen62570@gmail.com"
+        method="POST" style="display:none">
+    <input type="hidden" name="_subject" value="Neue Anfrage — FensterPreis">
+    <input type="hidden" name="_template" value="box">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://fensterpreis.at/danke.html">
+    <input type="hidden" name="Kontakt"  id="fs-kontakt">
+    <input type="hidden" name="Anfrage"  id="fs-text">
+  </form>
 </section>
 </main>
 
@@ -763,7 +877,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
   <div class="wrap">
     <div class="cols">
       <div>
-        <h4>Окна ПВХ</h4>
+        <h4>FensterPreis</h4>
         <p>Поставка пластиковых окон и балконных дверей Drutex по всей Австрии.
            Работаем с НДС, счёт с UID.</p>
       </div>
@@ -772,7 +886,16 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
         <ul>
           <li>+43 681 81380389</li>
           <li>bengameen62570@gmail.com</li>
-          <li>1030 Wien</li>
+          <li>Seitenstettengasse 5/37, 1010 Wien</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Правовая информация</h4>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+          <li><a href="agb.html">AGB</a></li>
+          <li><a href="widerruf.html">Widerrufsbelehrung</a></li>
         </ul>
       </div>
       <div>
@@ -790,7 +913,9 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       определяется после уточнения размеров и условий доставки. Двухкамерное остекление
       4/16/4 (Ug 1,1 Вт/м²·К) в профиле 70 мм, энергосберегающее 4/18/4/18/4 (Ug 0,5 Вт/м²·К)
       в профиле 82 мм. Скрытые петли MACO Multi Power возможны при ширине створки от 500 мм.
-      Монтаж, подоконники, отливы, рольставни и москитные сетки в цену не входят.
+      Монтаж в цену не входит и обсуждается индивидуально. Подоконники и отливы мы
+      не поставляем. На крупных изделиях производитель может ставить более толстое
+      или закалённое стекло — такая доплата в расчёте не учтена.
     </p>
   </div>
 </footer>
@@ -875,7 +1000,28 @@ const SYS = {
      чуть ниже — ENERGY CLASSIC дешевле обычной ENERGY, а штульп мы и так занижаем.
      ЭТО ОЦЕНКА ПО ОДНОЙ ТОЧКЕ В ЧУЖОЙ СИСТЕМЕ, проверить отдельным просчётом.
    ВАЖНО: на всех трёх арочных позициях Drutex поставил «Garantiebereich überschritten» —
-   изделия вне гарантийных пределов. Поэтому в интерфейсе стоит предупреждение. */
+   изделия вне гарантийных пределов. Поэтому в интерфейсе стоит предупреждение.
+
+   ПРОВЕРКА 03.09.2026 по подтверждению 616899 — три новые арочные точки в IGLO 5
+   CLASSIC, белые, пакет Ug 1,1. Все три снова с «Garantiebereich überschritten»,
+   у позиции 3 предупреждение стоит дважды, у позиции 3 приписка «NUR SO MACHBAR».
+     поз. 3 — 1600×2000, арка с отсечкой, подъём 500, R890, внизу одна створка ПО.
+       Факт 371,93. Модель с надбавкой 87 даёт 381,44 (+2,6 %). Чистая надбавка
+       по этой точке 77,46 € — против 94,56 и 80,5 по двум прежним. Среднее по трём
+       было бы 84 €, но константа оставлена 87: разброс 77–95 € объясняется скорее
+       погрешностью самой базы (она на этих размерах даёт +2 %), чем размером арки.
+     поз. 1 — 1200×1400, арка без отсечки, полукруг R600, одна поворотная створка.
+       Факт 293,56. Модель с k = 1,74 даёт 303,39 (+3,3 %); точный k по этой точке
+       1,684. Прежний 1,74 был снят с ОДНОЙ точки в ENERGY CLASSIC — теперь есть
+       вторая, в другой системе, и они сходятся. Константа оставлена 1,74.
+     поз. 2 — 1600×1400, арочное поле сверху + ДВЕ СТВОРКИ СО ШТУЛЬПОМ внизу.
+       Факт 619,79. МОДЕЛЬ НЕ ВОСПРОИЗВОДИТ: с отсечкой выходит 353–373 (−40 %),
+       без отсечки 461–470 (−25 %), голый прямоугольник 287. Отношение факта
+       к прямоугольнику 2,16 — вдвое дороже, тогда как одиночная гнутая створка
+       даёт всего 1,68. Похоже, арка вместе со штульпом считается отдельно и сильно
+       дороже. Одна точка, вывести ставку нельзя.
+       ДО ВЫЯСНЕНИЯ сочетание «арка + штульп» из калькулятора выдавать нельзя —
+       занижение на 25–40 %. */
 const ARCH = {
   rect:    { k:1.00, label:'Прямоугольное', short:'' },
   arch:    { k:1.00, add:87, label:'Арка с отсечкой',
@@ -927,17 +1073,46 @@ const OPT = { hinges:28.18, schwelle:58.70, regel:14.09,
      Шпросы: 214,07 − 184,82 = 29,25 € на изделие при делении 2×2. Drutex написал,
        что шпрос 18 мм недоступен, поставил 27 мм наклеенные с двух сторон + дуплекс,
        максимальное поле 1000×1000 мм.
+     ОБНОВЛЕНО 03.09.2026 по подтверждению 616899. Позиции 8 и 10 — одно и то же окно
+       1200×1400 ПО белое, отличается только шпросами: 228,70 − 184,82 = 43,88 € за
+       деление 2×3, то есть 1 вертикальная + 2 горизонтальные = 3 перекладины.
+       Прежняя точка 613631: 29,25 € за 2×2, то есть 2 перекладины.
+       43,88 / 3 = 14,627 и 29,25 / 2 = 14,625 — совпадение до цента.
+       Значит цена не фиксированная, а ЗА ПЕРЕКЛАДИНУ: 14,63 €.
+       Обе точки сняты с одного и того же окна 1200×1400, поэтому зависимость цены
+       перекладины от её длины НЕ проверена. На других размерах возможно расхождение.
+       Многочастные изделия тоже не проверены — считаем перекладины по каждому полю
+       отдельно и складываем.
      Безопасное стекло (триплекс 33.1 внутрь): 229,61 − 184,82 = 44,79 € на 1,2 м² стекла
        = 37,30 €/м². Одна точка. */
-  mesh:41.14, spross:29.25, vsg:37.30 };
+  mesh:41.14, sprossBar:14.63, vsg:37.30 };
 
 /* Рольставня Vorsatzrollladen 45°, алюминий 37 мм, направляющие 53 мм.
    Три точки: 2000×1665 мотор 211,20 · 900×2280 мотор 165,64 · 1200×1537 ремень 105,22.
    Полотно 35,65 €/м² одинаково у обоих приводов, разница в постоянной части:
    ремень 39,50 €, мотор Simu T5 92,50 € — мотор дороже примерно на 53 €.
-   Высота полотна = высота окна + ящик, ящик подбирается по высоте. */
-const ROLL = { m2:35.65, gurt:39.50, motor:92.50,
-  box:(H)=> H<=1450 ? 137 : H<=1700 ? 165 : 180 };
+   Высота полотна = высота окна + ящик.
+
+   ОБНОВЛЕНО 03.09.2026 по подтверждению 616899, позиции 7 и 9 — обе на ремне:
+     2000×1400, ящик 180, белая RAL 9016      154,91 €
+     1200×1400, ящик 180, антрацит RAL 7016   109,95 €
+   1) Полотно 35,65 €/м² подтверждается третий раз: разница между позициями 44,96 €
+      на 0,8 м ширины при высоте полотна 1,58 м даёт 35,57 €/м².
+   2) ЦВЕТ НЕ ДОПЛАЧИВАЕТСЯ. Антрацит RAL 7016 (короб, полотно, направляющие,
+      концевая планка) ложится ровно на ту же формулу, что и белая.
+   3) ЯЩИК НЕ ПОДБИРАЕТСЯ ПО ВЫСОТЕ ОКНА — он выбирается. На одном и том же окне
+      высотой 1400 в заказе 601902 стоит ящик 137 (полотно 1537), а в 616899 — ящик 180
+      (полотно 1580). Прежняя функция box(H) была неверна, теперь это выбор в интерфейсе.
+      Документально подтверждены только 137 и 180; 165 оставлен как промежуточный,
+      он выведен из точки 2000×1665 и НЕ подтверждён напрямую.
+   4) Остаётся доплата 2,80 € на изделие: при ящике 180 обе новые позиции выходят
+      на 2,76 и 2,86 € дороже формулы, а старая точка 1200×1537 ложилась в неё точно.
+      От ширины не зависит — значит это фикс. Что именно, из документа не видно:
+      в 616899 есть перфорация ламелей и заглушки направляющих (Ende der
+      Führungsschienen: Ja), в прежнем заказе их, вероятно, не было.
+      ПРОВЕРИТЬ у Drutex, что из этого платное. Пока начисляется всегда. */
+const ROLL = { m2:35.65, gurt:39.50, motor:92.50, extra:2.80,
+  boxes:[137,165,180] };
 
 /* ═══ ЗИП-ШТОРЫ SUN WINNER — WIN SCREEN INVEST LINE ═══
    Источник: SUN WINNER GROUP, PRICE LIST 07.2026 «WIN SCREEN INVEST LINE»,
@@ -1126,6 +1301,33 @@ const LAM = {
          note:'Плёнка снаружи и внутри, ядро профиля в цвет, ручка и накладки петель в цвет.' }
 };
 const MIN_W_HINGES = 500, MAX_W_HINGES = 1500;   // габарит поля, мм
+
+/* ═══ ПРЕДЕЛЬНЫЕ ГАБАРИТЫ ═══
+   Письмо Drutex (Łukasz Wroński) от 12.09.2026, дословно:
+     — до 6,5 м² изготавливают конструкцию в одной раме в ПВХ,
+       исключая HS, PSK, глухие и FF;
+     — при высоте 1400 максимальная ширина створки 1400 мм
+       (IGLO 5, EDGE, ENERGY);
+     — максимальная высота 2500, но только до 900 мм ширины;
+     — на крупных створках иногда требуется вклейка стекла или скрытые петли.
+   Между двумя названными точками считаем по прямой — это наша интерполяция,
+   а не слова Drutex. Поэтому предупреждаем, но НЕ запрещаем: они сами пишут,
+   что решение иногда находится.
+   ПО АЛЮМИНИЮ MB-79N ответа нет. Пределы ниже перенесены с ПВХ как временные —
+   заменить, когда Drutex ответит. */
+const LIM = {
+  areaMax: 6.5,                      // м² на изделие в одной раме
+  sashH1: 1400, sashW1: 1400,        // точка 1: высота 1400 → ширина 1400
+  sashH2: 2500, sashW2: 900,         // точка 2: высота 2500 → ширина 900
+  maxSashHeight: 2500
+};
+/* допустимая ширина створки при заданной её высоте */
+function sashWmax(h){
+  if(h <= LIM.sashH1) return LIM.sashW1;
+  if(h >= LIM.sashH2) return LIM.sashW2;
+  const t = (h - LIM.sashH1) / (LIM.sashH2 - LIM.sashH1);
+  return LIM.sashW1 + t * (LIM.sashW2 - LIM.sashW1);
+}
 const MARKUP = 0.30, VAT = 0.20, MAIL = 'bengameen62570@gmail.com';
 const FREI = 4200;                    // нетто, от которого доставка бесплатная
 const FRIST = 'Срок поставки 3–4 недели. Срочное исполнение за 2 недели — по предварительному запросу.';
@@ -1154,7 +1356,8 @@ const S = {
   W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', shape:'rect', rise:600,
   /* какой пакет был выбран в каждом профиле — чтобы при возврате не подставлялся чужой */
   glasMem:{iglo5:'ug11', energy:'ug05', alu:'ug05a'},
-  vsg:false, spross:false, mesh:false, roll:false, rollDrive:'gurt', zip:false, zipSys:'slim', zipFab:'s7635', zipCol:'std', zipMotor:'wired', zipCtrl:'remote', color:'none', tone:'anthrazit',
+  vsg:false, spross:false, sprossV:1, sprossH:1, mesh:false,
+  roll:false, rollDrive:'gurt', rollBox:180, zip:false, zipSys:'slim', zipFab:'s7635', zipCol:'std', zipMotor:'wired', zipCtrl:'remote', color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
   fields:[{type:'fix',hinge:'right'},{type:'dk',hinge:'left'}]
 };
@@ -1240,7 +1443,13 @@ function calc(){
      просто не учитываем в расчёте, чтобы при возврате на ПВХ всё вернулось как было. */
   const aluSys = S.sys==='alu';
   const on = k => S[k] && !aluSys;                     // опция действует?
-  const shapeEff = aluSys ? 'rect' : S.shape;
+  /* Арка вместе со штульпом Drutex считает иначе, чем сумму наших надбавок:
+     616899 поз. 2 (1600×1400, арка с отсечкой + штульп) — факт 619,79 €,
+     модель не воспроизводит ни в одном варианте (−25…−40 %).
+     Пока нет просчёта, это сочетание НЕ выдаём: считаем как прямоугольник
+     и говорим об этом прямым текстом. Настройки при этом не стираем. */
+  const archStulpBlocked = !aluSys && S.shape !== 'rect' && LAYOUTS[S.layout].stulp;
+  const shapeEff = (aluSys || archStulpBlocked) ? 'rect' : S.shape;
   const shp=ARCH[shapeEff], isArch=shapeEff!=='rect';
   const rise = isArch ? Math.min(S.rise, Math.floor(W/2), H-400) : 0;
   const cut  = shapeEff==='arch';
@@ -1298,11 +1507,15 @@ function calc(){
      примерно на 16 € на створку. На одностворчатых балконных дверях этого нет. */
   if(lay.stulp && Hs>1700) ek += nSash*(R.hoherFluegel||0);
   if(on('vsg'))    ek += glassArea*OPT.vsg;
-  if(on('spross')) ek += OPT.spross;
+  /* Шпросы: 14,63 € за перекладину. Сетка задаётся на поле, перекладины
+     складываются по всем полям изделия. */
+  const sprossBars = on('spross') ? n*(S.sprossV + S.sprossH) : 0;
+  if(sprossBars) ek += sprossBars*OPT.sprossBar;
   if(on('mesh'))   ek += nSash*OPT.mesh;
   if(on('roll')){
-    const hr=(H+ROLL.box(H))/1000;
-    ek += (S.rollDrive==='motor'?ROLL.motor:ROLL.gurt) + (W/1000)*hr*ROLL.m2;
+    const hr=(H+S.rollBox)/1000;
+    ek += (S.rollDrive==='motor'?ROLL.motor:ROLL.gurt)
+        + (W/1000)*hr*ROLL.m2 + ROLL.extra;
   }
   if(on('zip')) ek += ZIP.price(W, H, S.zipSys);
   const alu = S.sys==='alu', sonderfarbe = alu && S.color!=='none';
@@ -1332,8 +1545,11 @@ function calc(){
           shape:S.shape,isArch,cut,rise,Hs,shp,alu,sonderfarbe,
           roll:on('roll'), zip:on('zip'), mesh:on('mesh'), spross:on('spross'),
           vsg:on('vsg'), regel:on('regel')&&nSash>0, tuer:on('tuer'),
-          shapeEff, layEff, lostInAlu: aluSys && (S.shape!=='rect' || LAYOUTS[S.layout].stulp
-            || ['tuer','regel','vsg','spross','mesh','roll','zip'].some(k=>S[k])),
+          shapeEff, layEff, archStulpBlocked,
+          overArea: A > LIM.areaMax,
+          overSash: maxSashH > LIM.maxSashHeight || maxSashW > sashWmax(maxSashH),
+          lostInAlu: aluSys && (S.shape!=='rect' || LAYOUTS[S.layout].stulp
+            || ['tuer','regel','vsg','spross','sprossV','sprossH','mesh','roll','zip'].some(k=>S[k])),
           hingesOK,useHinges,sys,gl,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
 }
 
@@ -1347,7 +1563,7 @@ function planSvg(c,{mini=false,outside=false}={}){
   const FR = showTone ? TONES[S.tone].hex : '#fdfefe';
   const aw=VW-PL-PR, ah=VH-PT-PB;
   /* если выбрана рольставня, над окном нужно место под ящик */
-  const rollBox = c.roll ? ROLL.box(c.H) : (c.zip ? 120 : 0);
+  const rollBox = c.roll ? S.rollBox : (c.zip ? 120 : 0);
   const s=Math.min(aw/c.W, ah/(c.H+rollBox)), w=c.W*s, h=c.H*s, bx=rollBox*s;
   const x0=PL+(aw-w)/2, y0=PT+(ah-h-bx)/2+bx;
   const ink='stroke="#2a2823" stroke-width="1.6"', thin='stroke="#57544d" stroke-width=".9"';
@@ -1409,7 +1625,7 @@ function planSvg(c,{mini=false,outside=false}={}){
       const ax=gx+in_, ay=gy+in_, bw=gw-2*in_, bh=gh-2*in_;
       g+=`<rect x="${ax}" y="${ay}" width="${bw}" height="${bh}" fill="url(#gl)" ${thin}${cB}/>`;
       g+=`<path d="M${ax} ${ay+bh*0.72} L${ax+bw} ${ay+bh*0.18} L${ax+bw} ${ay+bh*0.34} L${ax} ${ay+bh*0.88} Z" fill="url(#sheen)"${cB}/>`;
-      if(c.spross) g+=`<path d="M${ax+bw/2} ${ay} V${ay+bh} M${ax} ${ay+bh/2} H${ax+bw}"
+      if(c.spross) g+=`<path d="${sprossPath(ax,ay,bw,bh)}"
             stroke="#2a2823" stroke-width="2" fill="none"${cB}/>`;
       if(c.mesh) g+=`<rect x="${ax}" y="${ay}" width="${bw}" height="${bh}" fill="url(#net)"
             stroke="#8d887f" stroke-width=".8" stroke-dasharray="4 3" opacity=".8"${cB}/>`;
@@ -1439,7 +1655,7 @@ function planSvg(c,{mini=false,outside=false}={}){
     } else {
       g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="url(#gl)" ${thin}${cA}/>`;
       g+=`<path d="M${gx} ${gy+gh*0.72} L${gx+gw} ${gy+gh*0.18} L${gx+gw} ${gy+gh*0.34} L${gx} ${gy+gh*0.88} Z" fill="url(#sheen)"${cA}/>`;
-      if(c.spross) g+=`<path d="M${gx+gw/2} ${gy} V${gy+gh} M${gx} ${gy+gh/2} H${gx+gw}"
+      if(c.spross) g+=`<path d="${sprossPath(gx,gy,gw,gh)}"
             stroke="#2a2823" stroke-width="2" fill="none"${cA}/>`;
       if(c.vsg && !mini) g+=`<text x="${gx+gw-6}" y="${gy+14}" text-anchor="end"
             font-family="Inter" font-size="10.5" fill="#57544d">VSG</text>`;
@@ -1523,6 +1739,15 @@ function planSvg(c,{mini=false,outside=false}={}){
    .replace(/id="net"/g,`id="net-${uid}"`).replace(/url\(#net\)/g,`url(#net-${uid})`)
    .replace(/id="ca"/g,`id="ca-${uid}"`).replace(/url\(#ca\)/g,`url(#ca-${uid})`)
    .replace(/id="cb"/g,`id="cb-${uid}"`).replace(/url\(#cb\)/g,`url(#cb-${uid})`);
+}
+
+/* Сетка шпросов внутри поля: S.sprossV вертикальных и S.sprossH горизонтальных
+   перекладин, расставленных равномерно. */
+function sprossPath(x, y, w, h){
+  let d='';
+  for(let i=1;i<=S.sprossV;i++){ const px=x+w*i/(S.sprossV+1); d+=`M${px} ${y} V${y+h} `; }
+  for(let j=1;j<=S.sprossH;j++){ const py=y+h*j/(S.sprossH+1); d+=`M${x} ${py} H${x+w} `; }
+  return d.trim();
 }
 
 function drawSvg(c){
@@ -1667,6 +1892,7 @@ function render(){
   $('o-tuer').checked = c.tuer;   $('o-regel').checked  = c.regel;
   $('o-mesh').checked = c.mesh;   $('o-spross').checked = c.spross;
   $('o-vsg').checked  = c.vsg;    $('o-roll').checked   = c.roll;
+  $('sprossbar').style.display = c.spross ? 'block' : 'none';
   $('rollbar').style.display = c.roll ? 'block' : 'none';
   $('o-zip').checked = c.zip;
   $('zipbar').style.display = c.zip ? 'block' : 'none';
@@ -1691,8 +1917,18 @@ function render(){
   }
   $('rd-gurt').setAttribute('aria-pressed', S.rollDrive==='gurt');
   $('rd-motor').setAttribute('aria-pressed', S.rollDrive==='motor');
+  $('sp-v').value = S.sprossV;  $('sp-h').value = S.sprossH;
+  $('rd-box').value = S.rollBox;
+  if(S.spross){
+    const bars = c.n*(S.sprossV + S.sprossH);
+    $('sprossnote').textContent = bars
+      ? `${c.n>1 ? c.n+' поля, ' : ''}${S.sprossV+1} × ${S.sprossH+1} — итого `
+        + `${bars} ${bars===1?'перекладина':bars<5?'перекладины':'перекладин'} `
+        + `по ${eur(OPT.sprossBar)}.`
+      : 'Перекладины не выбраны — доплаты нет.';
+  }
   if(S.roll){
-    const box=ROLL.box(S.H);
+    const box=S.rollBox;
     $('rollnote').textContent = `Ящик ${box} мм, полотно ${S.W} × ${S.H+box} мм. `
       + `Ставится снаружи поверх окна — проём должен быть на ${box} мм выше окна.`;
   }
@@ -1734,8 +1970,24 @@ function render(){
   $('p-brutto').textContent = eur(c.brutto);
   if(mode!=='fk') $('d-price').textContent = eur(c.brutto);
 
-  $('warn').textContent = (c.maxSashW>1200 || c.maxSashH>1800)
-    ? 'Створка крупнее стандартной — уточните возможность у нас.' : '';
+  const warns = [];
+  if(c.overArea)
+    warns.push('Площадь изделия ' + num(c.area) + ' м². Drutex делает в одной раме '
+      + 'до ' + num(LIM.areaMax,1) + ' м² — конструкцию придётся разделить на части. '
+      + 'Цена ниже этого не учитывает.');
+  if(c.overSash)
+    warns.push('Створка ' + Math.round(c.maxSashW) + ' × ' + Math.round(c.maxSashH)
+      + ' мм выходит за предел производителя: при высоте ' + Math.round(c.maxSashH)
+      + ' мм допустимая ширина около ' + Math.round(sashWmax(c.maxSashH))
+      + ' мм. Нужно добавить импост или уменьшить размер.');
+  if(c.archStulpBlocked)
+    warns.push('Арка вместе со штульпом у нас не просчитана — цена показана как для '
+      + 'прямоугольного изделия со штульпом, надбавка за гнутьё в неё не входит. '
+      + 'Такую конструкцию считаем по запросу.');
+  if(!warns.length && (c.maxSashW>1200 || c.maxSashH>1800))
+    warns.push('Створка крупнее стандартной. На таких размерах производитель иногда '
+      + 'ставит более толстое стекло или скрытые петли — это отдельная доплата.');
+  $('warn').textContent = warns.join(' ');
 }
 
 /* ═══════════ ЗАЯВКА ═══════════ */
@@ -1750,9 +2002,9 @@ function describe(){
   if(c.useHinges) ex.push('скрытые петли');
   if(c.regel)  ex.push('клапан');
   if(c.vsg)    ex.push('триплекс');
-  if(c.spross) ex.push('шпросы');
+  if(c.spross) ex.push(`шпросы ${S.sprossV+1} × ${S.sprossH+1}`);
   if(c.mesh)   ex.push('москитка');
-  if(c.roll)   ex.push('рольставня ' + (S.rollDrive==='motor'?'с мотором':'на ремне'));
+  if(c.roll)   ex.push('рольставня ' + (S.rollDrive==='motor'?'с мотором':'на ремне') + `, ящик ${S.rollBox} мм`);
   if(c.zip)    ex.push('зип-штора ' + ZIP.sys[S.zipSys].label
                        + ', ' + ZIP.fab[S.zipFab].label.split(' · ')[0]
                        + (S.zipCol!=='std' ? ', цвет с доплатой' : '')
@@ -1851,7 +2103,7 @@ function renderList(){
    конфигурацию в состояние, считаем и возвращаем состояние как было. Так один и тот же
    расчёт работает и для текущего окна, и для любой позиции в заявке. */
 const CFG_KEYS=['W','H','layout','fields','tuer','hinges','regel','vsg','spross','mesh',
-                'roll','rollDrive','zip','zipSys','zipFab','zipCol','zipMotor','zipCtrl','sys','glas','glasMem','shape','rise',
+                'roll','rollDrive','rollBox','zip','zipSys','zipFab','zipCol','zipMotor','zipCtrl','sys','glas','glasMem','shape','rise',
                 'color','tone','qty'];
 function cfgFromState(){
   const o={}; CFG_KEYS.forEach(k=>o[k]=S[k]); o.sel=0;
@@ -1978,7 +2230,7 @@ function drawPresets(){
   const bak=JSON.parse(JSON.stringify(S));
   $('presets').innerHTML = PRESETS.map((p,i)=>{
     Object.assign(S,{W:p.W,H:p.H,layout:p.l,sel:0,qty:1,tuer:!!p.tuer,shape:'rect',
-      hinges:false,regel:false,vsg:false,spross:false,mesh:false,roll:false,zip:false,
+      hinges:false,regel:false,vsg:false,spross:false,sprossV:1,sprossH:1,mesh:false,roll:false,rollBox:180,zip:false,
       fields:p.f.map(([t,hg],j)=>({type:t, hinge:hg||defHinge(j,p.f.length)}))});
     const svg=planSvg(calc(),{mini:true});
     return `<button class="chip" type="button" data-p="${i}">`
@@ -2033,6 +2285,9 @@ $('o-tuer').addEventListener('change', e=>{ S.tuer=e.target.checked;  render(); 
 $('o-regel').addEventListener('change',e=>{ S.regel=e.target.checked; render(); });
 $('o-mesh').addEventListener('change',  e=>{ S.mesh=e.target.checked;   render(); });
 $('o-spross').addEventListener('change',e=>{ S.spross=e.target.checked; render(); });
+$('sp-v').addEventListener('change',  e=>{ S.sprossV=+e.target.value; render(); });
+$('sp-h').addEventListener('change',  e=>{ S.sprossH=+e.target.value; render(); });
+$('rd-box').addEventListener('change',e=>{ S.rollBox=+e.target.value; render(); });
 $('o-vsg').addEventListener('change',   e=>{ S.vsg=e.target.checked;    render(); });
 $('o-roll').addEventListener('change',  e=>{ S.roll=e.target.checked; if(S.roll) S.zip=false; render(); });
 $('o-zip').addEventListener('change',   e=>{ S.zip=e.target.checked;  if(S.zip) S.roll=false; render(); });
@@ -2099,9 +2354,21 @@ function buildBody(){
 }
 
 $('send').addEventListener('click',()=>{
-  if(!list.length){ $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
-  $('send-hint').textContent='Откроется почтовая программа с готовым письмом. Если она не открылась — нажмите «Скопировать текст заявки».';
-  location.href = `mailto:${MAIL}?subject=${encodeURIComponent('Заявка с сайта — окна')}&body=${encodeURIComponent(buildBody())}`;
+  if(!list.length){
+    $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
+  if(!$('c-tel').value.trim() && !$('c-mail').value.trim()){
+    $('send-hint').textContent='Укажите телефон или почту — иначе мы не сможем ответить.';
+    $('c-tel').focus(); return; }
+  if(!$('c-dsgvo').checked){
+    $('send-hint').textContent='Отметьте согласие на обработку данных.';
+    $('c-dsgvo').focus(); return; }
+  const fio=[$('c-fam').value,$('c-imya').value,$('c-otch').value]
+              .filter(x=>x.trim()).join(' ');
+  $('fs-kontakt').value = [fio||'—', $('c-tel').value||'—', $('c-mail').value||'—']
+                            .join(' · ');
+  $('fs-text').value = buildBody();
+  $('send-hint').textContent='Отправляем…';
+  $('fs-form').submit();
 });
 
 $('copy').addEventListener('click',async ()=>{
@@ -2643,6 +2910,25 @@ addAddress();
 loadCart();
 render();
 renderList();
+
+/* ═══════════ COOKIES ═══════════ */
+(function(){
+  const KEY='fensterpreis_consent', box=$('cookie');
+  const set=ok=>{ if(typeof gtag==='function') gtag('consent','update',{
+    ad_storage:        ok?'granted':'denied',
+    ad_user_data:      ok?'granted':'denied',
+    ad_personalization:ok?'granted':'denied',
+    analytics_storage: ok?'granted':'denied' }); };
+  let saved=null;
+  try{ saved=localStorage.getItem(KEY); }catch(e){}
+  if(saved==='ok') set(true);
+  else if(saved==='no') set(false);
+  else box.classList.remove('hidden');
+  const close=v=>{ try{ localStorage.setItem(KEY,v); }catch(e){}
+                   set(v==='ok'); box.classList.add('hidden'); };
+  $('c-ok').addEventListener('click',()=>close('ok'));
+  $('c-no').addEventListener('click',()=>close('no'));
+})();
 </script>
 </body>
 </html>
