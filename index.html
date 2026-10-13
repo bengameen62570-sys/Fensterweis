@@ -150,6 +150,10 @@ td.thumb svg{width:78px;height:60px;display:block}
 /* печать заявки */
 @media print{
   .top,.hero,.layout,.dock,footer,.btn,.del,#clr{display:none!important}
+  /* на бумаге не нужны органы управления — только сама заявка */
+  .modebar,.bulk,.consent,#send-hint,.cookie{display:none!important}
+  input,textarea{border:0!important;padding-left:0!important;background:transparent!important}
+  input::placeholder,textarea::placeholder{color:transparent!important}
   body{background:#fff;padding:0}
   .card{box-shadow:none;border:0;padding:0}
   h2.sec{margin:0 0 12px}

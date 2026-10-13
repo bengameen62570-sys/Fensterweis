@@ -124,6 +124,11 @@ footer a:hover{color:var(--accent)}
 @media(max-width:560px){.cookie div{width:100%}.cookie button{flex:1}}
 
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Узкие телефоны (320 px): длинные немецкие слова переносятся, а не растягивают страницу */
+html,body{overflow-x:hidden}
+h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
+@media(max-width:360px){ h1{font-size:25px;line-height:1.18} }
 </style>
 </head>
 <body>
