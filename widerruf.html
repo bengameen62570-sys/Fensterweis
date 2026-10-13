@@ -28,6 +28,20 @@
   gtag('config', 'AW-17923302542');
 </script>
 
+<!-- ===== Microsoft Clarity — записи сессий и тепловые карты =====
+     Грузится ТОЛЬКО после согласия на cookies (кнопка "Akzeptieren").
+     ID проекта: ywyax8qgcj -->
+<script>
+function loadClarity(){
+  if(window.__clarityOn) return; window.__clarityOn = true;
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r); t.async=1; t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "ywyax8qgcj");
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -240,6 +254,7 @@ document.getElementById('jahr').textContent = new Date().getFullYear();
       ad_personalization:ok?'granted':'denied',
       analytics_storage: ok?'granted':'denied'
     });
+    if(ok) loadClarity();
   }
   var saved=localStorage.getItem(KEY);
   if(saved==='ok') set(true);

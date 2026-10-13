@@ -28,6 +28,20 @@
   gtag('config', 'AW-17923302542');
 </script>
 
+<!-- ===== Microsoft Clarity — записи сессий и тепловые карты =====
+     Грузится ТОЛЬКО после согласия на cookies (кнопка "Akzeptieren").
+     ID проекта: ywyax8qgcj -->
+<script>
+function loadClarity(){
+  if(window.__clarityOn) return; window.__clarityOn = true;
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r); t.async=1; t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "ywyax8qgcj");
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -211,17 +225,30 @@ footer a:hover{color:var(--accent)}
        Irland. Weitere Informationen finden Sie in der
        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>.</p>
 
-    <h2>9. Speicherdauer</h2>
+    <h2>9. Microsoft Clarity</h2>
+    <p>Nach Ihrer Zustimmung im Cookie-Hinweis setzen wir Microsoft Clarity ein, einen
+       Dienst zur Analyse der Websitenutzung. Clarity erfasst, wie Besucher die Seite
+       bedienen — Mausbewegungen, Klicks, Scrollverhalten und Seitenaufrufe — und fasst
+       diese Daten zu Sitzungsaufzeichnungen und Heatmaps zusammen. Wir nutzen das
+       ausschließlich, um den Online-Rechner verständlicher zu machen.</p>
+    <p>Eingaben in Formularfelder werden dabei nicht im Klartext aufgezeichnet. Ohne Ihre
+       Zustimmung wird Clarity nicht geladen und es werden keine Daten an Microsoft
+       übermittelt.</p>
+    <p>Anbieter ist die Microsoft Corporation, One Microsoft Way, Redmond, WA 98052, USA.
+       Weitere Informationen finden Sie in der
+       <a href="https://privacy.microsoft.com/de-de/privacystatement" target="_blank" rel="noopener">Datenschutzerklärung von Microsoft</a>.</p>
+
+    <h2>10. Speicherdauer</h2>
     <p>Ihre Daten werden nur so lange gespeichert, wie es zur Bearbeitung Ihrer Anfrage
        und zur Erfüllung gesetzlicher Aufbewahrungspflichten erforderlich ist.</p>
 
-    <h2>10. Ihre Rechte</h2>
+    <h2>11. Ihre Rechte</h2>
     <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der
        Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine erteilte Einwilligung
        können Sie jederzeit mit Wirkung für die Zukunft widerrufen. Wenden Sie sich
        dazu formlos an die oben genannte E-Mail-Adresse.</p>
 
-    <h2>11. Beschwerderecht</h2>
+    <h2>12. Beschwerderecht</h2>
     <p>Ihnen steht ein Beschwerderecht bei der österreichischen Datenschutzbehörde zu,
        Barichgasse 40—42, 1030 Wien.</p>
 
@@ -255,6 +282,7 @@ document.getElementById('jahr').textContent = new Date().getFullYear();
       ad_personalization:ok?'granted':'denied',
       analytics_storage: ok?'granted':'denied'
     });
+    if(ok) loadClarity();
   }
   var saved=localStorage.getItem(KEY);
   if(saved==='ok') set(true);
