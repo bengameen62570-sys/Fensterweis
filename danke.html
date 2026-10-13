@@ -12,7 +12,7 @@
 <title>Anfrage erhalten | FensterRechner</title>
 
 <!-- ===== Google Consent Mode v2 — по умолчанию всё запрещено ===== -->
-<!-- ВНИМАНИЕ: AW-XXXXXXXXXX заменить на ID конверсии нового аккаунта Google Ads -->
+<!-- ВНИМАНИЕ: AW-17923302542 заменить на ID конверсии нового аккаунта Google Ads -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -23,10 +23,10 @@
     'analytics_storage': 'denied'
   });
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17923302542"></script>
 <script>
   gtag('js', new Date());
-  gtag('config', 'AW-XXXXXXXXXX');
+  gtag('config', 'AW-17923302542');
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -194,6 +194,19 @@ document.getElementById('jahr').textContent = new Date().getFullYear();
   document.getElementById('c-no').onclick=function(){
     localStorage.setItem(KEY,'no'); set(false); box.classList.add('hidden');
   };
+})();
+
+/* ═══════════ Конверсия Google Ads ═══════════
+   Эта страница открывается только после успешной отправки заявки,
+   поэтому её загрузка и есть событие конверсии.
+   Защита от двойного счёта: если человек обновит страницу или
+   вернётся на неё назад, второй раз конверсия не отправится. */
+(function(){
+  var ONCE='fensterrechner_conv';
+  try{ if(sessionStorage.getItem(ONCE)) return; }catch(e){}
+  if(typeof gtag!=='function') return;
+  gtag('event','conversion',{'send_to':'AW-17923302542/0zENCKf8kpsdEI7Jv-JC'});
+  try{ sessionStorage.setItem(ONCE,'1'); }catch(e){}
 })();
 </script>
 </body>
