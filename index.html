@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="de-AT">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- ===== Google Consent Mode v2 — по умолчанию всё запрещено =====
-     AW-XXXXXXXXXX заменить на ID конверсии кампании для fensterpreis.at -->
+     AW-XXXXXXXXXX заменить на ID конверсии кампании для fensterrechner.at -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -20,8 +20,27 @@
   gtag('config','AW-XXXXXXXXXX');
 </script>
 <!-- ===== НАЗВАНИЕ САЙТА: поменять в двух местах — здесь и в блоке .brand ===== -->
-<title>FensterPreis — Kunststofffenster online berechnen</title>
-<meta name="description" content="Пластиковые окна Drutex с доставкой по Австрии. Рассчитайте стоимость онлайн за минуту.">
+<title>FensterRechner — Kunststofffenster online berechnen</title>
+<meta name="description" content="Kunststofffenster von Drutex mit Lieferung in ganz Österreich. Berechnen Sie den Preis online in einer Minute.">
+<link rel="canonical" href="https://fensterrechner.at/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2f4f45">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Vorschau beim Teilen (WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FensterRechner">
+<meta property="og:locale" content="de_AT">
+<meta property="og:url" content="https://fensterrechner.at/">
+<meta property="og:title" content="Fensterpreise online berechnen — FensterRechner">
+<meta property="og:description" content="Maße eingeben, Profil und Verglasung wählen und sofort den Preis sehen — netto und brutto. Kunststofffenster von Drutex, Lieferung in ganz Österreich.">
+<meta property="og:image" content="https://fensterrechner.at/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fensterpreise online berechnen — FensterRechner">
+<meta name="twitter:description" content="Maße eingeben, Profil und Verglasung wählen und sofort den Preis sehen — netto und brutto.">
+<meta name="twitter:image" content="https://fensterrechner.at/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -54,6 +73,20 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font
 .top nav a:hover{color:var(--accent)}
 .top .tel{font-weight:600;color:var(--ink);white-space:nowrap}
 @media(max-width:760px){.top nav a.hide-s{display:none}}
+/* Schmale Telefone: Kopfzeile muss ohne Querscrollen passen */
+@media(max-width:480px){
+  .top .wrap{gap:10px}
+  .brand{font-size:17px}
+  .top nav{gap:12px}
+  .top nav a{font-size:13.5px}
+  .top .tel{font-size:13.5px}
+}
+@media(max-width:380px){
+  .brand{font-size:15.5px}
+  .top nav a{font-size:12.5px}
+  .top .tel{font-size:12.5px}
+}
+html,body{overflow-x:hidden}
 
 /* ── Первый экран ────────────────────────────────────── */
 .hero{padding:64px 0 38px}
@@ -317,6 +350,78 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 .fk-rows td:last-child{text-align:right;white-space:nowrap;color:var(--ink);font-weight:500}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
+
+<!-- ===== Schema.org: damit Suchmaschinen und KI-Assistenten verstehen,
+     was diese Seite ist. Beim Aendern von Telefon/Adresse hier mitaendern. ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://fensterrechner.at/#rechner",
+      "name": "FensterRechner",
+      "url": "https://fensterrechner.at/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Alle (Browser)",
+      "inLanguage": "de-AT",
+      "browserRequirements": "Benoetigt JavaScript",
+      "description": "Online-Rechner fuer Fensterpreise in Oesterreich. Masse eingeben, Profil, Verglasung, Beschlag und Zubehoer waehlen und sofort den Preis netto und brutto sehen, inklusive Uw- und Rw-Wert, Zeichnung und Spezifikation.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "description": "Die Nutzung des Rechners ist kostenlos und unverbindlich."
+      },
+      "featureList": [
+        "Sofortige Preisberechnung fuer Kunststofffenster",
+        "Preis netto und brutto inklusive 20 % MwSt.",
+        "Uw-Wert und Schalldaemmwert Rw je Element",
+        "Massstabsgetreue Zeichnung jedes Elements",
+        "Spezifikation als PDF zum Herunterladen",
+        "Warenkorb mit mehreren Lieferadressen"
+      ],
+      "provider": { "@id": "https://fensterrechner.at/#firma" }
+    },
+    {
+      "@type": "HomeAndConstructionBusiness",
+      "@id": "https://fensterrechner.at/#firma",
+      "name": "FensterRechner",
+      "legalName": "Veniamin Kononenko e.U.",
+      "url": "https://fensterrechner.at/",
+      "telephone": "+43 681 84352477",
+      "vatID": "ATU83265958",
+      "priceRange": "€€",
+      "currenciesAccepted": "EUR",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Seitenstettengasse 5/37",
+        "postalCode": "1010",
+        "addressLocality": "Wien",
+        "addressCountry": "AT"
+      },
+      "areaServed": { "@type": "Country", "name": "Österreich" },
+      "knowsLanguage": ["de", "ru"],
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Kunststofffenster" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Holzfenster" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Aluminiumfenster" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Haustüren" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Balkon- und Terrassentüren" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Dachfenster" } }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://fensterrechner.at/#website",
+      "url": "https://fensterrechner.at/",
+      "name": "FensterRechner",
+      "inLanguage": "de-AT",
+      "publisher": { "@id": "https://fensterrechner.at/#firma" }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -332,39 +437,35 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 <header class="top">
   <div class="wrap">
     <!-- ===== НАЗВАНИЕ САЙТА ===== -->
-    <a class="brand" href="#">Fenster<span>Preis</span></a>
+    <a class="brand" href="#">Fenster<span>Rechner</span></a>
     <nav>
-      <a href="#kalk" class="hide-s">Расчёт</a>
-      <a href="#korb" class="cart">Заявка<span class="cnt" id="cnt" hidden>0</span></a>
-      <a class="tel" href="tel:+4368181380389">+43 681 81380389</a>
+      <a href="#kalk" class="hide-s">Berechnung</a>
+      <a href="#korb" class="cart">Anfrage<span class="cnt" id="cnt" hidden>0</span></a>
+      <a class="tel" href="tel:+4368184352477">+43 681 84352477</a>
     </nav>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
-    <h1>Пластиковые окна с доставкой по Австрии</h1>
-    <p>Соберите окно как конструктор и сразу увидите цену. Профиль Drutex,
-       фурнитура MACO, стеклопакет на выбор — двухкамерный или энергосберегающий.</p>
+    <h1>Kunststofffenster mit Lieferung in ganz Österreich</h1>
+    <p>Stellen Sie Ihr Fenster Schritt für Schritt zusammen und sehen Sie sofort den Preis. Profil von Drutex, Beschlag von MACO, Verglasung nach Wahl — zweifach oder Wärmeschutz.</p>
     <div class="pills">
-      <span class="pill"><b>Ug от 0,5</b> Вт/м²·К</span>
-      <span class="pill">Доставка <b>бесплатно от 4200 €</b></span>
-      <span class="pill">Срок <b>3–4 недели</b></span>
-      <span class="pill">Срочно — <b>2 недели</b> по запросу</span>
-      <span class="pill">Монтаж — <b>обсуждается индивидуально</b></span>
+      <span class="pill"><b>Ug ab 0,5</b> W/m²·K</span>
+      <span class="pill">Lieferung <b>kostenlos ab 4200 €</b></span>
+      <span class="pill">Lieferzeit <b>3–4 Wochen</b></span>
+      <span class="pill">Express — <b>2 Wochen</b> auf Anfrage</span>
+      <span class="pill">Montage — <b>wird individuell vereinbart</b></span>
     </div>
 
     <div class="montage">
-      <h3>Монтаж</h3>
-      <p>Монтаж считается индивидуально — цена зависит от состояния проёма, этажа
-         и объёма работ. Ориентировочно:</p>
+      <h3>Montage</h3>
+      <p>Die Montage wird individuell kalkuliert — der Preis hängt vom Zustand der Öffnung, vom Geschoß und vom Umfang der Arbeiten ab. Richtwerte:</p>
       <ul>
-        <li>монтаж в пустой проём (новостройка) — <b>от 28 €/пог. м</b> периметра изделия</li>
-        <li>полная замена с демонтажом и утилизацией старого — <b>от 55 €/пог. м</b></li>
+        <li>Einbau in die leere Öffnung (Neubau) — <b>ab 28 €/lfm</b> des Elementumfangs</li>
+        <li>kompletter Tausch mit Demontage und Entsorgung der Altelemente — <b>ab 55 €/lfm</b></li>
       </ul>
-      <p>Работы по ÖNORM B5320, весь монтажный материал включён. Отдельно считаются:
-         откосы, подоконники и отливы, монтаж рольставень, выезд. Точную цену называем
-         после уточнения объекта.</p>
+      <p>Arbeiten nach ÖNORM B5320, sämtliches Montagematerial inklusive. Gesondert verrechnet werden: Laibungen, Fensterbänke innen und außen, Montage der Rollläden, Anfahrt. Den genauen Preis nennen wir nach Klärung des Objekts.</p>
     </div>
   </div>
 </section>
@@ -372,9 +473,9 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 <main class="wrap" id="kalk">
 
 <div class="modebar">
-  <div class="seg" id="mode" role="group" aria-label="Тип окон">
-    <button type="button" id="md-pvc" aria-pressed="true">Окна в стену</button>
-    <button type="button" id="md-fk" aria-pressed="false">Мансардные · Fakro</button>
+  <div class="seg" id="mode" role="group" aria-label="Fensterart">
+    <button type="button" id="md-pvc" aria-pressed="true">Wandfenster</button>
+    <button type="button" id="md-fk" aria-pressed="false">Dachfenster · Fakro</button>
   </div>
 </div>
 
@@ -385,86 +486,86 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
   <section class="card stage">
     <div class="viewgrid">
       <div>
-        <p class="lbl" style="margin:0 0 8px">Вид изнутри — нажмите на створку</p>
-        <svg class="plan" id="draw" viewBox="0 0 620 470" role="group" aria-label="Схема окна"></svg>
+        <p class="lbl" style="margin:0 0 8px">Ansicht von innen — klicken Sie auf den Flügel</p>
+        <svg class="plan" id="draw" viewBox="0 0 620 470" role="group" aria-label="Fensterskizze"></svg>
         <div class="outside">
-          <p class="lbl" style="margin:0 0 8px">Вид снаружи</p>
-          <svg id="draw-out" viewBox="0 0 620 470" role="img" aria-label="Вид окна снаружи"></svg>
+          <p class="lbl" style="margin:0 0 8px">Ansicht von außen</p>
+          <svg id="draw-out" viewBox="0 0 620 470" role="img" aria-label="Fenster von außen"></svg>
         </div>
       </div>
       <aside class="spec">
-        <h3>Спецификация</h3>
+        <h3>Spezifikation</h3>
         <dl>
-          <dt>Форма</dt><dd id="sp-shape">—</dd>
-          <dt>Профиль</dt><dd id="sp-profil">—</dd>
-          <dt>Стеклопакет</dt><dd id="sp-glas">—</dd>
-          <dt>Фурнитура</dt><dd id="sp-besch">—</dd>
+          <dt>Form</dt><dd id="sp-shape">—</dd>
+          <dt>Profil</dt><dd id="sp-profil">—</dd>
+          <dt>Verglasung</dt><dd id="sp-glas">—</dd>
+          <dt>Beschlag</dt><dd id="sp-besch">—</dd>
           <dd id="sp-link" style="margin-top:4px"></dd>
-          <dt>Цвет</dt><dd id="sp-color">Белый / ядро белое</dd>
-          <dt>Ручка</dt><dd id="sp-griff">—</dd>
-          <dt>Теплопередача Uw</dt><dd id="sp-uw">—</dd>
-          <dt>Шумоизоляция</dt><dd id="sp-rw">—</dd>
-          <dt>Вес изделия</dt><dd id="sp-kg">—</dd>
+          <dt>Farbe</dt><dd id="sp-color">Weiß / Kern weiß</dd>
+          <dt>Griff</dt><dd id="sp-griff">—</dd>
+          <dt>Wärmedurchgang Uw</dt><dd id="sp-uw">—</dd>
+          <dt>Schalldämmung</dt><dd id="sp-rw">—</dd>
+          <dt>Elementgewicht</dt><dd id="sp-kg">—</dd>
         </dl>
       </aside>
     </div>
 
     <div class="facts">
-      <div><span>Размер</span><b id="f-size">—</b></div>
-      <div><span>Площадь</span><b id="f-area">—</b></div>
-      <div><span>Периметр</span><b id="f-per">—</b></div>
-      <div><span>Створок</span><b id="f-sash">—</b></div>
+      <div><span>Maß</span><b id="f-size">—</b></div>
+      <div><span>Fläche</span><b id="f-area">—</b></div>
+      <div><span>Umfang</span><b id="f-per">—</b></div>
+      <div><span>Flügel</span><b id="f-sash">—</b></div>
     </div>
     <p class="note warn" id="warn"></p>
   </section>
 
   <!-- ═══ УПРАВЛЕНИЕ ═══ -->
   <section class="card">
-    <p class="lbl" style="margin:0 0 9px">Типовые окна — можно начать отсюда</p>
+    <p class="lbl" style="margin:0 0 9px">Typische Fenster — ein guter Startpunkt</p>
     <div class="chips" id="presets"></div>
 
     <div class="field">
-      <span class="lbl">Ширина</span>
+      <span class="lbl">Breite</span>
       <div class="dimrow">
-        <input type="number" id="w" value="1200" min="400" max="3000" step="10" aria-label="Ширина, мм">
-        <span class="unit">мм</span>
+        <input type="number" id="w" value="1200" min="400" max="3000" step="10" aria-label="Breite, mm">
+        <span class="unit">mm</span>
       </div>
       <input type="range" id="wr" value="1200" min="400" max="3000" step="10" tabindex="-1" aria-hidden="true">
     </div>
 
     <div class="field">
-      <span class="lbl">Высота</span>
+      <span class="lbl">Höhe</span>
       <div class="dimrow">
-        <input type="number" id="h" value="1400" min="400" max="2500" step="10" aria-label="Высота, мм">
-        <span class="unit">мм</span>
+        <input type="number" id="h" value="1400" min="400" max="2500" step="10" aria-label="Höhe, mm">
+        <span class="unit">mm</span>
       </div>
       <input type="range" id="hr" value="1400" min="400" max="2500" step="10" tabindex="-1" aria-hidden="true">
     </div>
 
     <div class="field">
-      <span class="lbl">Форма верха</span>
-      <div class="seg" role="group" aria-label="Форма верха">
+      <span class="lbl">Form oben</span>
+      <div class="seg" role="group" aria-label="Form oben">
         <button type="button" id="sh-rect">
           <svg viewBox="0 0 46 34" aria-hidden="true"><rect x="3" y="4" width="40" height="26" rx="1.5"/>
-            <rect x="7" y="8" width="32" height="18" class="gl"/></svg>прямо-<br>угольное</button>
+            <rect x="7" y="8" width="32" height="18" class="gl"/></svg>Recht-<br>eckig</button>
         <button type="button" id="sh-arch">
           <svg viewBox="0 0 46 34" aria-hidden="true">
             <path d="M3 30 V15 A20 20 0 0 1 43 15 V30 Z"/>
             <path d="M7 13.5 A16 16 0 0 1 39 13.5 Z" class="gl"/>
             <line x1="6" y1="15" x2="40" y2="15" stroke-width="2"/>
-            <rect x="7" y="17.5" width="32" height="8.5" class="gl"/></svg>арка<br>с отсечкой</button>
+            <rect x="7" y="17.5" width="32" height="8.5" class="gl"/></svg>Bogen<br>mit Kämpfer</button>
         <button type="button" id="sh-full">
           <svg viewBox="0 0 46 34" aria-hidden="true">
             <path d="M3 30 V15 A20 20 0 0 1 43 15 V30 Z"/>
             <path d="M7 26 V15 A16 16 0 0 1 39 15 V26 Z" class="gl"/>
-            <path d="M10 24 V15.5 A13 13 0 0 1 36 15.5 V24 Z" fill="none" stroke-width="1"/></svg>арка<br>без отсечки</button>
+            <path d="M10 24 V15.5 A13 13 0 0 1 36 15.5 V24 Z" fill="none" stroke-width="1"/></svg>Bogen<br>ohne Kämpfer</button>
       </div>
       <div id="risebar" style="display:none;margin-top:10px">
         <div class="dimrow">
-          <span class="lbl" style="min-width:64px">Подъём</span>
+          <span class="lbl" style="min-width:64px">Bogenhöhe</span>
           <input type="number" id="rise" step="10">
-          <span class="unit">мм</span>
-          <button class="chip" type="button" id="halfround">полукруг</button>
+          <span class="unit">mm</span>
+          <button class="chip" type="button" id="halfround">Halbkreis</button>
         </div>
         <input type="range" id="riser" step="10">
       </div>
@@ -474,50 +575,50 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     </div>
 
     <div class="field">
-      <span class="lbl">Деление</span>
-      <div class="seg" id="layout" role="group" aria-label="Деление"></div>
+      <span class="lbl">Teilung</span>
+      <div class="seg" id="layout" role="group" aria-label="Teilung"></div>
     </div>
 
     <div class="field">
-      <span class="lbl">Створка <span id="selinfo" style="color:var(--accent);font-weight:600"></span></span>
+      <span class="lbl">Flügel <span id="selinfo" style="color:var(--accent);font-weight:600"></span></span>
       <div class="tiles" id="tiles"></div>
       <div id="hingebar" style="margin-top:10px">
-        <span class="lbl" style="display:block;margin-bottom:6px">Петли</span>
-        <div class="seg" role="group" aria-label="Сторона петель">
-          <button type="button" id="hg-left">слева</button>
-          <button type="button" id="hg-right">справа</button>
+        <span class="lbl" style="display:block;margin-bottom:6px">Bänder</span>
+        <div class="seg" role="group" aria-label="Bandseite">
+          <button type="button" id="hg-left">links</button>
+          <button type="button" id="hg-right">rechts</button>
         </div>
       </div>
       <p class="note" id="fldnote"></p>
     </div>
 
     <div class="field">
-      <span class="lbl">Профиль</span>
-      <div class="seg" role="group" aria-label="Профиль">
-        <button type="button" id="pr-70">70 мм<br><small>5 камер</small></button>
-        <button type="button" id="pr-82">82 мм<br><small>6 камер</small></button>
-        <button type="button" id="pr-alu">алюминий<br><small>79 мм</small></button>
+      <span class="lbl">Profil</span>
+      <div class="seg" role="group" aria-label="Profil">
+        <button type="button" id="pr-70">70 mm<br><small>5 Kammern</small></button>
+        <button type="button" id="pr-82">82 mm<br><small>6 Kammern</small></button>
+        <button type="button" id="pr-alu">Aluminium<br><small>79 mm</small></button>
       </div>
       <p class="note" id="profnote"></p>
     </div>
 
     <div class="field">
-      <span class="lbl">Стеклопакет</span>
-      <div class="seg" role="group" aria-label="Стеклопакет">
-        <button type="button" id="g-ug11">2 стекла<br>Ug 1,1</button>
-        <button type="button" id="g-ug06">3 стекла<br>Ug 0,6</button>
-        <button type="button" id="g-ug05">3 стекла<br>Ug 0,5</button>
-        <button type="button" id="g-ug05a" hidden>3 стекла<br>Ug 0,5</button>
+      <span class="lbl">Verglasung</span>
+      <div class="seg" role="group" aria-label="Verglasung">
+        <button type="button" id="g-ug11">Zweifach<br>Ug 1,1</button>
+        <button type="button" id="g-ug06">Dreifach<br>Ug 0,6</button>
+        <button type="button" id="g-ug05">Dreifach<br>Ug 0,5</button>
+        <button type="button" id="g-ug05a" hidden>Dreifach<br>Ug 0,5</button>
       </div>
       <p class="note" id="glasnote"></p>
     </div>
 
     <div class="field">
-      <span class="lbl">Цвет профиля</span>
-      <div class="seg" role="group" aria-label="Цвет профиля">
-        <button type="button" id="c-none">белый</button>
-        <button type="button" id="c-out">цвет снаружи</button>
-        <button type="button" id="c-both">с двух сторон</button>
+      <span class="lbl">Profilfarbe</span>
+      <div class="seg" role="group" aria-label="Profilfarbe">
+        <button type="button" id="c-none">weiß</button>
+        <button type="button" id="c-out">Farbe außen</button>
+        <button type="button" id="c-both">beidseitig</button>
       </div>
       <p class="note" id="colornote"></p>
       <p class="note" id="colorfee"></p>
@@ -525,30 +626,30 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     </div>
 
     <div class="field">
-      <span class="lbl">Фурнитура</span>
-      <div class="seg" role="group" aria-label="Фурнитура">
-        <button type="button" id="b-std">обычная</button>
-        <button type="button" id="b-hid">скрытые петли</button>
+      <span class="lbl">Beschlag</span>
+      <div class="seg" role="group" aria-label="Beschlag">
+        <button type="button" id="b-std">aufliegend</button>
+        <button type="button" id="b-hid">verdeckt liegende Bänder</button>
       </div>
       <div id="fwbar" style="display:none;margin-bottom:10px">
         <div class="dimrow">
-          <span class="lbl" style="min-width:64px">Ширина</span>
+          <span class="lbl" style="min-width:64px">Breite</span>
           <input type="number" id="fw" step="10">
-          <span class="unit">мм</span>
-          <button class="chip" type="button" id="fw-eqf">поровну по раме</button>
-          <button class="chip" type="button" id="fw-eqg">поровну по стеклу</button>
+          <span class="unit">mm</span>
+          <button class="chip" type="button" id="fw-eqf">Rahmen teilen</button>
+          <button class="chip" type="button" id="fw-eqg">Glas teilen</button>
         </div>
         <input type="range" id="fwr" step="10">
         <p class="note" id="fwnote"></p>
       </div>
       <p class="note" id="hingenote"></p>
       <details class="how">
-        <summary>Как выглядят скрытые петли</summary>
+        <summary>So sehen verdeckt liegende Bänder aus</summary>
         <div class="howbox">
           <svg viewBox="0 0 320 130" style="width:100%;height:auto" role="img"
-               aria-label="Сравнение обычной и скрытой петли">
-            <text x="78" y="14" text-anchor="middle" font-family="Inter" font-size="11" fill="#6b7b8a">Обычная петля</text>
-            <text x="242" y="14" text-anchor="middle" font-family="Inter" font-size="11" fill="#6b7b8a">Скрытая петля</text>
+               aria-label="Vergleich: aufliegendes und verdeckt liegendes Band">
+            <text x="78" y="14" text-anchor="middle" font-family="Inter" font-size="11" fill="#6b7b8a">Aufliegendes Band</text>
+            <text x="242" y="14" text-anchor="middle" font-family="Inter" font-size="11" fill="#6b7b8a">Verdecktes Band</text>
             <!-- обычная -->
             <rect x="20" y="24" width="116" height="94" rx="2" fill="#fff" stroke="#16202b" stroke-width="1.4"/>
             <rect x="34" y="36" width="88" height="70" rx="1" fill="url(#gsm)" stroke="#16202b" stroke-width="1"/>
@@ -563,87 +664,85 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
               <stop offset=".52" stop-color="#f4fafd"/><stop offset=".68" stop-color="#c6e0f2"/>
               <stop offset="1" stop-color="#dceaf6"/></linearGradient></defs>
           </svg>
-          <p>MACO MULTI POWER: петли полностью убраны в фальц, снаружи створки
-             ничего не выступает. Створка до 150 кг, ширина фальца створки
-             370–1400 мм — поэтому на узких окнах такая фурнитура невозможна.</p>
+          <p>MACO MULTI POWER: Die Bänder liegen vollständig im Falz, außen steht nichts vor. Flügelgewicht bis 150 kg, Flügelfalzbreite 370–1400 mm — bei schmalen Fenstern ist dieser Beschlag deshalb nicht möglich.</p>
           <p><a href="https://www.maco.eu/de-CH/Produkte-Services/Fensterlosungen/Dreh-Kipp/MACO-Multi-Power/MULTI-POWER-mit-Lastabtragung"
-                target="_blank" rel="noopener">Страница MACO о MULTI POWER →</a></p>
+                target="_blank" rel="noopener">MACO-Seite zu MULTI POWER →</a></p>
         </div>
       </details>
     </div>
 
     <div class="field">
-      <span class="lbl">Дополнительно</span>
+      <span class="lbl">Zusätzlich</span>
       <div class="opts">
         <label class="opt"><input type="checkbox" id="o-tuer">
-          <span>Балконная дверь с алюминиевым порогом</span></label>
+          <span>Balkontür mit Alu-Bodenschwelle</span></label>
         <label class="opt"><input type="checkbox" id="o-regel">
-          <span>Приточный клапан REGEL-air</span></label>
+          <span>Falzlüfter REGEL-air</span></label>
         <label class="opt"><input type="checkbox" id="o-mesh">
-          <span>Москитная сетка на створку</span></label>
+          <span>Insektenschutz für den Flügel</span></label>
         <label class="opt"><input type="checkbox" id="o-spross">
-          <span>Шпросы наклеенные 27 мм</span></label>
+          <span>Aufgeklebte Sprossen 27 mm</span></label>
         <label class="opt"><input type="checkbox" id="o-vsg">
-          <span>Безопасное стекло, триплекс 33.1 внутри</span></label>
+          <span>Sicherheitsglas, VSG 33.1 innen</span></label>
         <label class="opt"><input type="checkbox" id="o-roll">
-          <span>Наружная рольставня</span></label>
+          <span>Vorbaurollladen</span></label>
         <label class="opt"><input type="checkbox" id="o-zip">
-          <span>Зип-штора наружная (SUN WINNER)</span></label>
+          <span>ZIP-Screen außen (SUN WINNER)</span></label>
       </div>
       <div id="zipbar" style="display:none;margin-top:10px">
-        <div class="seg" role="group" aria-label="Система зип-шторы">
+        <div class="seg" role="group" aria-label="ZIP-Screen-System">
           <button type="button" id="z-slim">95 SLIM</button>
           <button type="button" id="z-std">95 Standard</button>
         </div>
         <div style="margin-top:12px">
-          <span class="lbl">Ткань</span>
-          <select class="sel" id="z-fab" aria-label="Ткань зип-шторы"></select>
+          <span class="lbl">Stoff</span>
+          <select class="sel" id="z-fab" aria-label="ZIP-Screen-Stoff"></select>
         </div>
         <div style="margin-top:10px">
-          <span class="lbl">Цвет короба и направляющих</span>
-          <select class="sel" id="z-col" aria-label="Цвет зип-шторы"></select>
+          <span class="lbl">Farbe von Kasten und Führungsschienen</span>
+          <select class="sel" id="z-col" aria-label="ZIP-Screen-Farbe"></select>
         </div>
         <div style="margin-top:10px">
-          <span class="lbl">Привод</span>
-          <select class="sel" id="z-motor" aria-label="Привод зип-шторы"></select>
+          <span class="lbl">Antrieb</span>
+          <select class="sel" id="z-motor" aria-label="ZIP-Screen-Antrieb"></select>
         </div>
         <div style="margin-top:10px">
-          <span class="lbl">Управление</span>
-          <select class="sel" id="z-ctrl" aria-label="Управление зип-шторой"></select>
+          <span class="lbl">Steuerung</span>
+          <select class="sel" id="z-ctrl" aria-label="ZIP-Screen-Steuerung"></select>
         </div>
         <p class="note" id="zipnote"></p>
         <p class="note warn" id="zipwarn"></p>
       </div>
       <div id="sprossbar" style="display:none;margin-top:10px">
-        <span class="lbl">Сетка шпросов в поле</span>
+        <span class="lbl">Sprossengitter im Feld</span>
         <div style="display:flex;gap:10px">
-          <select class="sel" id="sp-v" aria-label="Вертикальных перекладин">
-            <option value="0">0 вертикальных</option>
-            <option value="1">1 вертикальная</option>
-            <option value="2">2 вертикальные</option>
-            <option value="3">3 вертикальные</option>
+          <select class="sel" id="sp-v" aria-label="Senkrechte Sprossen">
+            <option value="0">0 senkrecht</option>
+            <option value="1">1 senkrecht</option>
+            <option value="2">2 senkrecht</option>
+            <option value="3">3 senkrecht</option>
           </select>
-          <select class="sel" id="sp-h" aria-label="Горизонтальных перекладин">
-            <option value="0">0 горизонтальных</option>
-            <option value="1">1 горизонтальная</option>
-            <option value="2">2 горизонтальные</option>
-            <option value="3">3 горизонтальные</option>
-            <option value="4">4 горизонтальные</option>
+          <select class="sel" id="sp-h" aria-label="Waagrechte Sprossen">
+            <option value="0">0 waagrecht</option>
+            <option value="1">1 waagrecht</option>
+            <option value="2">2 waagrecht</option>
+            <option value="3">3 waagrecht</option>
+            <option value="4">4 waagrecht</option>
           </select>
         </div>
         <p class="note" id="sprossnote"></p>
       </div>
       <div id="rollbar" style="display:none;margin-top:10px">
-        <div class="seg" role="group" aria-label="Привод рольставни">
-          <button type="button" id="rd-gurt">ремень</button>
-          <button type="button" id="rd-motor">мотор</button>
+        <div class="seg" role="group" aria-label="Rollladenantrieb">
+          <button type="button" id="rd-gurt">Gurt</button>
+          <button type="button" id="rd-motor">Motor</button>
         </div>
         <div style="margin-top:10px">
-          <span class="lbl">Ящик</span>
-          <select class="sel" id="rd-box" aria-label="Высота ящика рольставни">
-            <option value="137">137 мм</option>
-            <option value="165">165 мм</option>
-            <option value="180">180 мм</option>
+          <span class="lbl">Kasten</span>
+          <select class="sel" id="rd-box" aria-label="Höhe des Rollladenkastens">
+            <option value="137">137 mm</option>
+            <option value="165">165 mm</option>
+            <option value="180">180 mm</option>
           </select>
         </div>
         <p class="note" id="rollnote"></p>
@@ -652,29 +751,26 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     </div>
 
     <div class="field">
-      <span class="lbl">Количество</span>
+      <span class="lbl">Anzahl</span>
       <div class="stepper">
-        <button class="stepbtn" id="q-minus" type="button" aria-label="меньше">−</button>
+        <button class="stepbtn" id="q-minus" type="button" aria-label="weniger">−</button>
         <span class="stepval" id="q-val">1</span>
-        <button class="stepbtn" id="q-plus" type="button" aria-label="больше">+</button>
+        <button class="stepbtn" id="q-plus" type="button" aria-label="mehr">+</button>
       </div>
     </div>
 
     <div class="price">
       <table>
-        <tr><td>Изделие <span id="p-qty"></span></td><td id="p-window">—</td></tr>
-        <tr class="sum"><td>Нетто</td><td id="p-netto">—</td></tr>
-        <tr><td>НДС 20 %</td><td id="p-vat">—</td></tr>
-        <tr class="total"><td>Брутто</td><td id="p-brutto">—</td></tr>
+        <tr><td>Element <span id="p-qty"></span></td><td id="p-window">—</td></tr>
+        <tr class="sum"><td>Netto</td><td id="p-netto">—</td></tr>
+        <tr><td>20 % MwSt.</td><td id="p-vat">—</td></tr>
+        <tr class="total"><td>Brutto</td><td id="p-brutto">—</td></tr>
       </table>
-      <p class="note">Цена изделия без доставки и монтажа. Размеры указывает заказчик,
-         выезд на замер — за отдельную плату.<br>
-         Доставка по Австрии бесплатно при заказе от 4200 € нетто; на меньшую сумму —
-         по договорённости.<br>Срок поставки 3–4 недели, срочное исполнение за 2 недели —
-         по предварительному запросу.</p>
+      <p class="note">Preis des Elements ohne Lieferung und Montage. Die Maße gibt der Auftraggeber an, das Aufmaß vor Ort erfolgt gegen gesonderte Verrechnung.<br>
+         Lieferung innerhalb Österreichs ab 4200 € netto kostenlos; bei kleineren Aufträgen nach Vereinbarung.<br>Lieferzeit 3–4 Wochen, Expressfertigung in 2 Wochen — nach vorheriger Anfrage.</p>
     </div>
 
-    <button class="btn" type="button" id="add">Добавить в заявку</button>
+    <button class="btn" type="button" id="add">Zur Anfrage hinzufügen</button>
   </section>
 </div>
 </div><!-- /pane-pvc -->
@@ -686,159 +782,149 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
   <section class="card stage">
     <div class="viewgrid">
       <div>
-        <p class="lbl" style="margin:0 0 8px">Вид изнутри</p>
-        <svg class="plan" id="fk-draw" viewBox="0 0 620 470" role="img" aria-label="Схема мансардного окна"></svg>
+        <p class="lbl" style="margin:0 0 8px">Ansicht von innen</p>
+        <svg class="plan" id="fk-draw" viewBox="0 0 620 470" role="img" aria-label="Skizze Dachfenster"></svg>
       </div>
       <aside class="spec">
-        <h3>Спецификация</h3>
+        <h3>Spezifikation</h3>
         <dl>
-          <dt>Модель</dt><dd id="fk-sp-model">—</dd>
-          <dt>Материал</dt><dd id="fk-sp-mat">—</dd>
-          <dt>Стеклопакет</dt><dd id="fk-sp-glas">—</dd>
-          <dt>Теплопередача Uw</dt><dd id="fk-sp-uw">—</dd>
-          <dt>Шумоизоляция</dt><dd id="fk-sp-rw">—</dd>
-          <dt>Пропускание тепла g</dt><dd id="fk-sp-g">—</dd>
-          <dt>Уклон кровли</dt><dd id="fk-sp-neig">—</dd>
-          <dt>Ручка</dt><dd id="fk-sp-griff">—</dd>
+          <dt>Modell</dt><dd id="fk-sp-model">—</dd>
+          <dt>Material</dt><dd id="fk-sp-mat">—</dd>
+          <dt>Verglasung</dt><dd id="fk-sp-glas">—</dd>
+          <dt>Wärmedurchgang Uw</dt><dd id="fk-sp-uw">—</dd>
+          <dt>Schalldämmung</dt><dd id="fk-sp-rw">—</dd>
+          <dt>g-Wert</dt><dd id="fk-sp-g">—</dd>
+          <dt>Dachneigung</dt><dd id="fk-sp-neig">—</dd>
+          <dt>Griff</dt><dd id="fk-sp-griff">—</dd>
         </dl>
       </aside>
     </div>
     <div class="facts">
-      <div><span>Размер</span><b id="fk-f-size">—</b></div>
-      <div><span>Код Fakro</span><b id="fk-f-code">—</b></div>
-      <div><span>Световая площадь</span><b id="fk-f-licht">—</b></div>
-      <div><span>Ug стекла</span><b id="fk-f-ug">—</b></div>
+      <div><span>Maß</span><b id="fk-f-size">—</b></div>
+      <div><span>Fakro-Code</span><b id="fk-f-code">—</b></div>
+      <div><span>Lichtfläche</span><b id="fk-f-licht">—</b></div>
+      <div><span>Ug des Glases</span><b id="fk-f-ug">—</b></div>
     </div>
-    <p class="note">Мансардное окно поворотное: створка вращается вокруг горизонтальной
-       оси в середине высоты. Размеры у Fakro фиксированные — выбираются из списка,
-       произвольный размер только по отдельному запросу.</p>
+    <p class="note">Schwingfenster: Der Flügel dreht sich um eine waagrechte Achse in halber Höhe. Die Maße bei Fakro sind fix und werden aus der Liste gewählt, Sondermaße nur auf gesonderte Anfrage.</p>
   </section>
 
   <section class="card">
 
     <div class="field">
-      <span class="lbl">Материал</span>
-      <div class="seg" role="group" aria-label="Материал">
-        <button type="button" id="fk-m-holz">дерево<br><small>FTP-V</small></button>
-        <button type="button" id="fk-m-pu">дерево + ПУ<br><small>FTU-V</small></button>
-        <button type="button" id="fk-m-pvc">ПВХ<br><small>PTP-V</small></button>
+      <span class="lbl">Material</span>
+      <div class="seg" role="group" aria-label="Material">
+        <button type="button" id="fk-m-holz">Holz<br><small>FTP-V</small></button>
+        <button type="button" id="fk-m-pu">Holz + PU<br><small>FTU-V</small></button>
+        <button type="button" id="fk-m-pvc">Kunststoff<br><small>PTP-V</small></button>
       </div>
-      <p class="note">Дерево — сосна, снаружи алюминиевая накладка. «Дерево + ПУ» —
-         та же сосна под белым полиуретановым покрытием, для влажных помещений.
-         ПВХ — камерный профиль с оцинкованным стальным усилением.</p>
+      <p class="note">Holz ist Kiefer, außen mit Aluminiumschale. „Holz + PU“ ist dieselbe Kiefer unter weißer Polyurethanbeschichtung, für Feuchträume. Kunststoff ist ein Kammerprofil mit verzinkter Stahlaussteifung.</p>
     </div>
 
     <div class="field">
-      <span class="lbl">Стеклопакет</span>
-      <div class="seg" role="group" aria-label="Стеклопакет">
+      <span class="lbl">Verglasung</span>
+      <div class="seg" role="group" aria-label="Verglasung">
         <button type="button" id="fk-g-P20">P20<br>Ug 1,0</button>
         <button type="button" id="fk-g-P50">P50<br>Ug 0,55</button>
         <button type="button" id="fk-g-R50">R50<br>Ug 0,6</button>
       </div>
-      <p class="note">Внутреннее стекло во всех пакетах — триплекс, это требование
-         к окну над головой. В P20 и P50 добавлена звукопоглощающая плёнка,
-         в P50 наружное стекло ещё и самоочищающееся.</p>
+      <p class="note">Die innere Scheibe ist in allen Paketen VSG — das ist bei Überkopfverglasung vorgeschrieben. Bei P20 und P50 kommt eine schalldämmende Folie dazu, bei P50 ist die äußere Scheibe zusätzlich selbstreinigend.</p>
     </div>
 
     <div class="field" id="fk-drivebar">
-      <span class="lbl">Открывание</span>
-      <div class="seg" role="group" aria-label="Открывание">
-        <button type="button" id="fk-d-hand">вручную</button>
-        <button type="button" id="fk-d-el">электро<br><small>Z-Wave / Solar</small></button>
+      <span class="lbl">Öffnungsart</span>
+      <div class="seg" role="group" aria-label="Öffnungsart">
+        <button type="button" id="fk-d-hand">manuell</button>
+        <button type="button" id="fk-d-el">elektrisch<br><small>Z-Wave / Solar</small></button>
       </div>
       <p class="note" id="fk-drivenote"></p>
     </div>
 
     <div class="field">
-      <span class="lbl">Размер</span>
-      <select class="sel" id="fk-size" aria-label="Размер окна"></select>
-      <p class="note">Указан наружный размер коробки. Код нужен при заказе.</p>
+      <span class="lbl">Maß</span>
+      <select class="sel" id="fk-size" aria-label="Fenstermaß"></select>
+      <p class="note">Angegeben ist das Außenmaß des Blendrahmens. Der Code wird bei der Bestellung benötigt.</p>
     </div>
 
     <div class="field">
       <label class="opt"><input type="checkbox" id="fk-profi">
-        <span>Комплект Profi Kombi I</span></label>
+        <span>Set Profi Kombi I</span></label>
       <p class="note" id="fk-profinote"></p>
     </div>
 
     <div class="field">
-      <span class="lbl">Оклад</span>
-      <select class="sel" id="fk-rahm" aria-label="Оклад"></select>
+      <span class="lbl">Eindeckrahmen</span>
+      <select class="sel" id="fk-rahm" aria-label="Eindeckrahmen"></select>
       <p class="note" id="fk-rahmnote"></p>
     </div>
 
     <div class="field">
       <label class="opt"><input type="checkbox" id="fk-kupfer">
-        <span>Наружная облицовка медь или титан-цинк<b class="pz"> · 300,00 €</b></span></label>
+        <span>Außenverkleidung Kupfer oder Titanzink<b class="pz"> · 300,00 €</b></span></label>
     </div>
 
     <div class="field">
-      <span class="lbl">Внутренние шторы и сетки</span>
+      <span class="lbl">Innenrollos und Insektenschutz</span>
       <div class="acclist" id="fk-acc-in"></div>
-      <span class="lbl" style="display:block;margin-top:14px">Наружные маркизы и рольставни</span>
+      <span class="lbl" style="display:block;margin-top:14px">Außenmarkisen und Rollläden</span>
       <div class="acclist" id="fk-acc-out"></div>
       <label class="opt" style="margin-top:10px"><input type="checkbox" id="fk-pg2">
-        <span>Ткань второй ценовой группы</span></label>
-      <p class="note">Доплата за вторую группу ткани: 25 € для внутренних штор,
-         35 € для наружных маркиз. На москитную сетку AMS и рольставни ARZ
-         эта доплата не распространяется.</p>
+        <span>Stoff der zweiten Preisgruppe</span></label>
+      <p class="note">Aufpreis für die zweite Stoffgruppe: 25 € bei Innenrollos, 35 € bei Außenmarkisen. Für das Insektenschutzrollo AMS und den Rollladen ARZ gilt dieser Aufpreis nicht.</p>
     </div>
 
     <div class="field">
-      <span class="lbl">Принадлежности</span>
+      <span class="lbl">Zubehör</span>
       <div class="acclist" id="fk-fix"></div>
-      <p class="note">Штанга нужна, если окно стоит высоко и до ручки не дотянуться.
-         Для электрических окон и аксессуаров пульт обязателен — в цену окна он не входит.</p>
+      <p class="note">Die Stange wird gebraucht, wenn das Fenster hoch sitzt und der Griff nicht erreichbar ist. Bei elektrischen Fenstern und Zubehör ist eine Fernbedienung zwingend nötig — im Fensterpreis ist sie nicht enthalten.</p>
     </div>
 
     <div class="field">
-      <span class="lbl">Количество</span>
+      <span class="lbl">Anzahl</span>
       <div class="stepper">
-        <button class="stepbtn" id="fk-q-minus" type="button" aria-label="меньше">&minus;</button>
+        <button class="stepbtn" id="fk-q-minus" type="button" aria-label="weniger">&minus;</button>
         <span class="stepval" id="fk-q-val">1</span>
-        <button class="stepbtn" id="fk-q-plus" type="button" aria-label="больше">+</button>
+        <button class="stepbtn" id="fk-q-plus" type="button" aria-label="mehr">+</button>
       </div>
     </div>
 
     <div class="price">
       <table class="fk-rows"><tbody id="fk-rows"></tbody></table>
       <table style="margin-top:8px">
-        <tr class="sum"><td>Нетто</td><td id="fk-netto">—</td></tr>
-        <tr><td>НДС 20 %</td><td id="fk-vat">—</td></tr>
-        <tr class="total"><td>Брутто</td><td id="fk-brutto">—</td></tr>
+        <tr class="sum"><td>Netto</td><td id="fk-netto">—</td></tr>
+        <tr><td>20 % MwSt.</td><td id="fk-vat">—</td></tr>
+        <tr class="total"><td>Brutto</td><td id="fk-brutto">—</td></tr>
       </table>
-      <p class="note">Доставка мансардных окон по Австрии включена в цену —
-         до бордюра по указанному адресу. Монтаж не входит.</p>
+      <p class="note">Die Lieferung der Dachfenster innerhalb Österreichs ist im Preis enthalten — bis zum Bordstein an die angegebene Adresse. Die Montage ist nicht enthalten.</p>
     </div>
 
-    <button class="btn" type="button" id="fk-add">Добавить в заявку</button>
+    <button class="btn" type="button" id="fk-add">Zur Anfrage hinzufügen</button>
   </section>
 </div>
 </div><!-- /pane-fk -->
 
 <!-- ═══ КОРЗИНА ═══ -->
-<h2 class="sec" id="korb">Ваша заявка</h2>
+<h2 class="sec" id="korb">Ihre Anfrage</h2>
 <section class="card">
-  <div id="list-box"><p class="empty">Пока пусто. Соберите окно выше и нажмите «Добавить в заявку».</p></div>
+  <div id="list-box"><p class="empty">Noch leer. Stellen Sie oben ein Fenster zusammen und klicken Sie auf „Zur Anfrage hinzufügen“.</p></div>
 
-  <h3 style="font-family:var(--head);font-size:16px;margin:26px 0 2px">Контактные данные</h3>
-  <p class="note">Все поля необязательные — заполните то, что считаете нужным.</p>
+  <h3 style="font-family:var(--head);font-size:16px;margin:26px 0 2px">Kontaktdaten</h3>
+  <p class="note">Alle Felder sind freiwillig — füllen Sie aus, was Sie für nötig halten.</p>
   <div class="form">
-    <div class="inp"><label for="c-fam">Фамилия</label><input type="text" id="c-fam" autocomplete="family-name"></div>
-    <div class="inp"><label for="c-imya">Имя</label><input type="text" id="c-imya" autocomplete="given-name"></div>
-    <div class="inp"><label for="c-otch">Отчество</label><input type="text" id="c-otch"></div>
-    <div class="inp"><label for="c-tel">Телефон</label><input type="text" id="c-tel" autocomplete="tel" inputmode="tel"></div>
-    <div class="inp"><label for="c-mail">Электронная почта</label><input type="text" id="c-mail" autocomplete="email" inputmode="email"></div>
+    <div class="inp"><label for="c-fam">Nachname</label><input type="text" id="c-fam" autocomplete="family-name"></div>
+    <div class="inp"><label for="c-imya">Vorname</label><input type="text" id="c-imya" autocomplete="given-name"></div>
+    <div class="inp"><label for="c-otch">Zweiter Vorname</label><input type="text" id="c-otch"></div>
+    <div class="inp"><label for="c-tel">Telefon</label><input type="text" id="c-tel" autocomplete="tel" inputmode="tel"></div>
+    <div class="inp"><label for="c-mail">E-Mail</label><input type="text" id="c-mail" autocomplete="email" inputmode="email"></div>
   </div>
 
-  <h3 style="font-family:var(--head);font-size:16px;margin:26px 0 2px">Куда доставить</h3>
-  <p class="note">Если изделия едут на разные объекты, добавьте второй адрес и допишите в примечании, что куда.</p>
+  <h3 style="font-family:var(--head);font-size:16px;margin:26px 0 2px">Lieferadresse</h3>
+  <p class="note">Wenn die Elemente an verschiedene Objekte gehen, fügen Sie eine zweite Adresse hinzu und vermerken Sie in der Anmerkung, was wohin geliefert wird.</p>
   <div id="addrs"></div>
-  <button class="btn sec" type="button" id="add-addr" style="margin-top:12px">+ Ещё один адрес</button>
+  <button class="btn sec" type="button" id="add-addr" style="margin-top:12px">+ Weitere Adresse</button>
 
   <div class="form" style="margin-top:16px">
-    <div class="inp full"><label for="c-note">Примечание</label><input type="text" id="c-note"
-      placeholder="этаж, сроки, какие изделия на какой адрес"></div>
+    <div class="inp full"><label for="c-note">Anmerkung</label><input type="text" id="c-note"
+      placeholder="Geschoß, Termine, welche Elemente an welche Adresse"></div>
   </div>
 
   <label class="consent">
@@ -847,21 +933,20 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu.</span>
   </label>
 
-  <button class="btn" type="button" id="send">Отправить заявку</button>
-  <button class="btn sec" type="button" id="copy" style="margin-top:10px">Скопировать текст заявки</button>
-  <button class="btn sec" type="button" id="pdf" style="margin-top:10px">Скачать заявку PDF</button>
-  <p class="note" id="send-hint">Заявка уйдёт нам на почту. Если что-то пойдёт не так —
-     скопируйте текст и пришлите его в WhatsApp.</p>
+  <button class="btn" type="button" id="send">Anfrage senden</button>
+  <button class="btn sec" type="button" id="copy" style="margin-top:10px">Anfragetext kopieren</button>
+  <button class="btn sec" type="button" id="pdf" style="margin-top:10px">Anfrage als PDF</button>
+  <p class="note" id="send-hint">Die Anfrage geht an unsere E-Mail-Adresse. Falls etwas nicht klappt, kopieren Sie den Text und senden Sie ihn uns über WhatsApp.</p>
 
   <!-- Скрытая форма отправки. Действие ведёт на FormSubmit;
        ТОКЕН-FORMSUBMIT заменить на токен, который выдадут после первой отправки,
        чтобы почта не светилась в коде страницы. -->
   <form id="fs-form" action="https://formsubmit.co/bengameen62570@gmail.com"
         method="POST" style="display:none">
-    <input type="hidden" name="_subject" value="Neue Anfrage — FensterPreis">
+    <input type="hidden" name="_subject" value="Neue Anfrage — FensterRechner">
     <input type="hidden" name="_template" value="box">
     <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://fensterpreis.at/danke.html">
+    <input type="hidden" name="_next" value="https://fensterrechner.at/danke.html">
     <input type="hidden" name="Kontakt"  id="fs-kontakt">
     <input type="hidden" name="Anfrage"  id="fs-text">
   </form>
@@ -869,28 +954,27 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 </main>
 
 <div class="dock" id="dock">
-  <div class="d-sum"><span>Брутто</span><b id="d-price">—</b></div>
-  <button class="btn" type="button" id="d-add">В заявку</button>
+  <div class="d-sum"><span>Brutto</span><b id="d-price">—</b></div>
+  <button class="btn" type="button" id="d-add">Zur Anfrage</button>
 </div>
 
 <footer>
   <div class="wrap">
     <div class="cols">
       <div>
-        <h4>FensterPreis</h4>
-        <p>Поставка пластиковых окон и балконных дверей Drutex по всей Австрии.
-           Работаем с НДС, счёт с UID.</p>
+        <h4>FensterRechner</h4>
+        <p>Lieferung von Kunststofffenstern und Balkontüren von Drutex in ganz Österreich. Wir arbeiten mit Umsatzsteuer, Rechnung mit UID.</p>
       </div>
       <div>
-        <h4>Контакты</h4>
+        <h4>Kontakt</h4>
         <ul>
-          <li>+43 681 81380389</li>
+          <li>+43 681 84352477</li>
           <li>bengameen62570@gmail.com</li>
           <li>Seitenstettengasse 5/37, 1010 Wien</li>
         </ul>
       </div>
       <div>
-        <h4>Правовая информация</h4>
+        <h4>Rechtliches</h4>
         <ul>
           <li><a href="impressum.html">Impressum</a></li>
           <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
@@ -899,23 +983,17 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
         </ul>
       </div>
       <div>
-        <h4>Комплектация</h4>
+        <h4>Ausstattung</h4>
         <ul>
-          <li>Профиль Drutex, 5 и 6 камер</li>
-          <li>Фурнитура MACO Multi-Matic</li>
-          <li>Скрытые петли MACO Multi Power</li>
-          <li>Рольставни, москитные сетки — по запросу</li>
+          <li>Profil Drutex, 5 und 6 Kammern</li>
+          <li>Beschlag MACO Multi-Matic</li>
+          <li>Verdeckt liegende Bänder MACO Multi Power</li>
+          <li>Rollläden und Insektenschutz — auf Anfrage</li>
         </ul>
       </div>
     </div>
     <p class="fine">
-      Цены в калькуляторе ориентировочные и не являются офертой. Окончательная стоимость
-      определяется после уточнения размеров и условий доставки. Двухкамерное остекление
-      4/16/4 (Ug 1,1 Вт/м²·К) в профиле 70 мм, энергосберегающее 4/18/4/18/4 (Ug 0,5 Вт/м²·К)
-      в профиле 82 мм. Скрытые петли MACO Multi Power возможны при ширине створки от 500 мм.
-      Монтаж в цену не входит и обсуждается индивидуально. Подоконники и отливы мы
-      не поставляем. На крупных изделиях производитель может ставить более толстое
-      или закалённое стекло — такая доплата в расчёте не учтена.
+      Die Preise im Rechner sind Richtwerte und stellen kein verbindliches Angebot dar. Der endgültige Preis ergibt sich nach Klärung der Maße und der Lieferbedingungen. Zweifachverglasung 4/16/4 (Ug 1,1 W/m²·K) im 70-mm-Profil, Wärmeschutzverglasung 4/18/4/18/4 (Ug 0,5 W/m²·K) im 82-mm-Profil. Verdeckt liegende Bänder MACO Multi Power sind ab einer Flügelbreite von 500 mm möglich. Die Montage ist nicht im Preis enthalten und wird individuell vereinbart. Fensterbänke innen und außen liefern wir nicht. Bei großen Elementen setzt der Hersteller unter Umständen dickeres oder vorgespanntes Glas ein — dieser Aufpreis ist in der Berechnung nicht berücksichtigt.
     </p>
   </div>
 </footer>
@@ -923,7 +1001,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 <script>
 /* ═══════════ ЦЕНЫ ═══════════ */
 const SYS = {
-  iglo5: { profil:'Drutex IGLO 5, 5 камер, 70 мм', tiefe:70, frameKg:2.75,
+  iglo5: { profil:'Drutex IGLO 5, 5 Kammern, 70 mm', tiefe:70, frameKg:2.75,
     geo:{ frame:66, mullion:84, stulp:68, sashInset:100, glassAdd:32 },
     r:{ perim:9.96, glass:47.56, sashPerim:9.93, mullion:21.10, mullionFix:8.80,
         stulpBar:7.50, sash:36.11, min:63.20, hoherFluegel:16.00 },
@@ -935,7 +1013,7 @@ const SYS = {
        на крупных изделиях). Вес: стекло 4/16/4 = 20 кг/м², профиль 2,75 кг/пог. м —
        фит по позициям 1, 5, 7, 12, 13, расхождение до 4 %. */
   },
-  energy:{ profil:'Drutex IGLO ENERGY, 6 камер, 82 мм', tiefe:82, frameKg:3.33,
+  energy:{ profil:'Drutex IGLO ENERGY, 6 Kammern, 82 mm', tiefe:82, frameKg:3.33,
     geo:{ frame:74, mullion:100, stulp:80, sashInset:100, glassAdd:42 },
     r:{ perim:14.77, glass:55.78, sashPerim:14.73, mullion:31.29, mullionFix:13.05,
         stulpBar:7.50, sash:53.55, min:93.70, hoherFluegel:16.00 },
@@ -956,7 +1034,7 @@ const SYS = {
        600×600 ПО        290,53 против 282,85   (+2,7 %)
      Геометрия из тех же позиций: рама 69,5, импост 94,5, створка съедает 89 мм.
      Минимальной цены не видно — на 600×600 модель работает без ограничителя. */
-  alu:   { profil:'Алюминий MB-79N E, 79 мм', tiefe:79, frameKg:1.67,
+  alu:   { profil:'Aluminium MB-79N E, 79 mm', tiefe:79, frameKg:1.67,
            griff:'Alu Mistral',
     geo:{ frame:69.5, mullion:94.5, stulp:94.5, sashInset:89, glassAdd:32 },
     r:{ perim:38.04, glass:140.95, sashPerim:22.59, mullion:68.99, mullionFix:68.99,
@@ -1023,13 +1101,13 @@ const SYS = {
        ДО ВЫЯСНЕНИЯ сочетание «арка + штульп» из калькулятора выдавать нельзя —
        занижение на 25–40 %. */
 const ARCH = {
-  rect:    { k:1.00, label:'Прямоугольное', short:'' },
-  arch:    { k:1.00, add:87, label:'Арка с отсечкой',
-             short:'арка с отсечкой',
-             note:'Глухое арочное поле сверху, под ним импост, ниже обычные створки.' },
-  archfull:{ k:1.74, add:0, label:'Арка без отсечки',
-             short:'арка без отсечки',
-             note:'Створки гнутые по дуге, импоста под аркой нет. Дороже и сложнее в изготовлении.' }
+  rect:    { k:1.00, label:'Rechteckig', short:'' },
+  arch:    { k:1.00, add:87, label:'Bogen mit Kämpfer',
+             short:'Bogen mit Kämpfer',
+             note:'Oben ein festverglastes Bogenfeld, darunter ein Kämpfer und normale Flügel.' },
+  archfull:{ k:1.74, add:0, label:'Bogen ohne Kämpfer',
+             short:'Bogen ohne Kämpfer',
+             note:'Die Flügel sind bogenförmig gerundet, unter dem Bogen sitzt kein Kämpfer. Teurer und aufwändiger in der Fertigung.' }
 };
 /* Круговой сегмент по хорде и подъёму: площадь, длина дуги. */
 function seg(chord, rise){
@@ -1040,23 +1118,23 @@ function seg(chord, rise){
 }
 
 const GLAS = {
-  ug11:{ prof:'iglo5', label:'2 стекла · Ug 1,1', short:'2 стекла',
-         glas:'4/16/4 с аргоном, Ug 1,1 Вт/м²·К',
+  ug11:{ prof:'iglo5', label:'Zweifach · Ug 1,1', short:'Zweifach',
+         glas:'4/16/4 mit Argon, Ug 1,1 W/m²·K',
          add:{m2:0, m:0},
          th:{ ug:1.1, uf:1.096, psi:0.0814, rw:33, glassKg:20.0 } },
-  ug06:{ prof:'iglo5', label:'3 стекла · Ug 0,6', short:'3 стекла Ug 0,6',
-         glas:'4/14/4/14/4 с аргоном, тёплая рамка, Ug 0,6 Вт/м²·К',
+  ug06:{ prof:'iglo5', label:'Dreifach · Ug 0,6', short:'Dreifach Ug 0,6',
+         glas:'4/14/4/14/4 mit Argon, warme Kante, Ug 0,6 W/m²·K',
          add:{m2:26.69, m:1.04},
          th:{ ug:0.6, uf:1.437, psi:0.0111, rw:36, glassKg:30.0 } },
   /* тот же пакет, что в 82-мм ПВХ, но в алюминии рама холоднее: Uf и psi подобраны
      по шести значениям Uw из 613654 — совпадение на всех шести до 0,01.
      Вес: стекло 29,7 кг/м², профиль 1,67 кг/м — расхождение до 1 %. */
-  ug05a:{ prof:'alu', label:'3 стекла · Ug 0,5', short:'3 стекла Ug 0,5',
-         glas:'4/18/4/18/4 с аргоном, Ug 0,5 Вт/м²·К',
+  ug05a:{ prof:'alu', label:'Dreifach · Ug 0,5', short:'Dreifach Ug 0,5',
+         glas:'4/18/4/18/4 mit Argon, Ug 0,5 W/m²·K',
          add:{m2:0, m:0},
          th:{ ug:0.5, uf:2.039, psi:0.0667, rw:34, glassKg:29.7 } },
-  ug05:{ prof:'energy', label:'3 стекла · Ug 0,5', short:'3 стекла Ug 0,5',
-         glas:'4/18/4/18/4 с аргоном, Ug 0,5 Вт/м²·К',
+  ug05:{ prof:'energy', label:'Dreifach · Ug 0,5', short:'Dreifach Ug 0,5',
+         glas:'4/18/4/18/4 mit Argon, Ug 0,5 W/m²·K',
          add:{m2:0, m:0},
          th:{ ug:0.5, uf:0.795, psi:0.0814, rw:37, glassKg:30.0 } },
 };
@@ -1208,45 +1286,45 @@ const ZIP = {
 
   /* Доплата за ткань, € за м². SOLTIS 7635 входит в цену. Стр. 32 и 36.
      Считается по площади той клетки, по которой взята цена. */
-  fab:{ s7635:{label:'SOLTIS 7635 · открытость 5 %', v:0},
-        serge600:{label:'SERGE 600 · открытость 5 %', v:5},
-        s86:{label:'SOLTIS 86 · открытость 14 %', v:7},
-        serge100:{label:'SERGE 100 · открытость 1 %', v:8},
-        s92:{label:'SOLTIS 92 · открытость 4 %', v:10},
-        lunar:{label:'SERGE 600 BO LUNAR · блэкаут', v:32} },
+  fab:{ s7635:{label:'SOLTIS 7635 · Öffnungsfaktor 5 %', v:0},
+        serge600:{label:'SERGE 600 · Öffnungsfaktor 5 %', v:5},
+        s86:{label:'SOLTIS 86 · Öffnungsfaktor 14 %', v:7},
+        serge100:{label:'SERGE 100 · Öffnungsfaktor 1 %', v:8},
+        s92:{label:'SOLTIS 92 · Öffnungsfaktor 4 %', v:10},
+        lunar:{label:'SERGE 600 BO LUNAR · Blackout', v:32} },
 
   /* Доплата за цвет — процент от каталожной цены шторы с тканью SOLTIS 7635,
      то есть только от базы, без доплаты за ткань. Стр. 32, 36 и 65. */
-  col:{ std:{label:'Стандартный — 4 цвета, без доплаты', v:0},
-        fein:{label:'Нестандартный, тонкая структура — 8 цветов', v:.08},
-        matt:{label:'Нестандартный, гладкий мат — 7 цветов', v:.08},
-        ral:{label:'Любой RAL — мат, полумат, глянец', v:.10},
-        ralm:{label:'Металлик RAL', v:.16},
-        strukt:{label:'Структурный цвет', v:.16},
-        excl:{label:'Эксклюзивные металлики', v:.16},
-        holz:{label:'Под дерево', v:.40} },
+  col:{ std:{label:'Standard — 4 Farben, ohne Aufpreis', v:0},
+        fein:{label:'Sonderfarbe, feine Struktur — 8 Farben', v:.08},
+        matt:{label:'Sonderfarbe, glatt matt — 7 Farben', v:.08},
+        ral:{label:'Jeder RAL-Ton — matt, seidenmatt, glänzend', v:.10},
+        ralm:{label:'RAL-Metallic', v:.16},
+        strukt:{label:'Strukturfarbe', v:.16},
+        excl:{label:'Exklusive Metallic-Töne', v:.16},
+        holz:{label:'Holzdekor', v:.40} },
 
   /* Мотор, WIN CONTROL, стр. 67. Момент подбирает завод по ширине шторы —
      в расчёт берём средний 20 Нм. В солнечный комплект входят мотор и панель;
      установку панели и подключение завод делает бесплатно. */
-  motor:{ wired:{label:'Проводной 20 Нм', v:113},
-          radio:{label:'Радио 20 Нм, ZigBee', v:132},
-          solar:{label:'Солнечный комплект 20 Нм с панелью', v:280} },
+  motor:{ wired:{label:'Kabelgebunden 20 Nm', v:113},
+          radio:{label:'Funk 20 Nm, ZigBee', v:132},
+          solar:{label:'Solarset 20 Nm mit Modul', v:280} },
 
   /* Управление, стр. 70. */
-  ctrl:{ none:{label:'без пульта', v:0},
-         remote:{label:'Пульт на 6 каналов', v:27},
-         wall:{label:'Настенный выключатель, 1 канал', v:23} },
+  ctrl:{ none:{label:'ohne Fernbedienung', v:0},
+         remote:{label:'Fernbedienung, 6 Kanäle', v:27},
+         wall:{label:'Wandschalter, 1 Kanal', v:23} },
 
   halter:3.90,   /* монтажные кронштейны, 39 € за 10 шт; берём 3 шт на штору */
 
   /* Подобрать клетку таблицы — округление вверх по обоим размерам. */
   fit(W,H){
     if(W<ZIP.W[0] || H<ZIP.H[0])
-      return {err:'Зип-штора меньше 1000 × 1000 мм не производится.'};
+      return {err:'ZIP-Screens unter 1000 × 1000 mm werden nicht gefertigt.'};
     const w=ZIP.W.find(x=>x>=W), h=ZIP.H.find(x=>x>=H);
     if(!w || !h)
-      return {err:'Максимум в системах 95 — 3600 × 3300 мм. На больший размер нужна система WIN SCREEN 110.'};
+      return {err:'Maximum in den 95er-Systemen: 3600 × 3300 mm. Für größere Maße wird das System WIN SCREEN 110 benötigt.'};
     return {w, h, iw:ZIP.W.indexOf(w), ih:ZIP.H.indexOf(h)};
   },
   price(W,H,k){
@@ -1278,27 +1356,27 @@ const ZIP = {
    на одном и том же окне стоят ровно одинаково — 229,79 €. Остальные оттенки взяты
    как цвета той же стандартной палитры; отдельно их цену Drutex не подтверждал. */
 const TONES = {
-  anthrazit:{ label:'Антрацит',    hex:'#3b4145', roll:'#3b4145', spec:'Anthrazitgrau REN 701605-167' },
-  eiche:    { label:'Золотой дуб', hex:'#a06e33', roll:'#d8c4a0', spec:'Golden Oak REN 2178001-167',
+  anthrazit:{ label:'Anthrazit',    hex:'#3b4145', roll:'#3b4145', spec:'Anthrazitgrau REN 701605-167' },
+  eiche:    { label:'Golden Oak', hex:'#a06e33', roll:'#d8c4a0', spec:'Golden Oak REN 2178001-167',
               css:'repeating-linear-gradient(96deg,#a06e33,#a06e33 3px,#8f5f28 3px,#8f5f28 5px,#ab7839 5px,#ab7839 8px)' },
-  nuss:     { label:'Орех тёмный', hex:'#5b3a22', roll:'#6b4a30', spec:'Nussbaum',
+  nuss:     { label:'Nussbaum dunkel', hex:'#5b3a22', roll:'#6b4a30', spec:'Nussbaum',
               css:'repeating-linear-gradient(96deg,#5b3a22,#5b3a22 3px,#4a2d19 3px,#4a2d19 5px,#66432a 5px,#66432a 8px)' },
-  grau:     { label:'Серый',       hex:'#7c8388', roll:'#9aa0a4', spec:'Fenstergrau' },
+  grau:     { label:'Grau',       hex:'#7c8388', roll:'#9aa0a4', spec:'Fenstergrau' },
   /* у ролеты нет тёмно-зелёного в стандартной палитре — рисуем ближайший серый */
-  moos:     { label:'Тёмно-зелёный',hex:'#39493c', roll:'#9aa0a4', spec:'Moosgrün' }
+  moos:     { label:'Dunkelgrün',hex:'#39493c', roll:'#9aa0a4', spec:'Moosgrün' }
 };
 
 const LAM = {
   none:{ iglo5:0,     energy:0,     alu:0,
-         spec:'Белый / ядро белое', short:'белый',
-         note:'Профиль белый снаружи и внутри.' },
+         spec:'Weiß / Kern weiß', short:'weiß',
+         note:'Profil außen und innen weiß.' },
   out: { iglo5:0.124, energy:0.116, alu:0,
-         spec:'Цвет снаружи / внутри белый', short:'цвет снаружи',
-         note:'Плёнка снаружи, внутри белый. Антрацит, золотой дуб и другие цвета '
-             +'стандартной палитры Renolit — по одной цене.' },
+         spec:'Farbe außen / innen weiß', short:'Farbe außen',
+         note:'Folie außen, innen weiß. Anthrazit, Golden Oak und weitere Farben '
+             +'der Standardpalette Renolit — zum selben Preis.' },
   both:{ iglo5:0.201, energy:0.189, alu:0,
-         spec:'Цвет снаружи и внутри / ядро в цвет', short:'цвет с двух сторон',
-         note:'Плёнка снаружи и внутри, ядро профиля в цвет, ручка и накладки петель в цвет.' }
+         spec:'Farbe außen und innen / Kern durchgefärbt', short:'Farbe beidseitig',
+         note:'Folie außen und innen, Profilkern durchgefärbt, Griff und Bandabdeckungen in Farbe.' }
 };
 const MIN_W_HINGES = 500, MAX_W_HINGES = 1500;   // габарит поля, мм
 
@@ -1330,23 +1408,23 @@ function sashWmax(h){
 }
 const MARKUP = 0.30, VAT = 0.20, MAIL = 'bengameen62570@gmail.com';
 const FREI = 4200;                    // нетто, от которого доставка бесплатная
-const FRIST = 'Срок поставки 3–4 недели. Срочное исполнение за 2 недели — по предварительному запросу.';
+const FRIST = 'Lieferzeit 3–4 Wochen. Expressfertigung in 2 Wochen — nach vorheriger Anfrage.';
 
 const $ = id => document.getElementById(id);
 const eur = v => v.toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €';
 const num = (v,d=2) => v.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d});
 
 const TYPES = {
-  fix:  {label:'Глухое',    movable:false},
-  dk:   {label:'Пов.-откид', movable:true},
-  dreh: {label:'Поворотная', movable:true},
-  kipp: {label:'Откидная',   movable:true}
+  fix:  {label:'Fest',    movable:false},
+  dk:   {label:'Dreh-Kipp', movable:true},
+  dreh: {label:'Dreh', movable:true},
+  kipp: {label:'Kipp',   movable:true}
 };
 const LAYOUTS = {
-  '1':     {label:'1 часть',  n:1, stulp:false},
-  '2':     {label:'2 части',  n:2, stulp:false},
-  'stulp': {label:'Штульп',   n:2, stulp:true },
-  '3':     {label:'3 части',  n:3, stulp:false}
+  '1':     {label:'1 Feld',  n:1, stulp:false},
+  '2':     {label:'2 Felder',  n:2, stulp:false},
+  'stulp': {label:'Stulp',   n:2, stulp:true },
+  '3':     {label:'3 Felder',  n:3, stulp:false}
 };
 
 /* петли по умолчанию — к импосту */
@@ -1364,14 +1442,14 @@ const S = {
 let list = [], addrCount = 0;
 
 const PRESETS = [
-  {t:'Одна створка', W:1000, H:1500, l:'1', f:[['dk',null]]},
-  {t:'Две створки', W:1500, H:1500, l:'2', f:[['dk','left'],['dk','right']]},
-  {t:'Кухонное',   W:800,  H:1000, l:'1', f:[['dk',null]]},
-  {t:'Подвальное', W:600,  H:600,  l:'1', f:[['kipp',null]]},
-  {t:'Стандарт',   W:1200, H:1400, l:'2', f:[['fix',null],['dk',null]]},
-  {t:'Штульп',     W:1400, H:1400, l:'stulp', f:[['dreh','left'],['dk','right']]},
-  {t:'Гостиная',   W:2100, H:1400, l:'3', f:[['fix',null],['dk',null],['fix',null]]},
-  {t:'Балк. дверь',W:900,  H:2100, l:'1', f:[['dk',null]], tuer:true}
+  {t:'Ein Flügel', W:1000, H:1500, l:'1', f:[['dk',null]]},
+  {t:'Zwei Flügel', W:1500, H:1500, l:'2', f:[['dk','left'],['dk','right']]},
+  {t:'Küchenfenster',   W:800,  H:1000, l:'1', f:[['dk',null]]},
+  {t:'Kellerfenster', W:600,  H:600,  l:'1', f:[['kipp',null]]},
+  {t:'Standard',   W:1200, H:1400, l:'2', f:[['fix',null],['dk',null]]},
+  {t:'Stulp',     W:1400, H:1400, l:'stulp', f:[['dreh','left'],['dk','right']]},
+  {t:'Wohnzimmer',   W:2100, H:1400, l:'3', f:[['fix',null],['dk',null],['fix',null]]},
+  {t:'Balkontür',W:900,  H:2100, l:'1', f:[['dk',null]], tuer:true}
 ];
 
 /* ═══════════ ЗНАЧКИ ═══════════ */
@@ -1595,7 +1673,7 @@ function planSvg(c,{mini=false,outside=false}={}){
     p.push(`<rect x="${x0-gw2/2}" y="${y0-bx}" width="${w+gw2}" height="${bx-lam}" rx="1.5" fill="${rc}" ${ink}/>`);
     p.push(`<rect x="${x0-gw2/2+2}" y="${y0-lam}" width="${w+gw2-4}" height="${lam}" rx="1" fill="${rc}" ${thin}/>`);
     if(!mini) p.push(`<text x="${x0+w+gw2+6}" y="${y0-bx/2+4}" font-family="Inter" font-size="10.5" fill="#8a857c">`
-      + (c.zip ? `зип-штора ${ZIP.sys[S.zipSys].label}` : `ролета ${S.rollDrive==='motor'?'мотор':'ремень'}`) + `</text>`);
+      + (c.zip ? `ZIP-Screen ${ZIP.sys[S.zipSys].label}` : `Rollladen ${S.rollDrive==='motor'?'Motor':'Gurt'}`) + `</text>`);
   }
   p.push(`<path d="${outline(0)}" fill="${FR}" ${ink}/>`);
 
@@ -1617,7 +1695,7 @@ function planSvg(c,{mini=false,outside=false}={}){
     const fwPx=f.w*s;
     const gx=cx+f.left*s, gy=yTop+G.frame*s;
     const gw=fwPx-(f.left+f.right)*s, gh=hh-2*G.frame*s;
-    let g=`<g class="fld" data-i="${i}" tabindex="0" role="button" aria-label="Часть ${i+1}: ${TYPES[f.type].label}">`;
+    let g=`<g class="fld" data-i="${i}" tabindex="0" role="button" aria-label="Feld ${i+1}: ${TYPES[f.type].label}">`;
 
     if(f.movable){
       g+=`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="none" ${thin}${cA}/>`;
@@ -1699,7 +1777,7 @@ function planSvg(c,{mini=false,outside=false}={}){
   if(c.tuer){
     const th=Math.max(4, 60*s);
     p.push(`<rect x="${x0}" y="${y0+h-th}" width="${w}" height="${th}" fill="#d9d4cb" ${thin}/>`);
-    if(!mini) p.push(`<text x="${x0+w/2}" y="${y0+h-th/2+4}" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#4c4a45">ПОРОГ</text>`);
+    if(!mini) p.push(`<text x="${x0+w/2}" y="${y0+h-th/2+4}" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#4c4a45">BODENSCHWELLE</text>`);
   }
 
   if(!mini){
@@ -1772,12 +1850,12 @@ function drawTiles(){
   $('tiles').querySelectorAll('.tile').forEach(b=>
     b.addEventListener('click',()=>{ S.fields[S.sel].type=b.dataset.t; render(); }));
 
-  $('selinfo').textContent = S.fields.length>1 ? `${S.sel+1} из ${S.fields.length}` : '';
+  $('selinfo').textContent = S.fields.length>1 ? `${S.sel+1} von ${S.fields.length}` : '';
   const movable = TYPES[cur.type].movable;
   $('hingebar').style.display = movable ? 'block' : 'none';
   $('hg-left').setAttribute('aria-pressed',  cur.hinge==='left');
   $('hg-right').setAttribute('aria-pressed', cur.hinge==='right');
-  $('fldnote').textContent = movable ? '' : 'Глухое поле — не открывается.';
+  $('fldnote').textContent = movable ? '' : 'Festverglasung — nicht zu öffnen.';
 }
 
 function render(){
@@ -1804,28 +1882,28 @@ function render(){
     $('riser').min=100; $('riser').max=rmax; $('riser').value=S.rise;
   }
   $('shapenote').textContent = arch
-    ? ARCH[S.shape].note + ` Подъём до ${Math.min(Math.floor(S.W/2), S.H-400)} мм при этой ширине.`
+    ? ARCH[S.shape].note + ` Bogenhöhe bis ${Math.min(Math.floor(S.W/2), S.H-400)} mm bei dieser Breite.`
     : '';
   $('colorfee').textContent = c.sonderfarbe
-    ? `Покраска в цвет: +${eur(OPT.aluFarbe*(1+MARKUP))} на изделие. Дополнительно `
-      + `${eur(OPT.aluVorb*(1+MARKUP))} за подготовку производства — один раз на заказ.`
+    ? `Lackierung in Farbe: +${eur(OPT.aluFarbe*(1+MARKUP))} je Element. Zusätzlich `
+      + `${eur(OPT.aluVorb*(1+MARKUP))} für die Fertigungsvorbereitung — einmalig je Auftrag.`
     : '';
   $('archwarn').textContent = arch
-    ? 'Арочные изделия выходят за гарантийные пределы производителя. '
-     +'Возможность изготовления и гарантию уточняем у Drutex по каждому размеру до заказа. '
-     +'Цена ориентировочная.'
+    ? 'Bogenelemente liegen außerhalb der Garantiegrenzen des Herstellers. '
+     +'Fertigbarkeit und Garantie klären wir vor der Bestellung für jedes Maß einzeln mit Drutex ab. '
+     +'Richtpreis.'
     : '';
   const isAlu = S.sys==='alu';
   $('pr-70').setAttribute('aria-pressed', S.sys==='iglo5');
   $('pr-82').setAttribute('aria-pressed', S.sys==='energy');
   $('pr-alu').setAttribute('aria-pressed', isAlu);
   $('profnote').textContent =
-      S.sys==='iglo5'  ? 'ПВХ, 5 камер, монтажная глубина 70 мм — стандарт для замены окон. '
-      + 'Окно 1200 × 1400: Uw 1,42 с двумя стёклами и 1,14 с тремя.'
-    : S.sys==='energy' ? 'ПВХ, 6 камер, монтажная глубина 82 мм, усиленная рама. '
-      + 'То же окно 1200 × 1400 — Uw 0,93, самый тёплый вариант.'
-    : 'Алюминий с терморазрывом MB-79N, монтажная глубина 79 мм. Рама тоньше, стекла больше, '
-      + 'но теплее ПВХ он не будет: окно 1000 × 1350 даёт Uw 1,24 при том же пакете Ug 0,5.';
+      S.sys==='iglo5'  ? 'Kunststoff, 5 Kammern, Bautiefe 70 mm — der Standard beim Fenstertausch. '
+      + 'Fenster 1200 × 1400: Uw 1,42 mit Zweifachverglasung und 1,14 mit Dreifachverglasung.'
+    : S.sys==='energy' ? 'Kunststoff, 6 Kammern, Bautiefe 82 mm, verstärkter Rahmen. '
+      + 'Dasselbe Fenster 1200 × 1400 — Uw 0,93, die wärmste Variante.'
+    : 'Aluminium mit thermischer Trennung MB-79N, Bautiefe 79 mm. Schmalerer Rahmen, mehr Glasfläche, '
+      + 'wärmer als Kunststoff wird es aber nicht: Ein Fenster 1000 × 1350 erreicht Uw 1,24 bei gleicher Verglasung Ug 0,5.';
   Object.entries(GLAS).forEach(([k,v])=>{
     const b=$('g-'+k), ok = v.prof===S.sys;
     if(k==='ug05')  b.hidden = isAlu;      // в алюминии тот же пакет идёт своей кнопкой
@@ -1833,11 +1911,11 @@ function render(){
     b.disabled = !ok;
     b.setAttribute('aria-pressed', S.glas===k);
   });
-  const argon = 'Камеры между стёклами заполнены аргоном. ';
+  const argon = 'Die Scheibenzwischenräume sind mit Argon gefüllt. ';
   $('glasnote').textContent = argon + (
-      S.sys==='iglo5'  ? 'Пакет Ug 0,5 доступен только в профиле 82 мм и в алюминии.'
-    : S.sys==='energy' ? 'В профиле 82 мм — только трёхкамерный пакет Ug 0,5.'
-    : 'В алюминии просчитан один пакет — трёхкамерный Ug 0,5.');
+      S.sys==='iglo5'  ? 'Die Verglasung Ug 0,5 ist nur im 82-mm-Profil und in Aluminium verfügbar.'
+    : S.sys==='energy' ? 'Im 82-mm-Profil nur die Dreifachverglasung Ug 0,5.'
+    : 'In Aluminium ist eine Verglasung kalkuliert — dreifach, Ug 0,5.');
 
   /* в алюминии у нас нет ни одной цены на штульп, арки, порог и клапан */
   $('layout').querySelectorAll('button').forEach(b=>{
@@ -1847,12 +1925,12 @@ function render(){
   ['o-tuer','o-regel','o-mesh','o-spross','o-vsg','o-roll']
     .concat(['o-zip']).forEach(id=>$(id).disabled = isAlu);
   $('alunote').textContent = isAlu && c.lostInAlu
-    ? 'Штульп, арки, порог, клапан, сетки, шпросы, триплекс и ролеты в алюминии мы не '
-      + 'просчитывали, поэтому сейчас они не учитываются. Настройки сохранены — вернётесь '
-      + 'на ПВХ, и они снова включатся.'
+    ? 'Stulp, Bögen, Bodenschwelle, Falzlüfter, Insektenschutz, Sprossen, VSG und Rollläden haben wir in Aluminium nicht '
+      + 'kalkuliert, daher bleiben sie derzeit unberücksichtigt. Die Einstellungen sind gespeichert — wechseln Sie zurück '
+      + 'auf Kunststoff, dann werden sie wieder berücksichtigt.'
     : isAlu
-    ? 'В алюминии просчитаны только прямоугольные окна с импостом. Штульп, арки, '
-      + 'алюминиевый порог и приточный клапан отдельно не считались — запрашиваем у Drutex.'
+    ? 'In Aluminium sind nur rechteckige Fenster mit Pfosten kalkuliert. Stulp, Bögen, '
+      + 'Alu-Bodenschwelle und Falzlüfter sind nicht gesondert kalkuliert — wir fragen sie bei Drutex an.'
     : '';
   $('c-none').setAttribute('aria-pressed', S.color==='none');
   $('c-out').setAttribute('aria-pressed',  S.color==='out');
@@ -1881,14 +1959,14 @@ function render(){
     const gl = c.fields.map(f=>Math.round(f.w - f.left - f.right
                  - (f.movable ? c.sys.geo.sashInset : 0)));
     $('fwnote').textContent =
-        'Части по раме: ' + c.fields.map(f=>Math.round(f.w)).join(' + ') + ' мм. '
-      + 'Стекло: ' + gl.join(' + ') + ' мм. '
-      + 'При правке одной части остальные подстраиваются, минимум 300 мм на часть.';
+        'Felder im Rahmen: ' + c.fields.map(f=>Math.round(f.w)).join(' + ') + ' mm. '
+      + 'Glas: ' + gl.join(' + ') + ' mm. '
+      + 'Wird ein Feld geändert, passen sich die übrigen an; mindestens 300 mm je Feld.';
   }
   $('hingenote').textContent =
-    (c.useHinges ? 'MACO MULTI POWER — петли скрыты в фальце, снаружи их не видно. '
-                 : 'MACO MULTI-MATIC — накладные петли, стандарт для всех окон. ')
-    + (c.hingesOK ? '' : 'Для такой ширины створки скрытые петли невозможны.');
+    (c.useHinges ? 'MACO MULTI POWER — die Bänder liegen im Falz und sind von außen nicht sichtbar. '
+                 : 'MACO MULTI-MATIC — aufliegende Bänder, Standard bei allen Fenstern. ')
+    + (c.hingesOK ? '' : 'Bei dieser Flügelbreite sind verdeckt liegende Bänder nicht möglich.');
   $('o-tuer').checked = c.tuer;   $('o-regel').checked  = c.regel;
   $('o-mesh').checked = c.mesh;   $('o-spross').checked = c.spross;
   $('o-vsg').checked  = c.vsg;    $('o-roll').checked   = c.roll;
@@ -1906,13 +1984,13 @@ function render(){
     } else {
       const base=ZIP.grid[S.zipSys][f.ih][f.iw];
       const round = (f.w!==S.W || f.h!==S.H)
-        ? ` Размер ${S.W} × ${S.H} считается по клетке ${f.w} × ${f.h} — прайс округляет вверх до следующего шага 100 мм.`
+        ? ` Maß ${S.W} × ${S.H} wird nach dem Raster $ berechnet{f.w} × ${f.h} — die Preisliste rundet auf die nächste 100-mm-Stufe auf.`
         : '';
       $('zipnote').textContent =
-        `Кассета 95 × 95 мм с направляющими и полотном на молнии. `
-        + `Каталожная цена шторы — ${eur(base)}, к ней прибавляются ткань, цвет, привод `
-        + `и монтажные кронштейны.${round} Без датчика ветра поставщик снимает гарантию на ткань — `
-        + `датчик ставится один на объект и в цену изделия не входит.`;
+        `Kassette 95 × 95 mm mit Führungsschienen und Behang mit Reißverschluss. `
+        + `Listenpreis des Rollos — ${eur(base)}, dazu kommen Stoff, Farbe und Antrieb `
+        + `und Montagewinkel.${round} Ohne Windsensor übernimmt der Lieferant keine Garantie auf den Stoff — `
+        + `Pro Objekt wird ein Sensor gesetzt; im Preis des Elements ist er nicht enthalten.`;
     }
   }
   $('rd-gurt').setAttribute('aria-pressed', S.rollDrive==='gurt');
@@ -1922,49 +2000,49 @@ function render(){
   if(S.spross){
     const bars = c.n*(S.sprossV + S.sprossH);
     $('sprossnote').textContent = bars
-      ? `${c.n>1 ? c.n+' поля, ' : ''}${S.sprossV+1} × ${S.sprossH+1} — итого `
-        + `${bars} ${bars===1?'перекладина':bars<5?'перекладины':'перекладин'} `
-        + `по ${eur(OPT.sprossBar)}.`
-      : 'Перекладины не выбраны — доплаты нет.';
+      ? `${c.n>1 ? c.n+' Feld, ' : ''}${S.sprossV+1} × ${S.sprossH+1} — gesamt `
+        + `${bars} ${bars===1?'Sprosse':bars<5?'Sprossen':'Sprossen'} `
+        + `je ${eur(OPT.sprossBar)}.`
+      : 'Keine Sprossen gewählt — kein Aufpreis.';
   }
   if(S.roll){
     const box=S.rollBox;
-    $('rollnote').textContent = `Ящик ${box} мм, полотно ${S.W} × ${S.H+box} мм. `
-      + `Ставится снаружи поверх окна — проём должен быть на ${box} мм выше окна.`;
+    $('rollnote').textContent = `Kasten ${box} mm, Panzer ${S.W} × ${S.H+box} mm. `
+      + `Wird außen über dem Fenster montiert — die Öffnung muss um ${box} mm höher als das Fenster sein.`;
   }
   const notes=[];
-  if(S.spross) notes.push('Шпрос 18 мм у Drutex недоступен, считается 27 мм наклеенный '
-    + 'с двух сторон. Максимальный размер поля между шпросами — 1000 × 1000 мм.');
-  if(S.mesh)   notes.push('Цена сетки снята с одной позиции 1090 × 1290 и от размера пока не зависит.');
+  if(S.spross) notes.push('Die 18-mm-Sprosse ist bei Drutex nicht verfügbar; gerechnet wird die aufgeklebte 27-mm-Sprosse '
+    + 'beidseitig. Die maximale Feldgröße zwischen den Sprossen beträgt 1000 × 1000 mm.');
+  if(S.mesh)   notes.push('Der Preis für den Insektenschutz stammt aus einer Position 1090 × 1290 und ist derzeit maßunabhängig.');
   $('optnote').textContent = notes.join(' ');
   $('q-val').textContent = S.qty;
   $('q-minus').disabled = S.qty<=1;
 
   $('sp-shape').textContent = c.isArch
-    ? `${c.shp.label}, подъём ${c.rise} мм` : 'Прямоугольное';
+    ? `${c.shp.label}, Bogenhöhe ${c.rise} mm` : 'Rechteckig';
   $('sp-profil').textContent = c.sys.profil;
   $('sp-glas').textContent   = c.gl.glas;
   $('sp-besch').textContent  = c.useHinges
-    ? 'MACO MULTI POWER, скрытые петли' : 'MACO MULTI-MATIC';
+    ? 'MACO MULTI POWER, verdeckt liegende Bänder' : 'MACO MULTI-MATIC';
   $('sp-link').innerHTML = c.useHinges
-    ? '<a href="https://www.maco.eu/de-CH/Produkte-Services/Fensterlosungen/Dreh-Kipp/MACO-Multi-Power/MULTI-POWER-mit-Lastabtragung" target="_blank" rel="noopener">о фурнитуре MACO →</a>'
+    ? '<a href="https://www.maco.eu/de-CH/Produkte-Services/Fensterlosungen/Dreh-Kipp/MACO-Multi-Power/MULTI-POWER-mit-Lastabtragung" target="_blank" rel="noopener">zum MACO-Beschlag →</a>'
     : '';
   $('sp-color').textContent = S.color==='none' ? LAM[S.color].spec
-    : LAM[S.color].spec.replace('Цвет', TONES[S.tone].label) + ' · ' + TONES[S.tone].spec;
-  const griffCol = S.color==='both' ? 'в цвет профиля' : 'белая';
-  $('sp-griff').textContent = c.nSash===0 ? 'нет — все поля глухие'
-    : `${c.sys.griff}, ${griffCol}` + (c.tuer ? ', высота 1070 мм' : '');
-  $('sp-uw').textContent = num(c.uw)+' Вт/м²·К';
-  $('sp-rw').textContent = '≈ '+c.rw+' дБ';
-  $('sp-kg').textContent = '≈ '+num(c.kg,0)+' кг'+(S.qty>1?` (× ${S.qty} = ${num(c.kg*S.qty,0)} кг)`:'');
+    : LAM[S.color].spec.replace('Farbe', TONES[S.tone].label) + ' · ' + TONES[S.tone].spec;
+  const griffCol = S.color==='both' ? 'in Profilfarbe' : 'weiß';
+  $('sp-griff').textContent = c.nSash===0 ? 'nein — alle Felder fest'
+    : `${c.sys.griff}, ${griffCol}` + (c.tuer ? ', Höhe 1070 mm' : '');
+  $('sp-uw').textContent = num(c.uw)+' W/m²·K';
+  $('sp-rw').textContent = '≈ '+c.rw+' dB';
+  $('sp-kg').textContent = '≈ '+num(c.kg,0)+' kg'+(S.qty>1?` (× ${S.qty} = ${num(c.kg*S.qty,0)} kg)`:'');
 
   $('f-size').textContent = `${c.W} × ${c.H}`;
-  $('f-area').textContent = num(c.area)+' м²';
-  $('f-per').textContent  = num(c.perim)+' м';
-  $('f-sash').textContent = c.nSash+' из '+c.n;
+  $('f-area').textContent = num(c.area)+' m²';
+  $('f-per').textContent  = num(c.perim)+' m';
+  $('f-sash').textContent = c.nSash+' von '+c.n;
 
   $('p-window').textContent = eur(c.item);
-  $('p-qty').textContent    = S.qty>1 ? `× ${S.qty} шт` : '';
+  $('p-qty').textContent    = S.qty>1 ? `× ${S.qty} Stk` : '';
   $('p-netto').textContent  = eur(c.netto);
   $('p-vat').textContent    = eur(c.vat);
   $('p-brutto').textContent = eur(c.brutto);
@@ -1972,21 +2050,21 @@ function render(){
 
   const warns = [];
   if(c.overArea)
-    warns.push('Площадь изделия ' + num(c.area) + ' м². Drutex делает в одной раме '
-      + 'до ' + num(LIM.areaMax,1) + ' м² — конструкцию придётся разделить на части. '
-      + 'Цена ниже этого не учитывает.');
+    warns.push('Elementfläche ' + num(c.area) + ' m². Drutex fertigt in einem Rahmen '
+      + 'bis ' + num(LIM.areaMax,1) + ' m² — die Konstruktion muss geteilt werden. '
+      + 'Der Preis unten berücksichtigt das nicht.');
   if(c.overSash)
-    warns.push('Створка ' + Math.round(c.maxSashW) + ' × ' + Math.round(c.maxSashH)
-      + ' мм выходит за предел производителя: при высоте ' + Math.round(c.maxSashH)
-      + ' мм допустимая ширина около ' + Math.round(sashWmax(c.maxSashH))
-      + ' мм. Нужно добавить импост или уменьшить размер.');
+    warns.push('Flügel ' + Math.round(c.maxSashW) + ' × ' + Math.round(c.maxSashH)
+      + ' mm liegt über der Herstellergrenze: Bei einer Höhe von ' + Math.round(c.maxSashH)
+      + ' mm beträgt die zulässige Breite etwa ' + Math.round(sashWmax(c.maxSashH))
+      + ' mm. Es muss ein Pfosten ergänzt oder das Maß verkleinert werden.');
   if(c.archStulpBlocked)
-    warns.push('Арка вместе со штульпом у нас не просчитана — цена показана как для '
-      + 'прямоугольного изделия со штульпом, надбавка за гнутьё в неё не входит. '
-      + 'Такую конструкцию считаем по запросу.');
+    warns.push('Bogen zusammen mit Stulp ist bei uns nicht kalkuliert — angezeigt wird der Preis '
+      + 'eines rechteckigen Elements mit Stulp an; der Aufschlag für die Rundung ist darin nicht enthalten. '
+      + 'Eine solche Konstruktion kalkulieren wir auf Anfrage.');
   if(!warns.length && (c.maxSashW>1200 || c.maxSashH>1800))
-    warns.push('Створка крупнее стандартной. На таких размерах производитель иногда '
-      + 'ставит более толстое стекло или скрытые петли — это отдельная доплата.');
+    warns.push('Der Flügel ist größer als üblich. Bei solchen Maßen setzt der Hersteller mitunter '
+      + 'dickeres Glas oder verdeckt liegende Bänder ein — das ist ein gesonderter Aufpreis.');
   $('warn').textContent = warns.join(' ');
 }
 
@@ -1994,22 +2072,22 @@ function render(){
 function describe(){
   const c=calc(), stulp=LAYOUTS[S.layout].stulp;
   const parts=S.fields.map(f=>TYPES[f.type].label +
-    (TYPES[f.type].movable ? (f.hinge==='left'?' (петли слева)':' (петли справа)') : ''));
+    (TYPES[f.type].movable ? (f.hinge==='left'?' (Bänder links)':' (Bänder rechts)') : ''));
   const ex=[c.gl.short];
-  if(c.isArch) ex.push(`${c.shp.short} ${c.rise} мм`);
-  if(S.color!=='none') ex.push(TONES[S.tone].label+' '+(S.color==='both'?'с двух сторон':'снаружи'));
-  if(c.tuer) ex.push('порог');
-  if(c.useHinges) ex.push('скрытые петли');
-  if(c.regel)  ex.push('клапан');
-  if(c.vsg)    ex.push('триплекс');
-  if(c.spross) ex.push(`шпросы ${S.sprossV+1} × ${S.sprossH+1}`);
-  if(c.mesh)   ex.push('москитка');
-  if(c.roll)   ex.push('рольставня ' + (S.rollDrive==='motor'?'с мотором':'на ремне') + `, ящик ${S.rollBox} мм`);
-  if(c.zip)    ex.push('зип-штора ' + ZIP.sys[S.zipSys].label
+  if(c.isArch) ex.push(`${c.shp.short} ${c.rise} mm`);
+  if(S.color!=='none') ex.push(TONES[S.tone].label+' '+(S.color==='both'?'beidseitig':'außen'));
+  if(c.tuer) ex.push('Bodenschwelle');
+  if(c.useHinges) ex.push('verdeckt liegende Bänder');
+  if(c.regel)  ex.push('Falzlüfter');
+  if(c.vsg)    ex.push('VSG');
+  if(c.spross) ex.push(`Sprossen ${S.sprossV+1} × ${S.sprossH+1}`);
+  if(c.mesh)   ex.push('Insektenschutz');
+  if(c.roll)   ex.push('Rollladen ' + (S.rollDrive==='motor'?'mit Motor':'Gurt') + `, Kasten ${S.rollBox} mm`);
+  if(c.zip)    ex.push('ZIP-Screen ' + ZIP.sys[S.zipSys].label
                        + ', ' + ZIP.fab[S.zipFab].label.split(' · ')[0]
-                       + (S.zipCol!=='std' ? ', цвет с доплатой' : '')
+                       + (S.zipCol!=='std' ? ', Farbe mit Aufpreis' : '')
                        + ', ' + ZIP.motor[S.zipMotor].label.toLowerCase());
-  return (stulp?'Штульп: ':'') + parts.join(' + ') + ' · ' + ex.join(', ')
+  return (stulp?'Stulp: ':'') + parts.join(' + ') + ' · ' + ex.join(', ')
          + ' · Uw ' + num(c.uw);
 }
 function renderList(){
@@ -2017,7 +2095,7 @@ function renderList(){
   const cnt=$('cnt'), total=list.reduce((a,p)=>a+p.qty,0);
   cnt.textContent=total; cnt.hidden = total===0;
   if(!list.length){
-    box.innerHTML='<p class="empty">Пока пусто. Соберите окно выше и нажмите «Добавить в заявку».</p>';
+    box.innerHTML='<p class="empty">Noch leer. Stellen Sie oben ein Fenster zusammen und klicken Sie auf „Zur Anfrage hinzufügen“.</p>';
     return;
   }
   let sum=list.reduce((a,p)=>a+p.item,0);
@@ -2044,46 +2122,43 @@ function renderList(){
     .map(([k,v])=>bt('glas',k,v.label.replace('·','·'),cg===k)).join('');
 
   box.innerHTML=`<div class="bulk">
-    <p class="lbl" style="margin:0 0 8px">Изменить во всех позициях сразу</p>
-    <div class="bulkrow"><span>Профиль</span><span class="chips">
-      ${bt('sys','iglo5','70 мм',cs==='iglo5')}${bt('sys','energy','82 мм',cs==='energy')}${bt('sys','alu','алюминий',cs==='alu')}
+    <p class="lbl" style="margin:0 0 8px">In allen Positionen gleichzeitig ändern</p>
+    <div class="bulkrow"><span>Profil</span><span class="chips">
+      ${bt('sys','iglo5','70 mm',cs==='iglo5')}${bt('sys','energy','82 mm',cs==='energy')}${bt('sys','alu','Aluminium',cs==='alu')}
     </span></div>
-    <div class="bulkrow"><span>Стеклопакет</span><span class="chips">${glasBtns}</span></div>
-    <div class="bulkrow"><span>Цвет</span><span class="chips">
-      ${bt('color','none','белый',cc==='none')}${bt('color','out','цвет снаружи',cc==='out')}${bt('color','both','с двух сторон',cc==='both')}
+    <div class="bulkrow"><span>Verglasung</span><span class="chips">${glasBtns}</span></div>
+    <div class="bulkrow"><span>Farbe</span><span class="chips">
+      ${bt('color','none','weiß',cc==='none')}${bt('color','out','Farbe außen',cc==='out')}${bt('color','both','beidseitig',cc==='both')}
     </span></div>
-    <div class="bulkrow"><span>Оттенок</span><span class="chips">
+    <div class="bulkrow"><span>Farbton</span><span class="chips">
       ${Object.entries(TONES).map(([k,t])=>bt('tone',k,t.label,ct===k)).join('')}
     </span></div>
     ${cs==='alu' && list.some(p=>p.cfg && (p.cfg.shape!=='rect'
         || (LAYOUTS[p.cfg.layout]||{}).stulp
         || ['tuer','regel','vsg','spross','mesh','roll','zip'].some(k=>p.cfg[k])))
-      ? `<p class="note" style="margin:8px 0 0">Штульп, арки и опции в алюминии не считаются —
-         сейчас они не учтены в цене. Настройки позиций сохранены: вернёте профиль ПВХ,
-         и они снова включатся.</p>` : ''}
+      ? `<p class="note" style="margin:8px 0 0">Stulp, Bögen und Optionen sind in Aluminium nicht kalkuliert — sie sind derzeit nicht im Preis enthalten. Die Einstellungen der Positionen bleiben gespeichert: Sobald Sie wieder auf Kunststoff wechseln, werden sie erneut berücksichtigt.</p>` : ''}
     ${lastApply?`<p class="note" style="margin:8px 0 0">${lastApply}</p>`:''}
   </div>
   <table class="list">
-    <tr><th>№</th><th></th><th>Размер</th><th>Комплектация</th><th class="num">Шт</th><th class="num">Нетто</th><th></th></tr>
+    <tr><th>№</th><th></th><th>Maß</th><th>Ausstattung</th><th class="num">Stk</th><th class="num">Netto</th><th></th></tr>
     ${list.map((p,i)=>`<tr><td>${i+1}</td>
       <td class="thumb">${p.svg?`<svg viewBox="0 0 620 470">${p.svg}</svg>`:''}</td>
       <td>${p.size}</td><td>${p.desc}</td>
       <td class="num">${p.qty}</td><td class="num">${eur(p.item)}</td>
-      <td class="num"><button class="del" type="button" data-del="${i}" aria-label="удалить">×</button></td></tr>`).join('')}
-    ${vorb ? `<tr><td colspan="5">Подготовка производства (окраска по RAL)</td>
+      <td class="num"><button class="del" type="button" data-del="${i}" aria-label="entfernen">×</button></td></tr>`).join('')}
+    ${vorb ? `<tr><td colspan="5">Fertigungsvorbereitung (Lackierung nach RAL)</td>
       <td class="num">${eur(vorb)}</td><td></td></tr>` : ''}
-    <tr><td colspan="5">Доставка</td><td class="num">${frei?'бесплатно':'по договорённости'}</td><td></td></tr>
-    <tr><td colspan="5">Нетто</td><td class="num">${eur(netto)}</td><td></td></tr>
-    <tr><td colspan="5">НДС 20 %</td><td class="num">${eur(vat)}</td><td></td></tr>
-    <tr class="grand"><td colspan="5">Брутто</td><td class="num">${eur(netto+vat)}</td><td></td></tr>
+    <tr><td colspan="5">Lieferung</td><td class="num">${frei?'kostenlos':'nach Vereinbarung'}</td><td></td></tr>
+    <tr><td colspan="5">Netto</td><td class="num">${eur(netto)}</td><td></td></tr>
+    <tr><td colspan="5">20 % MwSt.</td><td class="num">${eur(vat)}</td><td></td></tr>
+    <tr class="grand"><td colspan="5">Brutto</td><td class="num">${eur(netto+vat)}</td><td></td></tr>
   </table>
   <p class="note">${frei
-      ? 'Доставка по Австрии включена в цену.'
-      : `До бесплатной доставки не хватает ${eur(FREI-nettoW)} нетто — на меньшую сумму стоимость доставки обсуждаем отдельно.`}
+      ? 'Die Lieferung innerhalb Österreichs ist im Preis enthalten.'
+      : `Bis zur kostenlosen Lieferung fehlen noch ${eur(FREI-nettoW)} netto — bei kleineren Aufträgen vereinbaren wir die Lieferkosten gesondert.`}
      <br>${FRIST}</p>
-  <p class="note">Всего изделий: ${nPos} шт · площадь ${num(sArea)} м²${sKg?` ·
-     вес ≈ ${num(sKg,0)} кг`:''} &nbsp;·&nbsp;
-     <a href="#" id="clr" style="color:var(--accent)">очистить заявку</a></p>`;
+  <p class="note">Elemente gesamt: ${nPos} Stk · Fläche ${num(sArea)} m²${sKg?` · Gewicht ≈ ${num(sKg,0)} kg`:''} &nbsp;·&nbsp;
+     <a href="#" id="clr" style="color:var(--accent)">Anfrage leeren</a></p>`;
   box.querySelectorAll('[data-all]').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.all, v=b.dataset.v;
     applyAll(k==='sys' ? {sys:v} : {[k]:v});
@@ -2091,7 +2166,7 @@ function renderList(){
   const clr=box.querySelector('#clr');
   if(clr) clr.addEventListener('click',e=>{
     e.preventDefault();
-    if(confirm('Удалить все позиции из заявки?')){ list=[]; lastApply=''; saveCart(); renderList(); }
+    if(confirm('Alle Positionen aus der Anfrage entfernen?')){ list=[]; lastApply=''; saveCart(); renderList(); }
   });
   box.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',e=>{
     list.splice(+e.currentTarget.dataset.del,1); saveCart(); renderList();
@@ -2125,7 +2200,7 @@ function priceItem(cfg){
   return withCfg(wc, ()=>{
     const c=calc();
     return {item:c.item, area:c.area*cfg.qty, kg:c.kg*cfg.qty, farbe:c.sonderfarbe,
-            desc:describe(), svg:planSvg(c,{mini:true}), size:`${c.W} × ${c.H} мм`};
+            desc:describe(), svg:planSvg(c,{mini:true}), size:`${c.W} × ${c.H} mm`};
   });
 }
 /* Изменить параметр сразу во всех позициях заявки. */
@@ -2146,10 +2221,10 @@ function applyAll(patch){
     Object.assign(p, priceItem(p.cfg)); n++;
   });
   const after=list.reduce((a,p)=>a+p.item,0);
-  lastApply = n ? `Пересчитано позиций: ${n}. Было ${eur(before*(1+VAT))}, `
-                + `стало ${eur(after*(1+VAT))} брутто.`
-                + (skipped?` ${skipped} позиц. из старой версии заявки пересчитать нельзя.`:'')
-                + (fkSkip?` Мансардные окна Fakro (${fkSkip} позиц.) считаются по своему прайсу и не меняются.`:'')
+  lastApply = n ? `Neu berechnete Positionen: ${n}. Vorher ${eur(before*(1+VAT))}, `
+                + `jetzt ${eur(after*(1+VAT))} brutto.`
+                + (skipped?` ${skipped} Pos. aus einer älteren Fassung der Anfrage lassen sich nicht neu berechnen.`:'')
+                + (fkSkip?` Dachfenster Fakro (${fkSkip} Pos.) werden nach eigener Preisliste berechnet und bleiben unverändert.`:'')
                 : '';
   saveCart(); renderList();
 }
@@ -2175,25 +2250,25 @@ function addAddress(){
   const i=addrCount;
   const d=document.createElement('div');
   d.className='addr'; d.dataset.i=i;
-  d.innerHTML=`<div class="hd"><b>Адрес ${i}</b>
-      ${i>1?`<button class="rm" type="button" data-rm="${i}">удалить</button>`:''}</div>
+  d.innerHTML=`<div class="hd"><b>Adresse ${i}</b>
+      ${i>1?`<button class="rm" type="button" data-rm="${i}">entfernen</button>`:''}</div>
     <div class="form">
-      <div class="inp"><label>Индекс</label><input type="text" class="a-plz" inputmode="numeric"></div>
-      <div class="inp"><label>Населённый пункт</label><input type="text" class="a-ort"></div>
-      <div class="inp"><label>Улица, дом</label><input type="text" class="a-str"></div>
+      <div class="inp"><label>PLZ</label><input type="text" class="a-plz" inputmode="numeric"></div>
+      <div class="inp"><label>Ort</label><input type="text" class="a-ort"></div>
+      <div class="inp"><label>Straße, Hausnummer</label><input type="text" class="a-str"></div>
     </div>`;
   $('addrs').appendChild(d);
   const rm=d.querySelector('[data-rm]');
   if(rm) rm.addEventListener('click',()=>{ d.remove(); renumberAddr(); });
 }
 function renumberAddr(){
-  [...$('addrs').children].forEach((d,k)=>{ d.querySelector('b').textContent='Адрес '+(k+1); });
+  [...$('addrs').children].forEach((d,k)=>{ d.querySelector('b').textContent='Adresse '+(k+1); });
 }
 function collectAddr(){
   return [...$('addrs').children].map((d,k)=>{
     const v=cl=>d.querySelector(cl).value.trim();
     const s=[v('.a-plz'),v('.a-ort'),v('.a-str')].filter(Boolean).join(', ');
-    return s ? `Адрес ${k+1}: ${s}` : null;
+    return s ? `Adresse ${k+1}: ${s}` : null;
   }).filter(Boolean);
 }
 
@@ -2269,7 +2344,7 @@ $('d-add').addEventListener('click',()=>{
   (mode==='fk' ? $('fk-add') : $('add')).click();
 });
 $('pdf').addEventListener('click',()=>{
-  if(!list.length){ $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
+  if(!list.length){ $('send-hint').textContent='Fügen Sie zuerst mindestens ein Element hinzu.'; return; }
   window.print();
 });
 $('c-none').addEventListener('click',  ()=>{ S.color='none'; render(); });
@@ -2319,7 +2394,7 @@ $('h').addEventListener('input',render);
 
 $('add').addEventListener('click',()=>{
   const c=calc();
-  list.push({size:`${c.W} × ${c.H} мм`, desc:describe(), qty:S.qty, item:c.item,
+  list.push({size:`${c.W} × ${c.H} mm`, desc:describe(), qty:S.qty, item:c.item,
              area:c.area*S.qty, kg:c.kg*S.qty, farbe:c.sonderfarbe, svg:planSvg(c,{mini:true}),
              cfg:cfgFromState()});
   saveCart();
@@ -2334,55 +2409,55 @@ function buildBody(){
   const sKg=list.reduce((a,p)=>a+p.kg,0), sArea=list.reduce((a,p)=>a+p.area,0);
   const fio=[$('c-fam').value,$('c-imya').value,$('c-otch').value].filter(x=>x.trim()).join(' ');
   return [
-    'ЗАЯВКА С САЙТА','',
-    `ФИО: ${fio||'—'}`,
-    `Телефон: ${$('c-tel').value||'—'}`,
-    `Почта: ${$('c-mail').value||'—'}`,'',
-    ...(collectAddr().length?collectAddr().concat(''):['Адрес доставки: —','']),
-    'Состав заявки:',
-    ...list.map((p,i)=>`${i+1}. ${p.size} — ${p.desc} — ${p.qty} шт — ${eur(p.item)} нетто`),'',
-    `Итого: ${num(sArea)} м², ≈ ${num(sKg,0)} кг`,'',
-    ...(vorb ? [`Подготовка производства (окраска по RAL): ${eur(vorb)}`] : []),
-    `Доставка: ${(list.every(p=>p.fk) || list.filter(p=>!p.fk).reduce((a,p)=>a+p.item,0)+vorb>=FREI)
-        ? 'бесплатно' : 'по договорённости'}`,
-    `Нетто: ${eur(netto)}`,
-    `Брутто: ${eur(brutto)}`,'',
-    `Примечание: ${$('c-note').value||'—'}`,'',
-    'Цены ориентировочные, без монтажа.',
+    'ANFRAGE ÜBER DIE WEBSITE','',
+    `Name: ${fio||'—'}`,
+    `Telefon: ${$('c-tel').value||'—'}`,
+    `E-Mail: ${$('c-mail').value||'—'}`,'',
+    ...(collectAddr().length?collectAddr().concat(''):['Lieferadresse: —','']),
+    'Inhalt der Anfrage:',
+    ...list.map((p,i)=>`${i+1}. ${p.size} — ${p.desc} — ${p.qty} Stk — ${eur(p.item)} netto`),'',
+    `Gesamt: ${num(sArea)} m², ≈ ${num(sKg,0)} kg`,'',
+    ...(vorb ? [`Fertigungsvorbereitung (Lackierung nach RAL): ${eur(vorb)}`] : []),
+    `Lieferung: ${(list.every(p=>p.fk) || list.filter(p=>!p.fk).reduce((a,p)=>a+p.item,0)+vorb>=FREI)
+        ? 'kostenlos' : 'nach Vereinbarung'}`,
+    `Netto: ${eur(netto)}`,
+    `Brutto: ${eur(brutto)}`,'',
+    `Anmerkung: ${$('c-note').value||'—'}`,'',
+    'Richtpreise, ohne Montage.',
     FRIST
   ].join('\n');
 }
 
 $('send').addEventListener('click',()=>{
   if(!list.length){
-    $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
+    $('send-hint').textContent='Fügen Sie zuerst mindestens ein Element hinzu.'; return; }
   if(!$('c-tel').value.trim() && !$('c-mail').value.trim()){
-    $('send-hint').textContent='Укажите телефон или почту — иначе мы не сможем ответить.';
+    $('send-hint').textContent='Bitte geben Sie Telefon oder E-Mail an — sonst können wir Ihnen nicht antworten.';
     $('c-tel').focus(); return; }
   if(!$('c-dsgvo').checked){
-    $('send-hint').textContent='Отметьте согласие на обработку данных.';
+    $('send-hint').textContent='Bitte stimmen Sie der Datenverarbeitung zu.';
     $('c-dsgvo').focus(); return; }
   const fio=[$('c-fam').value,$('c-imya').value,$('c-otch').value]
               .filter(x=>x.trim()).join(' ');
   $('fs-kontakt').value = [fio||'—', $('c-tel').value||'—', $('c-mail').value||'—']
                             .join(' · ');
   $('fs-text').value = buildBody();
-  $('send-hint').textContent='Отправляем…';
+  $('send-hint').textContent='Wird gesendet …';
   $('fs-form').submit();
 });
 
 $('copy').addEventListener('click',async ()=>{
-  if(!list.length){ $('send-hint').textContent='Сначала добавьте хотя бы одно изделие.'; return; }
+  if(!list.length){ $('send-hint').textContent='Fügen Sie zuerst mindestens ein Element hinzu.'; return; }
   const txt=buildBody();
   try{
     await navigator.clipboard.writeText(txt);
-    $('send-hint').textContent='Текст заявки скопирован — вставьте его в WhatsApp или в письмо.';
+    $('send-hint').textContent='Der Anfragetext wurde kopiert — fügen Sie ihn in WhatsApp oder in eine E-Mail ein.';
   }catch(e){
     const ta=document.createElement('textarea');
     ta.value=txt; ta.style.cssText='position:fixed;left:-9999px'; document.body.appendChild(ta);
     ta.select();
-    try{ document.execCommand('copy'); $('send-hint').textContent='Текст заявки скопирован.'; }
-    catch(e2){ $('send-hint').textContent='Скопировать не удалось — выделите текст заявки вручную.'; }
+    try{ document.execCommand('copy'); $('send-hint').textContent='Anfragetext kopiert.'; }
+    catch(e2){ $('send-hint').textContent='Kopieren nicht möglich — markieren Sie den Anfragetext bitte von Hand.'; }
     ta.remove();
   }
 });
@@ -2459,15 +2534,15 @@ const fkRow = a => { const o={}; FKORD.forEach((c,i)=>{ if(a[i]!=null) o[c]=a[i]
 const FKWIN = {
   /* ── дерево, «Ausführung: Holz mit Außenblech in Alu» ── */
   'FTP-V P20':{ mat:'holz', glas:'P20', uw:1.3, rw:37, g:52, drive:'hand',
-    label:'FTP-V P20', stoff:'Дерево (сосна), снаружи алюминий',
+    label:'FTP-V P20', stoff:'Holz (Kiefer), außen Aluminium',
     plain:fkRow([452,488,521,551, 569,628,555,617,671,788,675,759,793,822,771,859,945,836,865,928]),
     profi:fkRow([651,689,726,761, 782,851,765,833,891,1024,918,989,1031,1062,1003,1106,1205,1087,1118,1182]) },
   'FTP-V P50':{ mat:'holz', glas:'P50', uw:1.0, rw:39, g:46, drive:'hand',
-    label:'FTP-V P50', stoff:'Дерево (сосна), снаружи алюминий',
+    label:'FTP-V P50', stoff:'Holz (Kiefer), außen Aluminium',
     plain:fkRow([678,717,744,774, 809,848,792,837,922,1042,934,970,1028,1078,1011,1094,1162,1066,1111,1150]),
     profi:fkRow([877,918,949,984, 1022,1071,1002,1053,1142,1278,1177,1200,1266,1318,1243,1341,1422,1317,1364,1404]) },
   'FTP-V R50':{ mat:'holz', glas:'R50', uw:1.0, rw:39, g:41, drive:'hand',
-    label:'FTP-V R50', stoff:'Дерево (сосна), снаружи алюминий',
+    label:'FTP-V R50', stoff:'Holz (Kiefer), außen Aluminium',
     plain:fkRow([766,810,841,875, 914,958,895,946,1042,1177,1055,1096,1162,1218,1142,1236,1313,1205,1255,1300]),
     /* у комплекта Profi Kombi в прайсе четыре прочерка — 78×160, 94×160,
        114×160 и 134×140. Само окно на этих размерах есть. */
@@ -2475,26 +2550,26 @@ const FKWIN = {
 
   /* ── дерево с белым полиуретановым покрытием ── */
   'FTU-V P20':{ mat:'pu', glas:'P20', uw:1.3, rw:37, g:52, drive:'hand',
-    label:'FTU-V P20', stoff:'Дерево с белым полиуретаном, снаружи алюминий',
+    label:'FTU-V P20', stoff:'Holz mit weißem Polyurethan, außen Aluminium',
     plain:fkRow([544,580,608,639, 684,755,665,732,811,937,836,900,937,991,924,1029,1142,985,1019,1107]),
     profi:fkRow([758,796,828,864, 912,993,890,963,1046,1188,1094,1145,1190,1246,1171,1291,1417,1251,1287,1376]) },
   'FTU-V P50':{ mat:'pu', glas:'P50', uw:1.0, rw:39, g:46, drive:'hand',
-    label:'FTU-V P50', stoff:'Дерево с белым полиуретаном, снаружи алюминий',
+    label:'FTU-V P50', stoff:'Holz mit weißem Polyurethan, außen Aluminium',
     plain:fkRow([771,816,861,881, 904,973,895,960,1035,1209,1104,1120,1162,1263,1143,1261,1359,1247,1293,1344]),
     profi:fkRow([985,1032,1081,1106, 1132,1211,1120,1191,1270,1445,1362,1365,1415,1503,1390,1523,1634,1513,1561,1613]) },
   'FTU-V R50':{ mat:'pu', glas:'R50', uw:1.0, rw:39, g:41, drive:'hand',
-    label:'FTU-V R50', stoff:'Дерево с белым полиуретаном, снаружи алюминий',
+    label:'FTU-V R50', stoff:'Holz mit weißem Polyurethan, außen Aluminium',
     plain:fkRow([871,922,973,996, 1022,1099,1011,1085,1170,1366,1248,1266,1313,1427,1292,1425,1536,1409,1461,1519]),
     profi:fkRow([1085,1138,1193,1221, 1250,1337,1236,1316,1405,1617,1506,1511,1566,1682,1539,1687,1811,1675,1729,1788]) },
 
   /* ── ПВХ с камерным профилем и оцинкованным стальным усилением ──
      Размера 114×160 в ПВХ нет: в прайсе на этом развороте столбца 50 нет вовсе. */
   'PTP-V P20':{ mat:'pvc', glas:'P20', uw:1.3, rw:38, g:52, drive:'hand',
-    label:'PTP-V P20', stoff:'ПВХ, снаружи алюминий',
+    label:'PTP-V P20', stoff:'Kunststoff, außen Aluminium',
     plain:fkRow([462,487,523,510, 541,630,546,594,653,749,725,712,767,860,785,862,null,863,879,898]),
     profi:fkRow([676,703,743,735, 769,868,771,825,888,1000,983,957,1020,1115,1032,1124,null,1129,1147,1167]) },
   'PTP-V P50':{ mat:'pvc', glas:'P50', uw:1.0, rw:40, g:42, drive:'hand',
-    label:'PTP-V P50', stoff:'ПВХ, снаружи алюминий',
+    label:'PTP-V P50', stoff:'Kunststoff, außen Aluminium',
     plain:fkRow([686,725,777,758, 803,936,814,883,969,1061,1077,1061,1142,1263,1176,1258,null,1178,1261,1273]),
     profi:fkRow([900,941,997,983, 1031,1174,1039,1114,1204,1312,1335,1306,1395,1518,1423,1520,null,1444,1529,1542]) },
 
@@ -2510,19 +2585,19 @@ const FKWIN = {
      отличаются на ~215 €). Пока Fakro не пришлёт читаемый разворот,
      эти сочетания помечены «по запросу», а не угаданы. */
   'FTP-V P20 el':{ mat:'holz', glas:'P20', uw:1.3, rw:37, g:52, drive:'el',
-    label:'FTP-V P20 Z-Wave / Solar', stoff:'Дерево (сосна), снаружи алюминий',
+    label:'FTP-V P20 Z-Wave / Solar', stoff:'Holz (Kiefer), außen Aluminium',
     plain:fkRow([1028,1064,1097,1127, 1145,1204,1131,1193,1246,1364,1251,1335,1369,1398,1347,1435,1520,1412,1440,1503]),
     profi:fkRow([1227,1265,1302,1337, 1358,1427,1341,1409,1466,1600,1494,1565,1607,1638,1579,1682,1780,1663,1693,1757]) },
   'FTP-V P50 el':{ mat:'holz', glas:'P50', uw:1.0, rw:39, g:46, drive:'el',
-    label:'FTP-V P50 Z-Wave / Solar', stoff:'Дерево (сосна), снаружи алюминий',
+    label:'FTP-V P50 Z-Wave / Solar', stoff:'Holz (Kiefer), außen Aluminium',
     plain:fkRow([1267,1307,1334,1365, 1400,1440,1383,1428,1515,1638,1528,1564,1624,1674,1606,1691,null,1662,1708,1747]),
     profi:fkRow([1466,1508,1539,1575, 1613,1663,1593,1644,1735,1874,1771,1794,1862,1914,1838,1938,null,1913,1961,2016]) }
 };
 /* Стеклопакеты — стр. 3 прайса. */
 const FKGLAS = {
-  P20:{ ug:1.0,  txt:'P20 · 26 мм, 4H-15Ar-33.2, аргон, 2 низкоэмиссионных покрытия, тёплая рамка TGI, внутреннее стекло — триплекс P2 со звукопоглощающей плёнкой' },
-  P50:{ ug:0.55, txt:'P50 · 45 мм, 4H-15Ar-4-15Ar-33.2, аргон, 2 низкоэмиссионных покрытия, тёплая рамка TGI, триплекс P2, наружное стекло с самоочищающимся покрытием' },
-  R50:{ ug:0.6,  txt:'R50 · 6 мм закалённое / 12 мм аргон / триплекс 2×3 мм' }
+  P20:{ ug:1.0,  txt:'P20 · 26 mm, 4H-15Ar-33.2, Argon, 2 Low-E-Beschichtungen, warme Kante TGI, innere Scheibe VSG P2 mit schalldämmender Folie' },
+  P50:{ ug:0.55, txt:'P50 · 45 mm, 4H-15Ar-4-15Ar-33.2, Argon, 2 Low-E-Beschichtungen, warme Kante TGI, VSG P2, äußere Scheibe mit selbstreinigender Beschichtung' },
+  R50:{ ug:0.6,  txt:'R50 · 6 mm ESG / 12 mm Argon / VSG 2×3 mm' }
 };
 
 /* ═══ ОКЛАДЫ (EINDECKRAHMEN) ═══ стр. 22–23.
@@ -2533,34 +2608,34 @@ const FKGLAS = {
    серо-коричневая, близко к RAL 7022.
    Стоковые накладки EKB и подоконный отлив PKDO входят в поставку оклада. */
 const FKRAHM = {
-  none:  { label:'без оклада', p:null,
-           note:'Без оригинального оклада Fakro отдельно нужен комплект стоковых накладок EKB + отлив PKDO — он включён в цену ниже. Гарантия герметичности Fakro при этом не действует.' },
-  'ESV/R':{ label:'ESV/R — плоская кровля до 10 мм',
+  none:  { label:'ohne Eindeckrahmen', p:null,
+           note:'Ohne originalen Fakro-Eindeckrahmen wird gesondert der Satz Standardblenden EKB + Abdeckblech PKDO benötigt — er ist im Preis unten enthalten. Die Dichtheitsgarantie von Fakro entfällt dabei.' },
+  'ESV/R':{ label:'ESV/R — flache Eindeckung bis 10 mm',
     p:fkRow([98,104,111,111, 113,116,113,117,124,141,130,136,141,150,141,150,163,150,153,156]) },
-  'EHV-A':{ label:'EHV-A — профилированная кровля до 90 мм',
+  'EHV-A':{ label:'EHV-A — profilierte Eindeckung bis 90 mm',
     p:fkRow([113,119,126,128, 130,137,130,136,147,164,155,157,162,171,159,171,189,172,176,180]) },
-  'ESJ/R':{ label:'ESJ/R — плоская, утопленный монтаж −3 см',
+  'ESJ/R':{ label:'ESJ/R — flach, vertiefter Einbau −3 cm',
     p:fkRow([143,145,157,157, 162,170,162,170,180,200,189,193,200,210,200,213,236,213,220,225]) },
-  'EZJ-A':{ label:'EZJ-A — профилированная до 45 мм, утопленный монтаж −3 см',
+  'EZJ-A':{ label:'EZJ-A — profilierte Eindeckung bis 45 mm, vertiefter Einbau −3 cm',
     p:fkRow([158,161,null,174, 182,null,182,190,202,223,null,214,223,234,223,237,252,237,null,null]) },
-  'ESV-T':{ label:'ESV-T Thermo — плоская, с доп. утеплением',
+  'ESV-T':{ label:'ESV-T Thermo — flach, mit zusätzlicher Dämmung',
     p:fkRow([115,120,126,126, 130,137,130,137,145,156,154,147,156,192,156,167,189,157,181,190]) },
-  'EHV-AT':{ label:'EHV-AT Thermo — профилированная, с доп. утеплением',
+  'EHV-AT':{ label:'EHV-AT Thermo — profiliert, mit zusätzlicher Dämmung',
     p:fkRow([137,145,153,153, 155,167,155,167,178,194,185,181,194,224,194,206,229,197,218,231]) },
-  'ESU/R':{ label:'ESU/R — плоская, регулируемый по высоте',
+  'ESU/R':{ label:'ESU/R — flach, höhenverstellbar',
     p:fkRow([167,177,189,189, 192,197,192,199,211,240,221,231,240,255,240,255,277,255,260,265]) },
-  'EHU-A':{ label:'EHU-A — профилированная, регулируемый по высоте',
+  'EHU-A':{ label:'EHU-A — profiliert, höhenverstellbar',
     p:fkRow([181,190,202,205, 208,219,208,218,235,262,248,251,259,274,254,274,302,275,282,288]) },
-  'ESU/R-T':{ label:'ESU/R-T — плоская, регулируемый + утеплённый',
+  'ESU/R-T':{ label:'ESU/R-T — flach, höhenverstellbar + gedämmt',
     p:fkRow([207,217,229,229, 232,237,232,239,251,280,261,271,280,295,280,295,317,295,300,305]) },
-  'EHU-AT':{ label:'EHU-AT — профилированная, регулируемый + утеплённый',
+  'EHU-AT':{ label:'EHU-AT — profiliert, höhenverstellbar + gedämmt',
     p:fkRow([221,230,242,245, 248,259,248,258,275,302,288,291,299,314,294,314,342,315,322,328]) },
-  'ESA':  { label:'ESA — клиновой, поднимает окно на 10°, плоская кровля',
+  'ESA':  { label:'ESA — Keilrahmen, hebt das Fenster um 10°, flache Eindeckung',
     p:fkRow([414,436,462,464]),
-    note:'Клиновой оклад позволяет ставить окно уже при уклоне кровли от 10°. В прайсе есть только для четырёх мелких размеров.' },
-  'EHA':  { label:'EHA — клиновой, поднимает окно на 10°, профилированная',
+    note:'Der Keil-Eindeckrahmen erlaubt den Einbau bereits ab 10° Dachneigung. In der Preisliste ist er nur für vier kleine Maße enthalten.' },
+  'EHA':  { label:'EHA — Keilrahmen, hebt das Fenster um 10°, profilierte Eindeckung',
     p:fkRow([448,468,491,496]),
-    note:'Клиновой оклад позволяет ставить окно уже при уклоне кровли от 10°. В прайсе есть только для четырёх мелких размеров.' }
+    note:'Der Keil-Eindeckrahmen erlaubt den Einbau bereits ab 10° Dachneigung. In der Preisliste ist er nur für vier kleine Maße enthalten.' }
 };
 /* Стоковые накладки + отлив, стр. 22–23. Нужны, только если окно ставится
    без оригинального оклада Fakro. */
@@ -2573,57 +2648,57 @@ const FKEKB = fkRow([34,35,37,36, 38,41,36,38,43,50,36,39,44,52,41,44,53,37,40,4
    25 € для внутренних, 35 € для наружных маркиз AMZ. У AMS и ARZ такой
    доплаты в прайсе нет. */
 const FKACC = [
-  {k:'ajp', grp:'in', pg2:1, label:'Жалюзи AJP',
-   note:'Ламели регулируются, боковые направляющие затемняют помещение.',
+  {k:'ajp', grp:'in', pg2:1, label:'Jalousie AJP',
+   note:'Die Lamellen sind verstellbar, seitliche Führungsschienen verdunkeln den Raum.',
    p:fkRow([77,86,92,94, 101,108,105,117,126,136,117,125,135,153,147,150,161,178,189,184])},
-  {k:'ars', grp:'in', pg2:1, label:'Штора ARS — стандартная, 16 цветов',
+  {k:'ars', grp:'in', pg2:1, label:'Rollo ARS — Standard, 16 Farben',
    p:fkRow([55,55,55,58, 58,58,64,64,64,64,81,81,81,81,86,86,86,99,99,99])},
-  {k:'arp', grp:'in', pg2:1, label:'Штора ARP Komfort — с направляющими, 4 цвета',
+  {k:'arp', grp:'in', pg2:1, label:'Rollo ARP Komfort — mit Führungsschienen, 4 Farben',
    p:fkRow([96,105,108,110, 116,120,118,128,134,138,129,134,145,169,151,154,169,156,169,190])},
-  {k:'arpz',grp:'in', pg2:1, label:'Штора ARP Komfort Z-Wave — электрическая',
+  {k:'arpz',grp:'in', pg2:1, label:'Rollo ARP Komfort Z-Wave — elektrisch',
    p:fkRow([274,281,288,292, 300,309,309,321,330,333,318,324,333,351,342,349,368,354,356,387])},
-  {k:'arf', grp:'in', pg2:1, label:'Штора ARF — затемняющая, 5 цветов',
-   note:'Светонепроницаемое покрытие, работает и как тепловой барьер.',
+  {k:'arf', grp:'in', pg2:1, label:'Rollo ARF — verdunkelnd, 5 Farben',
+   note:'Lichtundurchlässige Beschichtung, wirkt zugleich als Hitzeschutz.',
    p:fkRow([104,109,113,114, 120,126,123,133,142,151,133,142,151,163,159,161,187,169,179,195])},
-  {k:'arfz',grp:'in', pg2:1, label:'Штора ARF Komfort Z-Wave — затемняющая, электрическая',
+  {k:'arfz',grp:'in', pg2:1, label:'Rollo ARF Komfort Z-Wave — verdunkelnd, elektrisch',
    p:fkRow([277,284,290,295, 303,312,312,324,333,336,321,328,336,354,346,352,371,357,359,391])},
-  {k:'arfs',grp:'in', pg2:1, label:'Штора ARF Komfort Solar — затемняющая, на солнечной батарее',
+  {k:'arfs',grp:'in', pg2:1, label:'Rollo ARF Komfort Solar — verdunkelnd, mit Solarmodul',
    p:fkRow([326,335,338,340, 346,350,348,358,364,368,359,364,375,399,381,384,399,386,399,420])},
-  {k:'aps', grp:'in', pg2:1, label:'Плиссе APS — 3 цвета',
+  {k:'aps', grp:'in', pg2:1, label:'Plissee APS — 3 Farben',
    p:fkRow([87,94,99,100, 110,115,110,121,131,147,126,134,145,161,154,160,178,163,187,194])},
-  {k:'apf', grp:'in', pg2:1, label:'Плиссе APF — сотовая структура, защита от жары',
+  {k:'apf', grp:'in', pg2:1, label:'Plissee APF — Wabenstruktur, Hitzeschutz',
    p:fkRow([122,129,134,135, 145,150,145,156,166,182,161,169,180,196,189,195,213,198,222,229])},
-  {k:'ams', grp:'in', pg2:0, label:'Москитная сетка AMS — рулонная, длина 200 см',
-   note:'Единственный аксессуар, который крепится к откосу, а не к створке.',
+  {k:'ams', grp:'in', pg2:0, label:'Insektenschutzrollo AMS — Rollo, Länge 200 cm',
+   note:'Das einzige Zubehör, das an der Laibung und nicht am Flügel befestigt wird.',
    p:fkRow([157,157,157,166, 166,166,180,180,180,180,190,190,190,190,220,220,220,225,225,225])},
 
-  {k:'amz', grp:'out', pg2:2, label:'Маркиза AMZ Komfort — сетка, светопропускание 10 %',
+  {k:'amz', grp:'out', pg2:2, label:'Markise AMZ Komfort — Netzgewebe, Lichtdurchlässigkeit 10 %',
    p:fkRow([90,90,90,99, 99,99,113,113,113,145,141,141,141,151,159,159,161,168,168,168])},
-  {k:'amzz',grp:'out', pg2:2, label:'Маркиза AMZ Komfort Z-Wave — электрическая',
+  {k:'amzz',grp:'out', pg2:2, label:'Markise AMZ Komfort Z-Wave — elektrisch',
    p:fkRow([344,360,386,363, 381,394,386,398,411,445,417,419,449,484,449,478,505,454,493,521])},
-  {k:'amzs',grp:'out', pg2:2, label:'Маркиза AMZ Komfort Solar — на солнечной батарее',
+  {k:'amzs',grp:'out', pg2:2, label:'Markise AMZ Komfort Solar — mit Solarmodul',
    p:fkRow([467,491,515,510, 530,546,539,545,561,593,559,561,597,651,593,628,657,602,625,671])},
-  {k:'arzz',grp:'out', pg2:0, label:'Рольставня ARZ Komfort Z-Wave — электрическая',
-   note:'В цену не входит блок управления — его заказывают отдельно.',
+  {k:'arzz',grp:'out', pg2:0, label:'Rollladen ARZ Komfort Z-Wave — elektrisch',
+   note:'Die Steuereinheit ist nicht im Preis enthalten — sie wird gesondert bestellt.',
    p:fkRow([448,484,527,506, 523,552,516,546,575,621,563,593,625,689,632,679,713,632,676,737])},
-  {k:'arzs',grp:'out', pg2:0, label:'Рольставня ARZ Komfort Solar — на солнечной батарее',
+  {k:'arzs',grp:'out', pg2:0, label:'Rollladen ARZ Komfort Solar — mit Solarmodul',
    p:fkRow([648,679,716,706, 721,742,720,731,753,787,753,756,780,858,784,809,863,795,829,874])}
 ];
 const FKPG2 = {1:25, 2:35};   /* доплата за ткань 2-й группы, € нетто */
 
 /* ═══ ПРИНАДЛЕЖНОСТИ БЕЗ ПРИВЯЗКИ К РАЗМЕРУ ═══ стр. 30–31. */
 const FKFIX = [
-  {k:'zst', label:'Телескопическая штанга ZST, 1,19–2,18 м', p:51},
-  {k:'zsz', label:'Штанга ZSZ для маркизы, 1,50 м',          p:36},
-  {k:'zbh', label:'Ручка ZBH с замком и ключом',              p:36},
-  {k:'zbb', label:'Ограничитель открывания ZBB',              p:47},
-  {k:'zbl', label:'Дополнительный запор ZBL',                 p:45},
-  {k:'zrh1',label:'Пульт ZRH1 — 1 канал (для Z-Wave)',        p:81},
-  {k:'zrh12',label:'Пульт ZRH12 — 12 каналов (для Z-Wave)',   p:110}
+  {k:'zst', label:'Teleskopstange ZST, 1,19–2,18 m', p:51},
+  {k:'zsz', label:'Stange ZSZ für die Markise, 1,50 m',          p:36},
+  {k:'zbh', label:'Griff ZBH mit Schloss und Schlüssel',              p:36},
+  {k:'zbb', label:'Öffnungsbegrenzer ZBB',              p:47},
+  {k:'zbl', label:'Zusatzverriegelung ZBL',                 p:45},
+  {k:'zrh1',label:'Fernbedienung ZRH1 — 1 Kanal (für Z-Wave)',        p:81},
+  {k:'zrh12',label:'Fernbedienung ZRH12 — 12 Kanäle (für Z-Wave)',   p:110}
 ];
 /* Медь или титан-цинк вместо стандартного алюминия снаружи — стр. 6–9, 14. */
 const FKKUPFER = 300;
-const FKMAT = { holz:'Дерево', pu:'Дерево + полиуретан', pvc:'ПВХ' };
+const FKMAT = { holz:'Holz', pu:'Holz + Polyurethan', pvc:'Kunststoff' };
 
 /* ═══════════ СОСТОЯНИЕ ═══════════ */
 const F = { mat:'holz', glas:'P20', drive:'hand', size:'07', profi:true,
@@ -2651,18 +2726,18 @@ function fkCalc(){
     if(base==null && F.profi){ base = m.plain[F.size]; profiUsed=false; }  // комплекта нет — считаем окно
     if(base==null) ok=false;
   }
-  if(ok) rows.push({t:(profiUsed?'Окно с комплектом Profi Kombi I':'Окно')
-                      +` ${m.label}, ${sz.w}×${sz.h} см`, v:base});
+  if(ok) rows.push({t:(profiUsed?'Fenster mit Set Profi Kombi I':'Fenster')
+                      +` ${m.label}, ${sz.w}×${sz.h} cm`, v:base});
 
-  if(ok && F.kupfer) rows.push({t:'Наружная облицовка медь или титан-цинк', v:FKKUPFER});
+  if(ok && F.kupfer) rows.push({t:'Außenverkleidung Kupfer oder Titanzink', v:FKKUPFER});
 
   let rahmP=0;
   if(ok){
     if(F.rahm==='none'){ rahmP = FKEKB[F.size]||0;
-      if(rahmP) rows.push({t:'Стоковые накладки EKB + отлив PKDO (монтаж без оклада)', v:rahmP});
+      if(rahmP) rows.push({t:'Standardblenden EKB + Abdeckblech PKDO (Einbau ohne Eindeckrahmen)', v:rahmP});
     } else {
       const r=FKRAHM[F.rahm]; rahmP = r && r.p ? r.p[F.size] : null;
-      if(rahmP==null){ ok=false; } else rows.push({t:'Оклад '+F.rahm, v:rahmP});
+      if(rahmP==null){ ok=false; } else rows.push({t:'Eindeckrahmen '+F.rahm, v:rahmP});
     }
   }
 
@@ -2672,7 +2747,7 @@ function fkCalc(){
     const v=a.p[F.size];
     if(v==null) return;
     const add = (a.pg2 && F.pg2) ? FKPG2[a.pg2] : 0;
-    rows.push({t:a.label + (add?' (ткань 2-й группы)':''), v:v+add});
+    rows.push({t:a.label + (add?' (Stoff 2. Gruppe)':''), v:v+add});
     accSum+=v+add;
   });
   let fixSum=0;
@@ -2719,7 +2794,7 @@ function fkSvg(c,{mini=false}={}){
     p.push(`<rect x="${x0-2}" y="${y0-bx}" width="${w+4}" height="${bx}" rx="2"
             fill="${hasBox?'#cdd2d5':'#d8d3c7'}" stroke="#6b6c6b" stroke-width="1"/>`);
     if(!mini) p.push(`<text x="${x0+w/2}" y="${y0-bx/2+4}" text-anchor="middle"
-            font-size="11" fill="#4a4a48">${hasBox?'рольставня':'маркиза'}</text>`);
+            font-size="11" fill="#4a4a48">${hasBox?'Rollladen':'Markise'}</text>`);
   }
   /* коробка окна */
   const fr=Math.max(5, w*0.055);
@@ -2745,14 +2820,14 @@ function fkSvg(c,{mini=false}={}){
   if(!mini){
     p.push(`<line x1="${x0+w+ok}" y1="${sy+sh/2}" x2="${x0+w+ok+10}" y2="${sy+sh/2}"
             stroke="#8d887f" stroke-width="1.2" stroke-dasharray="9 5"/>`);
-    p.push(`<text x="${x0+w+ok+15}" y="${sy+sh/2+4}" font-size="11" fill="#8d887f">ось поворота</text>`);
+    p.push(`<text x="${x0+w+ok+15}" y="${sy+sh/2+4}" font-size="11" fill="#8d887f">Drehachse</text>`);
     /* размеры */
     const yd=y0+h+ok+24, xd=x0-ok-16;
     p.push(`<line x1="${x0}" y1="${yd}" x2="${x0+w}" y2="${yd}" ${dc}/>`);
-    p.push(`<text x="${x0+w/2}" y="${yd-6}" text-anchor="middle" font-size="12" fill="#57544d">${c.sz.w} см</text>`);
+    p.push(`<text x="${x0+w/2}" y="${yd-6}" text-anchor="middle" font-size="12" fill="#57544d">${c.sz.w} cm</text>`);
     p.push(`<line x1="${xd}" y1="${y0}" x2="${xd}" y2="${y0+h}" ${dc}/>`);
     p.push(`<text x="${xd-4}" y="${y0+h/2}" text-anchor="middle" font-size="12" fill="#57544d"
-            transform="rotate(-90 ${xd-4} ${y0+h/2})">${c.sz.h} см</text>`);
+            transform="rotate(-90 ${xd-4} ${y0+h/2})">${c.sz.h} cm</text>`);
   }
   return p.join('');
 }
@@ -2762,9 +2837,9 @@ function fkDescribe(){
   const c=fkCalc();
   if(!c.ok) return '—';
   const ex=[];
-  ex.push(c.profiUsed ? 'комплект Profi Kombi I' : 'без комплекта');
-  ex.push(F.rahm==='none' ? 'без оклада (EKB+PKDO)' : 'оклад '+F.rahm);
-  if(F.kupfer) ex.push('медь / титан-цинк');
+  ex.push(c.profiUsed ? 'Set Profi Kombi I' : 'ohne Set');
+  ex.push(F.rahm==='none' ? 'ohne Eindeckrahmen (EKB+PKDO)' : 'Eindeckrahmen '+F.rahm);
+  if(F.kupfer) ex.push('Kupfer / Titanzink');
   FKACC.forEach(a=>{ if(F.acc[a.k]) ex.push(a.label.split(' — ')[0]); });
   FKFIX.forEach(x=>{ if(F.fix[x.k]) ex.push(x.label.split(',')[0]); });
   return `Fakro ${c.m.label} · ${ex.join(', ')} · Uw ${num(c.m.uw)}`;
@@ -2775,7 +2850,7 @@ function fkFill(){
   /* размеры */
   $('fk-size').innerHTML = FKORD.map(code=>{
     const z=FKSIZE[code];
-    return `<option value="${code}">${z.w} × ${z.h} см · код ${code} · свет ${num(z.licht)} м²</option>`;
+    return `<option value="${code}">${z.w} × ${z.h} cm · Code ${code} · Licht ${num(z.licht)} m²</option>`;
   }).join('');
   /* оклады */
   $('fk-rahm').innerHTML = Object.entries(FKRAHM)
@@ -2806,8 +2881,8 @@ function fkRender(){
   });
   $('fk-drivebar').style.display = (F.mat==='holz' && F.glas!=='R50') ? '' : 'none';
   $('fk-drivenote').textContent = (F.mat!=='holz' || F.glas==='R50')
-    ? 'Электропривод Z-Wave и Solar в прайсе есть только для дерева FTP-V с пакетами P20 и P50. Для остальных сочетаний цену запрашиваем у Fakro.'
-    : 'Z-Wave и Solar стоят одинаково. В комплекте цепной привод, 3-канальное управление и датчик дождя. Пульт заказывается отдельно — он ниже, в принадлежностях.';
+    ? 'Den Elektroantrieb Z-Wave und Solar gibt es in der Preisliste nur für Holz FTP-V mit den Paketen P20 und P50. Für alle anderen Kombinationen fragen wir den Preis bei Fakro an.'
+    : 'Z-Wave und Solar kosten gleich viel. Im Lieferumfang sind Kettenantrieb, 3-Kanal-Steuerung und Regensensor. Die Fernbedienung wird gesondert bestellt — sie steht unten beim Zubehör.';
 
   $('fk-size').value = F.size;
   $('fk-rahm').value = F.rahm;
@@ -2819,7 +2894,7 @@ function fkRender(){
     if(el){ el.checked=!!F.acc[a.k]; el.disabled = a.p[F.size]==null; }
     const pz=document.querySelector(`[data-pz="${a.k}"]`);
     if(pz){ const v=a.p[F.size];
-      pz.textContent = v==null ? ' — нет для этого размера'
+      pz.textContent = v==null ? ' — für dieses Maß nicht verfügbar'
         : ' · ' + eur(v + ((a.pg2&&F.pg2)?FKPG2[a.pg2]:0)); }
   });
   FKFIX.forEach(x=>{ const el=document.querySelector(`[data-fix="${x.k}"]`); if(el) el.checked=!!F.fix[x.k]; });
@@ -2830,27 +2905,27 @@ function fkRender(){
   const r=FKRAHM[F.rahm];
   const rahmBad = F.rahm!=='none' && r.p && r.p[F.size]==null;
   $('fk-rahmnote').textContent = rahmBad
-    ? `Оклада ${F.rahm} на размер ${FKSIZE[F.size].w}×${FKSIZE[F.size].h} см в прайсе нет — выберите другой тип или другой размер.`
+    ? `Eindeckrahmen ${F.rahm} um ${FKSIZE[F.size].w}×${FKSIZE[F.size].h} cm gibt es nicht in der Preisliste — wählen Sie einen anderen Typ oder ein anderes Maß.`
     : (r.note || (F.rahm==='none' ? '' :
-       'Стоковые накладки EKB и подоконный отлив PKDO входят в поставку оклада.'));
+       'Die Standardblenden EKB und das Abdeckblech PKDO sind im Lieferumfang des Eindeckrahmens enthalten.'));
 
   $('fk-profinote').textContent = c.ok && F.profi && !c.profiUsed
-    ? 'На этот размер комплекта Profi Kombi в прайсе нет — посчитано окно без комплекта.'
-    : 'Profi Kombi I — окно плюс удлинитель коробки XGP, паропроницаемый фартук XDP и пароизоляционный фартук XDS. Оклад в комплект не входит.';
+    ? 'Für dieses Maß gibt es Profi Kombi nicht in der Preisliste — berechnet wurde das Fenster ohne Set.'
+    : 'Profi Kombi I besteht aus dem Fenster plus Blendrahmenverlängerung XGP, diffusionsoffener Unterdachkragen XDP und Dampfsperrkragen XDS. Der Eindeckrahmen ist nicht enthalten.';
 
   $('fk-draw').innerHTML = fkSvg(c);
   $('fk-sp-model').textContent = c.ok ? c.m.label : '—';
   $('fk-sp-mat').textContent   = c.ok ? c.m.stoff : '—';
   $('fk-sp-glas').textContent  = FKGLAS[F.glas].txt;
-  $('fk-sp-uw').textContent    = c.ok ? num(c.m.uw)+' Вт/м²·К' : '—';
-  $('fk-sp-rw').textContent    = c.ok ? '≈ '+c.m.rw+' дБ' : '—';
+  $('fk-sp-uw').textContent    = c.ok ? num(c.m.uw)+' W/m²·K' : '—';
+  $('fk-sp-rw').textContent    = c.ok ? '≈ '+c.m.rw+' dB' : '—';
   $('fk-sp-g').textContent     = c.ok ? c.m.g+' %' : '—';
-  $('fk-sp-neig').textContent  = 'от 15° до 90°';
-  $('fk-sp-griff').textContent = 'В верхней части створки';
+  $('fk-sp-neig').textContent  = 'von 15° bis 90°';
+  $('fk-sp-griff').textContent = 'Im oberen Bereich des Flügels';
 
-  $('fk-f-size').textContent  = c.sz.w+' × '+c.sz.h+' см';
+  $('fk-f-size').textContent  = c.sz.w+' × '+c.sz.h+' cm';
   $('fk-f-code').textContent  = F.size;
-  $('fk-f-licht').textContent = num(c.sz.licht)+' м²';
+  $('fk-f-licht').textContent = num(c.sz.licht)+' m²';
   $('fk-f-ug').textContent    = num(FKGLAS[F.glas].ug);
 
   $('fk-q-val').textContent = F.qty;
@@ -2858,8 +2933,8 @@ function fkRender(){
 
   $('fk-rows').innerHTML = c.ok
     ? c.rows.map(r=>`<tr><td>${r.t}</td><td>${eur(r.v)}</td></tr>`).join('')
-      + (F.qty>1?`<tr><td>Одно изделие в сборе × ${F.qty} шт</td><td>${eur(c.one)}</td></tr>`:'')
-    : `<tr><td colspan="2">Этого сочетания в прайсе нет — цену запрашиваем у Fakro.</td></tr>`;
+      + (F.qty>1?`<tr><td>Ein komplettes Element × ${F.qty} Stk</td><td>${eur(c.one)}</td></tr>`:'')
+    : `<tr><td colspan="2">Diese Kombination gibt es nicht in der Preisliste — wir fragen den Preis bei Fakro an.</td></tr>`;
   $('fk-netto').textContent  = c.ok ? eur(c.netto)  : '—';
   $('fk-vat').textContent    = c.ok ? eur(c.vat)    : '—';
   $('fk-brutto').textContent = c.ok ? eur(c.brutto) : '—';
@@ -2885,7 +2960,7 @@ $('fk-q-plus').addEventListener('click', ()=>{ if(F.qty<99){ F.qty++; fkRender()
 $('fk-q-minus').addEventListener('click',()=>{ if(F.qty>1){ F.qty--; fkRender(); }});
 $('fk-add').addEventListener('click',()=>{
   const c=fkCalc(); if(!c.ok) return;
-  list.push({ size:`${c.sz.w} × ${c.sz.h} см`, desc:fkDescribe(), qty:F.qty, item:c.netto,
+  list.push({ size:`${c.sz.w} × ${c.sz.h} cm`, desc:fkDescribe(), qty:F.qty, item:c.netto,
               area:(c.sz.w*c.sz.h/10000)*F.qty, kg:0, farbe:false,
               svg:fkSvg(c,{mini:true}), cfg:null, fk:true });
   saveCart(); renderList();
@@ -2913,7 +2988,7 @@ renderList();
 
 /* ═══════════ COOKIES ═══════════ */
 (function(){
-  const KEY='fensterpreis_consent', box=$('cookie');
+  const KEY='fensterrechner_consent', box=$('cookie');
   const set=ok=>{ if(typeof gtag==='function') gtag('consent','update',{
     ad_storage:        ok?'granted':'denied',
     ad_user_data:      ok?'granted':'denied',
