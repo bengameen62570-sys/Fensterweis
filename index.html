@@ -86,6 +86,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font
 .top nav a{color:var(--ink-2);text-decoration:none;font-size:14.5px;font-weight:500}
 .top nav a:hover{color:var(--accent)}
 .top .tel{font-weight:600;color:var(--ink);white-space:nowrap}
+.top .mail{white-space:nowrap}
 @media(max-width:760px){.top nav a.hide-s{display:none}}
 /* Schmale Telefone: Kopfzeile muss ohne Querscrollen passen */
 @media(max-width:480px){
@@ -151,7 +152,7 @@ td.thumb svg{width:78px;height:60px;display:block}
 @media print{
   .top,.hero,.layout,.dock,footer,.btn,.del,#clr{display:none!important}
   /* на бумаге не нужны органы управления — только сама заявка */
-  .modebar,.bulk,.consent,#send-hint,.cookie{display:none!important}
+  .modebar,.bulk,.consent,#send-hint,.cookie,.callbox{display:none!important}
   input,textarea{border:0!important;padding-left:0!important;background:transparent!important}
   input::placeholder,textarea::placeholder{color:transparent!important}
   body{background:#fff;padding:0}
@@ -351,6 +352,20 @@ footer p,footer li{font-size:13.5px;color:var(--ink-2);margin:5px 0}
 footer h4{font-family:var(--head);font-size:14px;margin:0 0 8px}
 footer ul{list-style:none;padding:0;margin:0}
 .fine{font-size:12px;color:var(--muted);margin-top:22px;border-top:1px solid var(--line-2);padding-top:14px}
+/* Telefon-Hinweis über dem Rechner */
+.callbox{display:flex;gap:16px;align-items:center;text-decoration:none;
+  background:var(--accent);border-radius:14px;padding:17px 20px;margin:0 0 22px;color:#fff}
+.callbox:hover{background:var(--accent-d)}
+.callbox-tx{flex:1 1 auto;font-size:14.5px;line-height:1.5;color:#dbe8e2}
+.callbox-tx b{display:block;font-size:16.5px;color:#fff;margin-bottom:3px;
+  font-family:var(--head);letter-spacing:-.01em}
+.callbox-nr{flex:0 0 auto;display:flex;align-items:center;gap:9px;background:#fff;
+  color:var(--accent);font-weight:800;font-size:19px;letter-spacing:-.01em;
+  border-radius:11px;padding:13px 19px;white-space:nowrap}
+@media(max-width:620px){
+  .callbox{flex-direction:column;align-items:stretch;gap:13px;padding:16px}
+  .callbox-nr{justify-content:center;font-size:21px;padding:15px}
+}
 .modebar{display:flex;justify-content:center;margin:0 0 22px}
 .modebar .seg{padding:4px;gap:4px}
 .modebar .seg button{padding:11px 22px;font-size:14.5px}
@@ -459,6 +474,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     <nav>
       <a href="#kalk" class="hide-s">Berechnung</a>
       <a href="#korb" class="cart">Anfrage<span class="cnt" id="cnt" hidden>0</span></a>
+      <a class="mail hide-s" href="mailto:bengameen62570@gmail.com">bengameen62570@gmail.com</a>
       <a class="tel" href="tel:+4368184352477">+43 681 84352477</a>
     </nav>
   </div>
@@ -496,6 +512,22 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     <button type="button" id="md-fk" aria-pressed="false">Dachfenster · Fakro</button>
   </div>
 </div>
+
+<!-- Kurzer Weg für alle, denen der Rechner am Handy zu umständlich ist -->
+<a class="callbox" href="tel:+4368184352477">
+  <span class="callbox-tx">
+    <b>Sie können uns auch anrufen</b>
+    Geben Sie uns einfach die Maße Ihrer Fenster durch — Sie erhalten von uns ein
+    unverbindliches Angebot für Qualitätsfenster mit österreichischen Beschlägen.
+  </span>
+  <span class="callbox-nr">
+    <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.5a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/>
+    </svg>
+    +43 681 84352477
+  </span>
+</a>
 
 <div id="pane-pvc">
 <div class="layout">
@@ -923,7 +955,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 <!-- ═══ КОРЗИНА ═══ -->
 <h2 class="sec" id="korb">Ihre Anfrage</h2>
 <section class="card">
-  <div id="list-box"><p class="empty">Noch leer. Stellen Sie oben ein Fenster zusammen und klicken Sie auf „Zur Anfrage hinzufügen“.</p></div>
+  <div id="list-box"><p class="empty">Noch leer. Stellen Sie oben ein Fenster zusammen und klicken Sie auf „Zur Anfrage hinzufügen“ — oder beschreiben Sie Ihr Vorhaben unten im Feld „Anmerkung“ und senden Sie die Anfrage ohne Berechnung ab. Wir rechnen dann für Sie.</p></div>
 
   <h3 style="font-family:var(--head);font-size:16px;margin:26px 0 2px">Kontaktdaten</h3>
   <p class="note">Alle Felder sind freiwillig — füllen Sie aus, was Sie für nötig halten.</p>
@@ -942,7 +974,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 
   <div class="form" style="margin-top:16px">
     <div class="inp full"><label for="c-note">Anmerkung</label><input type="text" id="c-note"
-      placeholder="Geschoß, Termine, welche Elemente an welche Adresse"></div>
+      placeholder="Maße, Anzahl, Geschoß, Termine — oder einfach, worum es geht"></div>
   </div>
 
   <label class="consent">
@@ -2113,7 +2145,7 @@ function renderList(){
   const cnt=$('cnt'), total=list.reduce((a,p)=>a+p.qty,0);
   cnt.textContent=total; cnt.hidden = total===0;
   if(!list.length){
-    box.innerHTML='<p class="empty">Noch leer. Stellen Sie oben ein Fenster zusammen und klicken Sie auf „Zur Anfrage hinzufügen“.</p>';
+    box.innerHTML='<p class="empty">Noch leer. Stellen Sie oben ein Fenster zusammen und klicken Sie auf „Zur Anfrage hinzufügen“ — oder beschreiben Sie Ihr Vorhaben unten im Feld „Anmerkung“ und senden Sie die Anfrage ohne Berechnung ab. Wir rechnen dann für Sie.</p>';
     return;
   }
   let sum=list.reduce((a,p)=>a+p.item,0);
@@ -2422,6 +2454,18 @@ $('add').addEventListener('click',()=>{
 $('add-addr').addEventListener('click',addAddress);
 
 function buildBody(){
+  const fioL=[$('c-fam').value,$('c-imya').value,$('c-otch').value].filter(x=>x.trim()).join(' ');
+  /* Anfrage ohne Berechnung: der Kunde beschreibt sein Vorhaben nur mit Worten. */
+  if(!list.length) return [
+    'ANFRAGE ÜBER DIE WEBSITE — ohne Berechnung','',
+    `Name: ${fioL||'—'}`,
+    `Telefon: ${$('c-tel').value||'—'}`,
+    `E-Mail: ${$('c-mail').value||'—'}`,'',
+    ...(collectAddr().length?collectAddr().concat(''):['Lieferadresse: —','']),
+    'Beschreibung des Kunden:',
+    $('c-note').value||'—','',
+    FRIST
+  ].join('\n');
   const vorb = list.some(p=>p.farbe) ? OPT.aluVorb*(1+MARKUP) : 0;
   const sum=list.reduce((a,p)=>a+p.item,0)+vorb, netto=sum, brutto=netto*(1+VAT);
   const sKg=list.reduce((a,p)=>a+p.kg,0), sArea=list.reduce((a,p)=>a+p.area,0);
@@ -2447,8 +2491,11 @@ function buildBody(){
 }
 
 $('send').addEventListener('click',()=>{
-  if(!list.length){
-    $('send-hint').textContent='Fügen Sie zuerst mindestens ein Element hinzu.'; return; }
+  /* Ohne Berechnung geht es auch — dann muss nur beschrieben sein, worum es geht. */
+  if(!list.length && !$('c-note').value.trim()){
+    $('send-hint').textContent='Stellen Sie oben ein Fenster zusammen — oder beschreiben Sie '
+      +'Ihr Vorhaben kurz im Feld „Anmerkung“, dann rechnen wir für Sie.';
+    $('c-note').focus(); return; }
   if(!$('c-tel').value.trim() && !$('c-mail').value.trim()){
     $('send-hint').textContent='Bitte geben Sie Telefon oder E-Mail an — sonst können wir Ihnen nicht antworten.';
     $('c-tel').focus(); return; }
@@ -2465,7 +2512,10 @@ $('send').addEventListener('click',()=>{
 });
 
 $('copy').addEventListener('click',async ()=>{
-  if(!list.length){ $('send-hint').textContent='Fügen Sie zuerst mindestens ein Element hinzu.'; return; }
+  if(!list.length && !$('c-note').value.trim()){
+    $('send-hint').textContent='Stellen Sie oben ein Fenster zusammen — oder beschreiben Sie '
+      +'Ihr Vorhaben kurz im Feld „Anmerkung“.';
+    $('c-note').focus(); return; }
   const txt=buildBody();
   try{
     await navigator.clipboard.writeText(txt);
