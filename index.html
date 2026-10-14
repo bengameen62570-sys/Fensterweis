@@ -235,10 +235,13 @@ h2.sec{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.0
   /* блочный поток вместо сетки — иначе липкому чертежу некуда двигаться */
   .layout{display:block}
   .layout>section.card{margin-bottom:14px}
-  .stage{position:sticky;top:58px;z-index:6;
+  .stage{position:sticky;top:58px;z-index:6;padding:10px 12px;
     box-shadow:0 12px 24px -18px rgba(0,0,0,.45)}
-  .stage .plan{height:34vh;width:100%}
+  .stage .plan{height:26vh;width:100%}
   .stage .outside{display:none}
+  .stage .lbl{font-size:11px;margin-bottom:4px!important}
+  /* чтобы якорные переходы не уводили элемент под липкий чертёж */
+  .field,#add,#korb,.card{scroll-margin-top:calc(26vh + 90px)}
 }
 
 
@@ -395,6 +398,28 @@ table.list td.num,table.list th.num{text-align:right;padding-right:0;white-space
 table.list tr.grand td{border:0;border-top:2px solid var(--line);padding-top:12px;font-size:17px;font-weight:700}
 table.list .del{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:19px;line-height:1;padding:0 2px}
 table.list .del:hover{color:var(--warn)}
+/* Корзина на телефоне: таблица из 7 колонок не влезает —
+   убираем номер и эскиз, фиксируем ширины, разрешаем перенос цен. */
+@media(max-width:620px){
+  table.list{table-layout:fixed;font-size:13px}
+  table.list th:first-child,table.list td:first-child,
+  table.list th:nth-child(2),table.list td.thumb{display:none}
+  table.list th,table.list td{padding:9px 5px 9px 0;word-break:break-word;overflow-wrap:anywhere}
+  table.list td.num,table.list th.num{white-space:normal}
+  table.list th:nth-child(3),table.list td:nth-child(3){width:27%}
+  table.list th:nth-child(5),table.list td:nth-child(5){width:11%}
+  table.list th:nth-child(6),table.list td:nth-child(6){width:24%}
+  table.list th:last-child,table.list td:last-child{width:22px;padding-right:0}
+  table.list tr.grand td{font-size:15.5px}
+  table.list tr>td[colspan]{width:auto}
+  table.list th{font-size:10.5px;letter-spacing:0;hyphens:none}
+}
+/* шапка: на средних телефонах номер уже не помещается рядом с корзиной */
+@media(max-width:440px){
+  .top .wrap{gap:10px}
+  .top nav{gap:11px}
+  .top nav a,.top .tel{font-size:12.5px}
+}
 .empty{color:var(--muted);padding:8px 0 2px}
 
 .form{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
