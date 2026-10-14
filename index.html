@@ -474,7 +474,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     <nav>
       <a href="#kalk" class="hide-s">Berechnung</a>
       <a href="#korb" class="cart">Anfrage<span class="cnt" id="cnt" hidden>0</span></a>
-      <a class="mail hide-s" href="mailto:bengameen62570@gmail.com">bengameen62570@gmail.com</a>
+      <a class="mail hide-s" href="mailto:office@fensterrechner.at">office@fensterrechner.at</a>
       <a class="tel" href="tel:+4368184352477">+43 681 84352477</a>
     </nav>
   </div>
@@ -494,12 +494,10 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 
     <div class="montage">
       <h3>Montage</h3>
-      <p>Die Montage wird individuell kalkuliert — der Preis hängt vom Zustand der Öffnung, vom Geschoß und vom Umfang der Arbeiten ab. Richtwerte:</p>
-      <ul>
-        <li>Einbau in die leere Öffnung (Neubau) — <b>ab 28 €/lfm</b> des Elementumfangs</li>
-        <li>kompletter Tausch mit Demontage und Entsorgung der Altelemente — <b>ab 55 €/lfm</b></li>
-      </ul>
-      <p>Arbeiten nach ÖNORM B5320, sämtliches Montagematerial inklusive. Gesondert verrechnet werden: Laibungen, Fensterbänke innen und außen, Montage der Rollläden, Anfahrt. Den genauen Preis nennen wir nach Klärung des Objekts.</p>
+      <p><b>Montage auf Anfrage.</b> Wir übernehmen den Einbau in die leere Öffnung ebenso wie
+      den kompletten Tausch mit Demontage und Entsorgung der Altelemente. Arbeiten nach
+      ÖNORM B5320, sämtliches Montagematerial inklusive. Den Preis nennen wir nach
+      Klärung des Objekts.</p>
     </div>
   </div>
 </section>
@@ -571,7 +569,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 
   <!-- ═══ УПРАВЛЕНИЕ ═══ -->
   <section class="card">
-    <p class="lbl" style="margin:0 0 9px">Typische Fenster — ein guter Startpunkt</p>
+    <p class="lbl" style="margin:0 0 9px">Typische Fenster — zum Starten anklicken</p>
     <div class="chips" id="presets"></div>
 
     <div class="field">
@@ -1481,13 +1479,13 @@ const LAYOUTS = {
 function defHinge(i,n){ if(n===1) return 'right'; return (i===n-1) ? 'left' : 'right'; }
 
 const S = {
-  W:1200, H:1400, layout:'2', qty:1, sel:1, sys:'iglo5', glas:'ug11', shape:'rect', rise:600,
+  W:1000, H:1500, layout:'1', qty:1, sel:0, sys:'iglo5', glas:'ug11', shape:'rect', rise:600,
   /* какой пакет был выбран в каждом профиле — чтобы при возврате не подставлялся чужой */
   glasMem:{iglo5:'ug11', energy:'ug05', alu:'ug05a'},
   vsg:false, spross:false, sprossV:1, sprossH:1, mesh:false,
   roll:false, rollDrive:'gurt', rollBox:180, zip:false, zipSys:'slim', zipFab:'s7635', zipCol:'std', zipMotor:'wired', zipCtrl:'remote', color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
-  fields:[{type:'fix',hinge:'right'},{type:'dk',hinge:'left'}]
+  fields:[{type:'dk',hinge:'right'}]
 };
 let list = [], addrCount = 0;
 
