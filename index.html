@@ -66,6 +66,7 @@ function loadClarity(){
   --bg:#f6f4f1; --card:#fff; --ink:#1c1b18; --ink-2:#4c4a45; --muted:#8a857c;
   --line:#e5e1d9; --line-2:#efece6;
   --accent:#2f5d4f; --accent-d:#244a3f; --accent-l:#e9f0ec;
+  --warm:#c2622d; --warm-l:#fdf0e6; --sky:#2b6ea8;
   --ok:#2b7a55; --warn:#a8482f;
   --sans:"Inter",system-ui,-apple-system,sans-serif;
   --head:"Manrope",var(--sans);
@@ -105,17 +106,38 @@ html,body{overflow-x:hidden}
 
 /* ── Первый экран ────────────────────────────────────── */
 .hero{padding:64px 0 38px}
-.hero h1{font-family:var(--head);font-weight:800;font-size:clamp(28px,4.6vw,44px);
-  line-height:1.08;letter-spacing:-.025em;margin:0 0 18px;max-width:19ch}
-.hero p{font-size:17.5px;color:var(--ink-2);max-width:54ch;margin:0 0 26px;line-height:1.6}
+.gruss{font-size:15px;color:var(--accent);font-weight:600;margin:0 0 7px;
+  letter-spacing:.01em}
+.hero h1{font-family:var(--head);font-weight:800;font-size:clamp(25px,3.6vw,35px);
+  line-height:1.12;letter-spacing:-.022em;margin:0 0 14px;max-width:22ch}
+.hero p{font-size:16.5px;color:var(--ink-2);max-width:58ch;margin:0 0 10px;line-height:1.58}
+.hero p.last{margin-bottom:20px}
+.firmnr{font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.7}
+.firmnr b{color:var(--ink-2);font-weight:600}
 .pills{display:flex;flex-wrap:wrap;gap:9px}
-.pill{background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 15px;
+.pill{display:inline-flex;align-items:center;gap:7px;background:#fff;
+  border:1px solid var(--line);border-radius:999px;padding:8px 15px;
   font-size:14px;color:var(--ink-2)}
+.pill svg{flex:0 0 auto;color:var(--sky)}
 .pill b{color:var(--ink);font-weight:600}
+/* Aktion */
+.aktion{display:flex;align-items:center;gap:12px;background:var(--warm-l);
+  border:1px solid #f0d2b6;border-left:4px solid var(--warm);border-radius:12px;
+  padding:13px 16px;margin:0 0 18px}
+.aktion-tx{font-size:15px;line-height:1.45;color:#6b3a18}
+.aktion-tx b{display:block;color:var(--warm);font-size:16.5px;font-family:var(--head);
+  letter-spacing:-.01em;margin-bottom:2px}
+@media(max-width:480px){.aktion{padding:12px 13px;gap:10px}.aktion-tx{font-size:14px}}
 
 /* ── Общее ───────────────────────────────────────────── */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
-@media(max-width:620px){.card{padding:18px}}
+@media(max-width:620px){
+  .card{padding:16px}
+  .startpick{padding:14px 15px;margin-bottom:14px}
+  .hero{padding:30px 0 22px}
+  .hero p{font-size:15.5px;margin-bottom:8px}
+  .layout{gap:14px}
+}
 /* образцы цвета */
 .swatches{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
 .swatches .sw{display:flex;flex-direction:column;align-items:center;gap:4px;width:62px}
@@ -170,6 +192,12 @@ td.thumb svg{width:78px;height:60px;display:block}
 h2.sec{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.015em;margin:56px 0 18px}
 .lbl{font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
 
+.startpick{margin:0 0 18px;padding:18px 20px}
+.outside summary{cursor:pointer;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;padding:9px 0;list-style:none}
+.outside summary::-webkit-details-marker{display:none}
+.outside summary::before{content:"+ ";color:var(--accent);font-weight:800}
+.outside[open] summary::before{content:"– "}
 .layout{display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:22px;align-items:start}
 @media(max-width:980px){.layout{grid-template-columns:1fr}}
 .stage{position:sticky;top:82px}
@@ -474,7 +502,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     <nav>
       <a href="#kalk" class="hide-s">Berechnung</a>
       <a href="#korb" class="cart">Anfrage<span class="cnt" id="cnt" hidden>0</span></a>
-      <a class="mail hide-s" href="mailto:office@fensterrechner.at">office@fensterrechner.at</a>
+      <a class="mail hide-s" href="mailto:office@fensterhof.at">office@fensterhof.at</a>
       <a class="tel" href="tel:+4368184352477">+43 681 84352477</a>
     </nav>
   </div>
@@ -482,23 +510,32 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 
 <section class="hero">
   <div class="wrap">
-    <h1>Kunststofffenster mit Lieferung in ganz Österreich</h1>
+    <p class="gruss">Herzlich willkommen auf unserer Website</p>
+    <h1>Fenster, Türen und Portale aus Kunststoff, Aluminium und Holz — Lieferung in ganz Österreich</h1>
     <p>Stellen Sie Ihr Fenster Schritt für Schritt zusammen und sehen Sie sofort den Preis. Profil von Drutex, Beschlag von MACO, Verglasung nach Wahl — zweifach oder Wärmeschutz.</p>
-    <div class="pills">
-      <span class="pill"><b>Ug ab 0,5</b> W/m²·K</span>
-      <span class="pill">Lieferung <b>kostenlos ab 4200 €</b></span>
-      <span class="pill">Lieferzeit <b>3–4 Wochen</b></span>
-      <span class="pill">Express — <b>2 Wochen</b> auf Anfrage</span>
-      <span class="pill">Montage — <b>wird individuell vereinbart</b></span>
+    <p>Bei Bestellung ohne Montage werden die Fenster auf Paletten mit einem Spezialfahrzeug an der angegebenen Adresse abgeladen.</p>
+    <p class="last">Fertigung nach europäischen Normen.</p>
+
+    <p class="firmnr">
+      GISA-Zahl (Gewerberegister Österreich): <b>39264022</b><br>
+      UID-Nummer (Steuernummer Österreich): <b>ATU83265958</b>
+    </p>
+
+    <div class="aktion">
+      <div class="aktion-tx">
+        <b>Aktion vom 1. bis 31. Oktober 2026: alle Preise bereits mit 15 % Rabatt</b>
+        Jetzt berechnen und Anfrage senden — die Aktion endet am 31. Oktober 2026.
+      </div>
     </div>
 
-    <div class="montage">
-      <h3>Montage</h3>
-      <p><b>Montage auf Anfrage.</b> Wir übernehmen den Einbau in die leere Öffnung ebenso wie
-      den kompletten Tausch mit Demontage und Entsorgung der Altelemente. Arbeiten nach
-      ÖNORM B5320, sämtliches Montagematerial inklusive. Den Preis nennen wir nach
-      Klärung des Objekts.</p>
+    <div class="pills">
+      <span class="pill"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13.5V4a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 9v5"/></svg><b>Ug ab 0,5</b> W/m²·K</span>
+      <span class="pill"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h12v10H1z"/><path d="M13 7h4l3 3v3h-7z"/><circle cx="6" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Lieferung <b>kostenlos ab 4200 €</b></span>
+      <span class="pill"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Lieferzeit <b>3–4 Wochen</b></span>
+      <span class="pill"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6"/><path d="M12 5v0"/><circle cx="12" cy="13" r="8"/><path d="M12 9.5V13"/><path d="M18.5 6.5 20 5"/></svg>Express — <b>2 Wochen</b> auf Anfrage</span>
+      <span class="pill"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 1 5.3 5L22 13l-3 3-1.7-2a4 4 0 0 1-5-5.3z"/><path d="M14 10 4 20l-2-2L12 8"/></svg>Montage — <b>wird individuell vereinbart</b></span>
     </div>
+
   </div>
 </section>
 
@@ -528,6 +565,13 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 </a>
 
 <div id="pane-pvc">
+
+<!-- Startpunkt: zuerst den Fenstertyp wählen, dann feinjustieren -->
+<section class="card startpick">
+  <p class="lbl" style="margin:0 0 9px">Typische Fenster — zum Starten anklicken</p>
+  <div class="chips" id="presets"></div>
+</section>
+
 <div class="layout">
 
   <!-- ═══ ЧЕРТЁЖ + СПЕЦИФИКАЦИЯ ═══ -->
@@ -536,10 +580,10 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       <div>
         <p class="lbl" style="margin:0 0 8px">Ansicht von innen — klicken Sie auf den Flügel</p>
         <svg class="plan" id="draw" viewBox="0 0 620 470" role="group" aria-label="Fensterskizze"></svg>
-        <div class="outside">
-          <p class="lbl" style="margin:0 0 8px">Ansicht von außen</p>
+        <details class="outside">
+          <summary>Ansicht von außen anzeigen</summary>
           <svg id="draw-out" viewBox="0 0 620 470" role="img" aria-label="Fenster von außen"></svg>
-        </div>
+        </details>
       </div>
       <aside class="spec">
         <h3>Spezifikation</h3>
@@ -569,9 +613,6 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 
   <!-- ═══ УПРАВЛЕНИЕ ═══ -->
   <section class="card">
-    <p class="lbl" style="margin:0 0 9px">Typische Fenster — zum Starten anklicken</p>
-    <div class="chips" id="presets"></div>
-
     <div class="field">
       <span class="lbl">Breite</span>
       <div class="dimrow">
@@ -735,7 +776,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
         <label class="opt"><input type="checkbox" id="o-roll">
           <span>Vorbaurollladen</span></label>
         <label class="opt"><input type="checkbox" id="o-zip">
-          <span>ZIP-Screen außen (SUN WINNER)</span></label>
+          <span>ZIP-Screen außen</span></label>
       </div>
       <div id="zipbar" style="display:none;margin-top:10px">
         <div class="seg" role="group" aria-label="ZIP-Screen-System">
@@ -1017,7 +1058,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
         <h4>Kontakt</h4>
         <ul>
           <li>+43 681 84352477</li>
-          <li>bengameen62570@gmail.com</li>
+          <li>office@fensterhof.at</li>
           <li>Seitenstettengasse 5/37, 1010 Wien</li>
         </ul>
       </div>
@@ -1849,10 +1890,10 @@ function planSvg(c,{mini=false,outside=false}={}){
          <path d="M0 0H4M0 2H4M0 0V4M2 0V4" stroke="#a29c93" stroke-width=".38" opacity=".7"/>
        </pattern>
        <linearGradient id="gl" x1="0" y1="0" x2="0.6" y2="1">
-         <stop offset="0"    stop-color="#eef2f3"/>
-         <stop offset="0.45" stop-color="#e3e9ea"/>
-         <stop offset="0.75" stop-color="#dfe6e6"/>
-         <stop offset="1"    stop-color="#e9eeee"/>
+         <stop offset="0"    stop-color="#dcefff"/>
+         <stop offset="0.45" stop-color="#bedcf4"/>
+         <stop offset="0.75" stop-color="#a8cfee"/>
+         <stop offset="1"    stop-color="#cbe5fa"/>
        </linearGradient>
        <linearGradient id="sheen" x1="0" y1="1" x2="1" y2="0">
          <stop offset="0" stop-color="#fff" stop-opacity="0"/>
@@ -2870,7 +2911,7 @@ function fkSvg(c,{mini=false}={}){
   p.push(`<rect x="${sx}" y="${sy}" width="${sw}" height="${sh}" rx="1.5" fill="#fdfcf9" ${thin}/>`);
   /* стекло */
   const gx=sx+fr*0.75, gy=sy+fr*0.75, gw=sw-1.5*fr*0.75, gh=sh-1.5*fr*0.75;
-  p.push(`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="#dbe8f1"/>`);
+  p.push(`<rect x="${gx}" y="${gy}" width="${gw}" height="${gh}" fill="#bedcf4"/>`);
   p.push(`<path d="M${gx} ${gy+gh} L${gx+gw*0.62} ${gy} L${gx+gw} ${gy} L${gx+gw*0.36} ${gy+gh} Z"
           fill="#ffffff" opacity=".38"/>`);
   /* внутренняя штора — опущена примерно на треть */
