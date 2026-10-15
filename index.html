@@ -119,6 +119,18 @@ html,body{overflow-x:clip}
 
 /* ── Первый экран ────────────────────────────────────── */
 .hero{padding:64px 0 38px}
+/* первый экран: текст слева, фото объекта справа */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:36px;align-items:center;margin-bottom:24px}
+.hero-img{margin:0;position:relative;border-radius:18px;overflow:hidden;background:#e4e0d8;
+  box-shadow:0 24px 44px -30px rgba(0,0,0,.5)}
+.hero-img img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.hero-img figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 16px 12px;font-size:13px;line-height:1.35;
+  color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.62))}
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:18px;margin-bottom:18px}
+  .hero-img{border-radius:14px}
+  .hero-img img{aspect-ratio:16/10}
+}
 .gruss{font-size:15px;color:var(--accent);font-weight:600;margin:0 0 7px;
   letter-spacing:.01em}
 .hero h1{font-family:var(--head);font-weight:800;font-size:clamp(25px,3.6vw,35px);
@@ -224,12 +236,17 @@ h2.sec{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:-.0
 .stage{position:sticky;top:82px}
 
 /* Чертёж едет с экраном: на телефоне карточка липнет под шапкой */
-.specinfo{margin-top:0}
+.specinfo{margin-top:22px}
+@media(max-width:980px){.specinfo{margin-top:14px}}
 @media(min-width:981px){
-  .layout{grid-template-rows:auto 1fr}
-  .stage{grid-column:1;grid-row:1}
-  .layout>section.card:not(.stage):not(.specinfo){grid-column:2;grid-row:1/3}
-  .specinfo{grid-column:1;grid-row:2}
+  /* чертёж липкий в левой колонке; спецификация — отдельной полосой под обеими
+     колонками, иначе липкая карточка наезжает на неё при прокрутке */
+  .specinfo{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
+  .specinfo .spec{border-left:0;padding-left:0}
+  .specinfo .spec dl{columns:2;column-gap:40px}
+  .specinfo .spec dt{break-inside:avoid;break-after:avoid;margin-top:11px}
+  .specinfo .spec dd{break-inside:avoid;break-before:avoid}
+  .specinfo .facts{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:980px){
   /* блочный поток вместо сетки — иначе липкому чертежу некуда двигаться */
@@ -595,16 +612,25 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 
 <section class="hero">
   <div class="wrap">
-    <p class="gruss">Herzlich willkommen auf unserer Website</p>
-    <h1>Fenster, Türen und Portale aus Kunststoff, Aluminium und Holz — Lieferung in ganz Österreich</h1>
-    <p>Stellen Sie Ihr Fenster Schritt für Schritt zusammen und sehen Sie sofort den Preis. Profil von Drutex, Beschlag von MACO, Verglasung nach Wahl — zweifach oder Wärmeschutz.</p>
-    <p>Bei Bestellung ohne Montage werden die Fenster auf Paletten mit einem Spezialfahrzeug an der angegebenen Adresse abgeladen.</p>
-    <p class="last">Fertigung nach europäischen Normen.</p>
+    <div class="hero-grid">
+      <div class="hero-tx">
+        <p class="gruss">Herzlich willkommen auf unserer Website</p>
+        <h1>Fenster, Türen und Portale aus Kunststoff, Aluminium und Holz — Lieferung in ganz Österreich</h1>
+        <p>Stellen Sie Ihr Fenster Schritt für Schritt zusammen und sehen Sie sofort den Preis. Profil von Drutex, Beschlag von MACO, Verglasung nach Wahl — zweifach oder Wärmeschutz.</p>
+        <p>Bei Bestellung ohne Montage werden die Fenster auf Paletten mit einem Spezialfahrzeug an der angegebenen Adresse abgeladen.</p>
+        <p class="last">Fertigung nach europäischen Normen.</p>
 
-    <p class="firmnr">
-      GISA-Zahl (Gewerberegister Österreich): <b>39264022</b><br>
-      UID-Nummer (Steuernummer Österreich): <b>ATU83265958</b>
-    </p>
+        <p class="firmnr">
+          GISA-Zahl (Gewerberegister Österreich): <b>39264022</b><br>
+          UID-Nummer (Steuernummer Österreich): <b>ATU83265958</b>
+        </p>
+      </div>
+      <figure class="hero-img">
+        <img src="images/hero-haus.jpg" width="1400" height="1050" fetchpriority="high"
+             alt="Einfamilienhaus im Neubau mit anthrazitfarbenen Fenstern und Terrassentür">
+        <figcaption>Neubau, Niederösterreich — Fenster in Anthrazit, geliefert und montiert von uns</figcaption>
+      </figure>
+    </div>
 
     <div class="aktion">
       <div class="aktion-tx">
@@ -703,15 +729,15 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
             <rect x="7" y="8" width="32" height="18" class="gl"/></svg>Recht-<br>eckig</button>
         <button type="button" id="sh-arch">
           <svg viewBox="0 0 46 34" aria-hidden="true">
-            <path d="M3 30 V15 A20 20 0 0 1 43 15 V30 Z"/>
-            <path d="M7 13.5 A16 16 0 0 1 39 13.5 Z" class="gl"/>
-            <line x1="6" y1="15" x2="40" y2="15" stroke-width="2"/>
-            <rect x="7" y="17.5" width="32" height="8.5" class="gl"/></svg>Bogen<br>mit Kämpfer</button>
+            <path d="M3 30 V15 A22.67 22.67 0 0 1 43 15 V30 Z"/>
+            <path d="M8 13.75 A19.17 19.17 0 0 1 38 13.75 Z" class="gl"/>
+            <rect x="6.5" y="16.25" width="33" height="10.25" class="gl"/>
+            <line x1="6.5" y1="15" x2="39.5" y2="15" stroke-width="2.5"/></svg>Bogen<br>mit Kämpfer</button>
         <button type="button" id="sh-full">
           <svg viewBox="0 0 46 34" aria-hidden="true">
-            <path d="M3 30 V15 A20 20 0 0 1 43 15 V30 Z"/>
-            <path d="M7 26 V15 A16 16 0 0 1 39 15 V26 Z" class="gl"/>
-            <path d="M10 24 V15.5 A13 13 0 0 1 36 15.5 V24 Z" fill="none" stroke-width="1"/></svg>Bogen<br>ohne Kämpfer</button>
+            <path d="M3 30 V15 A22.67 22.67 0 0 1 43 15 V30 Z"/>
+            <path d="M6.5 26.5 V15.91 A19.17 19.17 0 0 1 39.5 15.91 V26.5 Z" class="gl"/>
+            <path d="M9 24 V16.62 A16.67 16.67 0 0 1 37 16.62 V24 Z" fill="none" stroke-width="1"/></svg>Bogen<br>ohne Kämpfer</button>
       </div>
       <div id="risebar" style="display:none;margin-top:10px">
         <div class="dimrow">
@@ -926,6 +952,8 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     <button class="btn" type="button" id="add">Zur Anfrage hinzufügen</button>
   </section>
   <!-- ═══ СПЕЦИФИКАЦИЯ ═══ -->
+</div><!-- /layout -->
+
   <section class="card specinfo">
       <div class="spec">
         <h3>Spezifikation</h3>
@@ -949,7 +977,6 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       <div><span>Flügel</span><b id="f-sash">—</b></div>
     </div>
   </section>
-</div>
 </div><!-- /pane-pvc -->
 
 <!-- ═══════════════ МАНСАРДНЫЕ ОКНА FAKRO ═══════════════ -->
