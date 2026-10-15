@@ -474,6 +474,19 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 .fk-rows td{padding:4px 0;font-size:13.5px;color:var(--ink-2)}
 .fk-rows td:last-child{text-align:right;white-space:nowrap;color:var(--ink);font-weight:500}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+
+/* ── Referenzen ── */
+.refs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.refs a{display:block;position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3;background:#e9e6e0}
+.refs img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.refs a:hover img{transform:scale(1.04)}
+.refs span{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;font-size:13px;color:#fff;
+  background:linear-gradient(transparent,rgba(0,0,0,.6))}
+.refs-note{color:var(--muted,#6f6a62);font-size:14px;margin:10px 0 0}
+@media(max-width:620px){.refs{grid-template-columns:repeat(2,1fr);gap:8px}
+  .refs span{font-size:11px;padding:18px 8px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:50;cursor:zoom-out}
+.lb.on{display:flex}.lb img{max-width:94vw;max-height:92vh;border-radius:8px}
 </style>
 
 <!-- ===== Schema.org: damit Suchmaschinen und KI-Assistenten verstehen,
@@ -1108,6 +1121,27 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     <input type="hidden" name="Anfrage"  id="fs-text">
   </form>
 </section>
+
+<!-- ═══ REFERENZEN ═══ -->
+<h2 class="sec" id="referenzen">Ausgeführte Arbeiten</h2>
+<section class="card">
+  <div class="refs">
+    <a href="images/referenzen/haustuer-rot.jpg"><img src="images/referenzen/haustuer-rot.jpg" loading="lazy" alt="Haustür Kunststoff rot mit Oberlicht und Seitenteil"><span>Haustür mit Oberlicht, Niederösterreich</span></a>
+    <a href="images/referenzen/haustuer-grau.jpg"><img src="images/referenzen/haustuer-grau.jpg" loading="lazy" alt="Haustür grau mit Seitenteil und Oberlicht"><span>Haustür mit Seitenteil, Wien</span></a>
+    <a href="images/referenzen/fenster-weiss-oberlicht.jpg"><img src="images/referenzen/fenster-weiss-oberlicht.jpg" loading="lazy" alt="Kunststofffenster weiß zweiflügelig mit Oberlicht im Altbau"><span>Fenstertausch im Altbau, Wien</span></a>
+    <a href="images/referenzen/einfamilienhaus-anthrazit.jpg"><img src="images/referenzen/einfamilienhaus-anthrazit.jpg" loading="lazy" alt="Einfamilienhaus Neubau mit anthrazitfarbenen Fenstern und Terrassentür"><span>Neubau, Fenster anthrazit, Niederösterreich</span></a>
+    <a href="images/referenzen/terrasse-rollladen.jpg"><img src="images/referenzen/terrasse-rollladen.jpg" loading="lazy" alt="Terrasse mit Fenstern und Rollläden"><span>Fenster mit Rollläden, Wien</span></a>
+    <a href="images/referenzen/fensterfront-rohbau.jpg"><img src="images/referenzen/fensterfront-rohbau.jpg" loading="lazy" alt="Fensterfront mit bodentiefen Elementen im Rohbau"><span>Fensterfront, Objektbau</span></a>
+  </div>
+  <p class="refs-note">Alle Bilder zeigen von uns gelieferte und montierte Elemente. Auf Wunsch nennen wir Ihnen Referenzen in Ihrer Nähe.</p>
+</section>
+<div class="lb" id="lb"><img alt=""></div>
+<script>
+(function(){const lb=document.getElementById('lb'),im=lb.querySelector('img');
+document.querySelectorAll('.refs a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();im.src=a.href;lb.classList.add('on')}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});})();
+</script>
 </main>
 
 <div class="dock" id="dock">
