@@ -542,7 +542,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       "name": "FensterRechner",
       "legalName": "Veniamin Kononenko e.U.",
       "url": "https://fensterrechner.at/",
-      "telephone": "+43 681 84352477",
+      "telephone": "+43 681 81380389",
       "vatID": "ATU83265958",
       "priceRange": "€€",
       "currenciesAccepted": "EUR",
@@ -588,7 +588,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       <a href="#kalk" class="hide-s">Berechnung</a>
       <a href="#korb" class="cart">Anfrage<span class="cnt" id="cnt" hidden>0</span></a>
       <a class="mail hide-s" href="mailto:office@fensterhof.at">office@fensterhof.at</a>
-      <a class="tel" href="tel:+4368184352477">+43 681 84352477</a>
+      <a class="tel" href="tel:+4368181380389">+43 681 81380389</a>
     </nav>
   </div>
 </header>
@@ -635,7 +635,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 </div>
 
 <!-- Kurzer Weg für alle, denen der Rechner am Handy zu umständlich ist -->
-<a class="callbox" href="tel:+4368184352477">
+<a class="callbox" href="tel:+4368181380389">
   <span class="callbox-tx">
     <b>Sie können uns auch anrufen</b>
     Geben Sie uns einfach die Maße Ihrer Fenster durch — Sie erhalten von uns ein
@@ -646,7 +646,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.5a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/>
     </svg>
-    +43 681 84352477
+    +43 681 81380389
   </span>
 </a>
 
@@ -1197,7 +1197,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove(
       <div>
         <h4>Kontakt</h4>
         <ul>
-          <li>+43 681 84352477</li>
+          <li>+43 681 81380389</li>
           <li>office@fensterhof.at</li>
           <li>Seitenstettengasse 5/37, 1010 Wien</li>
         </ul>
@@ -1879,15 +1879,23 @@ function planSvg(c,{mini=false,outside=false}={}){
   const p=[];
   const dl=(a,b,d,e)=>p.push(`<line x1="${a}" y1="${b}" x2="${d}" y2="${e}" ${dc}/>`);
 
-  /* контур изделия: прямоугольник или арка. inset — отступ внутрь (толщина рамы) */
+  /* контур изделия: прямоугольник или арка. inset — отступ внутрь (толщина рамы).
+     Все внутренние дуги — концентрические с наружной (тот же центр, радиус меньше
+     на inset), иначе толщина рамы по дуге «плывёт», а у вершины сходит на нет. */
   const riseP = c.isArch ? c.rise*s : 0;
+  const Rr = c.isArch ? (w*w/4 + riseP*riseP)/(2*riseP) : 0;   // радиус наружной дуги
+  const xc = x0 + w/2, yc = y0 + Rr;                            // её центр
+  const ySpring = y0 + riseP;                                   // линия пят арки
+  const springY = t => { const r=Rr-t, dx=w/2-t;                // где дуга с отступом t
+    return yc - Math.sqrt(Math.max(0, r*r - dx*dx)); };          // встречает вертикаль
   const outline=(inset)=>{
     const xa=x0+inset, xb=x0+w-inset, yb=y0+h-inset;
     if(!c.isArch) return `M${xa} ${y0+inset} H${xb} V${yb} H${xa} Z`;
-    const yr=y0+riseP, ch=w-2*inset, ri=Math.max(.5, riseP-inset);
-    const Rp=(ch*ch/4+ri*ri)/(2*ri);
-    return `M${xa} ${yb} V${yr} A${Rp} ${Rp} 0 0 1 ${xb} ${yr} V${yb} Z`;
+    const r=Math.max(.5, Rr-inset), ys=springY(inset);
+    return `M${xa} ${yb} V${ys} A${r} ${r} 0 0 1 ${xb} ${ys} V${yb} Z`;
   };
+  const uid = mini ? (outside?'o':'m') : 'a';   // свои id градиентов, иначе миниатюры конфликтуют
+  const cid = 'ck'+uid+Math.random().toString(36).slice(2,6);
   if(c.roll || c.zip){
     /* Ролета и зип-штора ставятся снаружи: короб сверху, направляющие по бокам.
        Цвет короба повторяет цвет окна снаружи, на цену это не влияет. */
@@ -1915,9 +1923,12 @@ function planSvg(c,{mini=false,outside=false}={}){
   if(bend) p.push(`<clipPath id="ca"><path d="${outline(inSash)}"/></clipPath>`
                 + `<clipPath id="cb"><path d="${outline(inGlass)}"/></clipPath>`);
 
-  /* створки живут ниже арочного поля, если выбрана отсечка */
-  const yTop = y0 + (c.cut ? riseP : 0);
-  const hh   = h - (c.cut ? riseP : 0);
+  /* створки живут ниже арочного поля, если выбрана отсечка: кемпфер сидит на линии
+     пят арки, створки начинаются от его нижней кромки (как под обычным импостом) */
+  const muP = G.mullion*s, frP = G.frame*s;
+  const kTop = ySpring - muP/2, kBot = ySpring + muP/2;
+  const yTop = c.cut ? kBot - frP : y0;
+  const hh   = (y0 + h) - yTop;
 
   let cx=x0;
   c.fields.forEach((f,i)=>{
@@ -1991,15 +2002,26 @@ function planSvg(c,{mini=false,outside=false}={}){
 
   if(bend){
     p.push(`<path d="${outline(inSash)}" fill="none" ${thin}/>`);
-    p.push(`<path d="${outline(inGlass)}" fill="none" ${thin}/>`);
+    /* кромка стекла створки — только над подвижными полями, в глухом поле её нет */
+    const mv=[]; let mx2=x0;
+    c.fields.forEach(f=>{ const fw=f.w*s;
+      if(f.movable) mv.push(`<rect x="${mx2}" y="${y0}" width="${fw}" height="${h}"/>`); mx2+=fw; });
+    if(mv.length){
+      p.push(`<clipPath id="${cid}m">${mv.join('')}</clipPath>`);
+      p.push(`<path d="${outline(inGlass)}" fill="none" ${thin} clip-path="url(#${cid}m)"/>`);
+    }
     p.push(`<path d="${outline(0)}" fill="none" ${ink}/>`);
   }
 
   if(c.cut){
-    const fr=G.frame*s, xa=x0+fr, xb=x0+w-fr, yr=y0+riseP-fr;
-    const ch=w-2*fr, ri=Math.max(.5, riseP-fr), Rp=(ch*ch/4+ri*ri)/(2*ri);
-    p.push(`<path d="M${xa} ${yr} A${Rp} ${Rp} 0 0 1 ${xb} ${yr} Z" fill="url(#gl)" ${thin}/>`);
-    p.push(`<rect x="${xa}" y="${yr}" width="${w-2*fr}" height="${G.mullion*s}" fill="${FR}" ${thin}/>`);
+    /* арочное глухое поле: внутренний контур рамы, срезанный верхней кромкой кемпфера */
+    const r = Math.max(.5, Rr - frP);
+    const dxk = Math.sqrt(Math.max(0, r*r - (yc-kTop)*(yc-kTop)));
+    const xa = xc - dxk, xb = xc + dxk;
+    p.push(`<clipPath id="${cid}"><path d="${outline(frP)}"/></clipPath>`);
+    p.push(`<path d="M${xa} ${kTop} A${r} ${r} 0 0 1 ${xb} ${kTop} Z" fill="url(#gl)" ${thin}/>`);
+    p.push(`<path d="M${xa} ${kTop+(yc-kTop)*0.55} L${xb} ${kTop+(kTop-yc)*0.1} L${xb} ${kTop} L${xa} ${kTop} Z" fill="url(#sheen)" clip-path="url(#${cid})"/>`);
+    p.push(`<rect x="${x0+frP}" y="${kTop}" width="${w-2*frP}" height="${muP}" fill="${FR}" ${thin} clip-path="url(#${cid})"/>`);
     p.push(`<path d="${outline(0)}" fill="none" ${ink}/>`);
   }
 
@@ -2022,7 +2044,6 @@ function planSvg(c,{mini=false,outside=false}={}){
 
   /* вид снаружи — то же самое зеркально; подписей там нет, поэтому текст не переворачивается */
   const body = outside ? `<g transform="translate(${VW},0) scale(-1,1)">${inner}</g>` : inner;
-  const uid = mini ? (outside?'o':'m') : 'a';   // свои id градиентов, иначе миниатюры конфликтуют
 
   return (
     `<defs>
