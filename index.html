@@ -792,11 +792,24 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     </div>
 
     <div class="field">
+      <span class="lbl">Material</span>
+      <div class="seg" role="group" aria-label="Material">
+        <button type="button" id="m-pvc">Kunststoff</button>
+        <button type="button" id="m-alu">Aluminium</button>
+        <button type="button" id="m-holz">Holz</button>
+        <button type="button" id="m-duo">Holz-Alu</button>
+      </div>
+    </div>
+
+    <div class="field">
       <span class="lbl">Profil</span>
       <div class="seg" role="group" aria-label="Profil">
         <button type="button" id="pr-70">70 mm<br><small>5 Kammern</small></button>
         <button type="button" id="pr-82">82 mm<br><small>6 Kammern</small></button>
-        <button type="button" id="pr-alu">Aluminium<br><small>79 mm</small></button>
+        <button type="button" id="pr-alu" hidden>MB-79N<br><small>79 mm</small></button>
+        <button type="button" id="pr-holz" hidden>Kiefer 68 mm<br><small>lackiert</small></button>
+        <button type="button" id="pr-duo68" hidden>68 mm<br><small>Kiefer, außen Alu</small></button>
+        <button type="button" id="pr-duo78" hidden>78 mm<br><small>Kiefer, außen Alu</small></button>
       </div>
       <p class="note" id="profnote"></p>
     </div>
@@ -808,6 +821,10 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
         <button type="button" id="g-ug06">Dreifach<br>Ug 0,6</button>
         <button type="button" id="g-ug05">Dreifach<br>Ug 0,5</button>
         <button type="button" id="g-ug05a" hidden>Dreifach<br>Ug 0,5</button>
+        <button type="button" id="g-ug11h" hidden>Zweifach<br>Ug 1,1</button>
+        <button type="button" id="g-ug08h" hidden>Dreifach<br>Ug 0,8</button>
+        <button type="button" id="g-ug06d" hidden>Dreifach<br>Ug 0,6</button>
+        <button type="button" id="g-ug05d" hidden>Dreifach<br>Ug 0,5</button>
       </div>
       <p class="note" id="glasnote"></p>
     </div>
@@ -1320,8 +1337,78 @@ const SYS = {
     geo:{ frame:69.5, mullion:94.5, stulp:94.5, sashInset:89, glassAdd:32 },
     r:{ perim:38.04, glass:140.95, sashPerim:22.59, mullion:68.99, mullionFix:68.99,
         stulpBar:0, sash:139.74, min:0 }
+  },
+
+  /* ═══ ДЕРЕВО — SOFTLINE 68, сосна ═══  (добавлено 18.10.2026)
+     Ставки сняты методом наименьших квадратов с 12 позиций Drutex:
+       647122 (23.09.2026, RAL 9016 снаружи / Imprägnierung внутри, 3 стекла 4th/S10/4/S10/4th Ug 0,8):
+         1300×1430 штульп ПО+П 825,92 · 2300×1520 ПО/глух/ПО с импостом 1420,30 ·
+         1870×1490 ПО/ПО с импостом 1096,26 · 500×500 откидное 225,56 · 1450×1320 штульп 837,87 ·
+         1600×1340 штульп 876,93 · 470×840 откидное 270,36 · 470×1040 ПО 326,29 · 840×820 ПО 349,76
+       543214 kor3 (30.06.2026, RAL 8001 / weiß deckend, Ug 0,8): 1154×1406 ПО 639,47
+       514752 (оферта 05.06.2026, RAL 8001 / weiß deckend, 2 стекла 4/UC16/4 Ug 1,1):
+         2000×1500 три ПО с импостами 1191,61 · 2000×2400 глух/ПО/глух 1710,76 · 1100×1400 ПО 529,96
+     Модель воспроизводит все 12 в пределах −4,5…+4,5 %. Минимум 225 € — по точке 500×500.
+     Геометрия из подтверждений: рама 80, створка 80, Pfosten 68; Glaslicht = W − 2·80 − 79 по ширине
+     и H − 2·80 − 93 по высоте (внизу Wetterschenkel) — в модели единый sashInset 86. Glasmaß − Glaslicht = 30.
+     Стеклопакет: база — три стекла Ug 0,8. Два стекла Ug 1,1 — по трём точкам 514752 дешевле
+     на ≈85 €/м² стекла (разница 1100×1400 Ug 1,1 = 529,96 против модели трёхстекольного 619).
+     Цвет: RAL deckend снаружи и белый deckend внутри — та же цена, что белое/белое (543214 против 647122
+     ложится в модель). ЛАЗУРЬ (Nussbaum снаружи, 581822 kor1: 1070×1200 ПО = 480,04) на 11 % ДЕШЕВЛЕ
+     модели — одна точка, заведено как −11 %.
+     Шпросы: 581822 поз.1 — то же окно 1070×1200 с Wiener Aufkleber-Sprosse 45 mm + 2× Duplex = 619,98,
+     то есть +139,94 € на створку; раскладка в документе не видна (вероятно 2×2 или 2×3). Заведено
+     47 € за перекладину — оценка, согласуется с точками Duoline (см. ниже).
+     Uf 1,389 / ψ 0,0648 — по шести Uw из 647122 и 543214, совпадение до 0,01; для двух стёкол
+     Uf 1,433 / ψ 0,0258 по трём Uw из 514752. Вес: стекло 33,7 кг/м² (3 ст.) и 21,5 (2 ст.), профиль 4,2 кг/м. */
+  holz:  { profil:'Drutex SOFTLINE 68, Kiefer, 68 mm', tiefe:68, frameKg:4.22, wood:true,
+           griff:'Standard-Fenstergriff',
+    geo:{ frame:80, mullion:68, stulp:40, sashInset:86, glassAdd:30 },
+    r:{ perim:94.01, glass:132.39, sashPerim:0, mullion:140.16, mullionFix:140.16,
+        stulpBar:106.83, sash:0, min:225 }
+  },
+  /* ═══ ДЕРЕВО-АЛЮМИНИЙ — DUOLINE 78 ═══  (Richtpreis)
+     Четыре позиции 645732 (RAL 9016 PF114 снаружи / transparent внутри, 3 стекла Ug 0,5):
+       1170×1270 ПО 863,54 · 960×1270 ПО 752,34 · 530×1270 ПО 572,83 · балконная дверь 1800×2200
+       штульп П+ПО 2182,54. Три ставки по четырём точкам — все четыре сходятся в пределах 1,3 %,
+       но окон с импостом и глухих полей среди них нет: импост взят как у Softline ×1,5 (ОЦЕНКА).
+     Геометрия: рама 68, створка 81, Glaslicht 1170−2·68−924 = 110 → sashInset 110.
+     Uf 1,037 / ψ 0,0505 по четырём Uw (0,83 / 0,86 / 1,00 / 0,80) — совпадение точное.
+     Вес: стекло 30 кг/м², профиль 5,8 кг/м (подгон под 84,78 кг и 198,12 кг). */
+  duo78: { profil:'Drutex DUOLINE 78, Kiefer, außen Aluminiumschale, 78 mm', tiefe:78, frameKg:5.8, wood:true, richt:true,
+           griff:'Standard-Fenstergriff',
+    geo:{ frame:68, mullion:68, stulp:40, sashInset:110, glassAdd:30 },
+    r:{ perim:144.21, glass:152.16, sashPerim:0, mullion:210, mullionFix:210,
+        stulpBar:266.79, sash:0, min:300 }
+  },
+  /* ═══ ДЕРЕВО-АЛЮМИНИЙ — DUOLINE 68 ═══  (Richtpreis)
+     Без шпросов есть одна точка: 543214 kor1 поз.2 — 1154×1406 ПО, RAL 8001 PF114 / weiß deckend,
+     Ug 0,6 = 938,18. Четыре позиции 645885 (те же размеры, что 645732, Ug 0,6, RAL 9016) — все
+     с Wiener Sprossen 26 mm: 801,86 · 698,49 · 531,41 · дверь 2031,36.
+     Если Duoline 68 = Duoline 78 × 0,80, то шпросы по этим четырём точкам выходят +94 / +68 / +61 /
+     +227 (дверь, 2 створки) — то есть ≈ 47 € за перекладину при сетке 2×2, ровно как у Softline.
+     Тогда точка 938,18 (RAL 8001 на алюминиевой накладке) на 29 % выше белой — цветная накладка
+     заведена как +25 % (ОДНА ТОЧКА, перепроверить просчётом). Uf 1,50 / ψ 0,07 — подгон под Uw 1,13–1,30. */
+  duo68: { profil:'Drutex DUOLINE 68, Kiefer, außen Aluminiumschale, 68 mm', tiefe:68, frameKg:5.4, wood:true, richt:true,
+           griff:'Standard-Fenstergriff',
+    geo:{ frame:68, mullion:68, stulp:40, sashInset:110, glassAdd:30 },
+    r:{ perim:115.37, glass:121.73, sashPerim:0, mullion:168, mullionFix:168,
+        stulpBar:213.43, sash:0, min:240 }
   }
 };
+/* Что в какой системе просчитано. false — опция в этой системе не учитывается (как раньше в алюминии). */
+const CAP = {
+  iglo5: { stulp:true,  arch:true,  tuer:true, regel:true, vsg:true, spross:true, mesh:true, roll:true, zip:true, hinges:true },
+  energy:{ stulp:true,  arch:true,  tuer:true, regel:true, vsg:true, spross:true, mesh:true, roll:true, zip:true, hinges:true },
+  alu:   { stulp:false, arch:false, tuer:false, regel:false, vsg:false, spross:false, mesh:false, roll:false, zip:false, hinges:true },
+  /* дерево: штульп и импосты просчитаны; арки и скрытые петли — нет. Порог, клапан, VSG и сетка
+     взяты по ценам ПВХ как оценка; рольставня и зип-штора от окна не зависят. */
+  holz:  { stulp:true,  arch:false, tuer:true, regel:true, vsg:true, spross:true, mesh:true, roll:true, zip:true, hinges:false },
+  duo68: { stulp:true,  arch:false, tuer:true, regel:true, vsg:true, spross:true, mesh:true, roll:true, zip:true, hinges:false },
+  duo78: { stulp:true,  arch:false, tuer:true, regel:true, vsg:true, spross:true, mesh:true, roll:true, zip:true, hinges:false }
+};
+const MAT = { iglo5:'pvc', energy:'pvc', alu:'alu', holz:'holz', duo68:'duo', duo78:'duo' };
+const WOOD_SPROSS = 47;     // € за перекладину в дереве и дереве-алюминии (оценка, см. SOFTLINE 68)
 
 /* ═══ СТЕКЛОПАКЕТЫ ═══
    Профиль и стеклопакет — разные вещи. В 70-мм профиль Drutex ставит и два стекла,
@@ -1418,6 +1505,23 @@ const GLAS = {
          glas:'4/18/4/18/4 mit Argon, Ug 0,5 W/m²·K',
          add:{m2:0, m:0},
          th:{ ug:0.5, uf:0.795, psi:0.0814, rw:37, glassKg:30.0 } },
+  /* дерево SOFTLINE 68 — база три стекла; два стекла дешевле на 85 €/м² стекла (514752, три точки) */
+  ug08h:{ prof:'holz', label:'Dreifach · Ug 0,8', short:'Dreifach Ug 0,8',
+         glas:'4/10/4/10/4 mit Argon, Ug 0,8 W/m²·K',
+         add:{m2:0, m:0},
+         th:{ ug:0.8, uf:1.389, psi:0.0648, rw:34, glassKg:33.7 } },
+  ug11h:{ prof:'holz', label:'Zweifach · Ug 1,1', short:'Zweifach Ug 1,1',
+         glas:'4/16/4 mit Argon, Ug 1,1 W/m²·K',
+         add:{m2:-85, m:0},
+         th:{ ug:1.1, uf:1.433, psi:0.0258, rw:33, glassKg:21.5 } },
+  ug06d:{ prof:'duo68', label:'Dreifach · Ug 0,6', short:'Dreifach Ug 0,6',
+         glas:'4/14/4/14/4 mit Argon, warme Kante, Ug 0,6 W/m²·K',
+         add:{m2:0, m:0},
+         th:{ ug:0.6, uf:1.50, psi:0.07, rw:34, glassKg:30.0 } },
+  ug05d:{ prof:'duo78', label:'Dreifach · Ug 0,5', short:'Dreifach Ug 0,5',
+         glas:'4/18/4/18/4 mit Argon, warme Kante, Ug 0,5 W/m²·K',
+         add:{m2:0, m:0},
+         th:{ ug:0.5, uf:1.037, psi:0.0505, rw:34, glassKg:30.0 } },
 };
 const OPT = { hinges:28.18, schwelle:58.70, regel:14.09,
   /* Цвет в алюминии — порошковая покраска, а не плёнка, поэтому не процент, а фикс.
@@ -1648,16 +1752,32 @@ const TONES = {
 };
 
 const LAM = {
-  none:{ iglo5:0,     energy:0,     alu:0,
+  none:{ iglo5:0,     energy:0,     alu:0,     holz:0,     duo68:0,    duo78:0,
          spec:'Weiß / Kern weiß', short:'weiß',
          note:'Profil außen und innen weiß.' },
-  out: { iglo5:0.124, energy:0.116, alu:0,
+  out: { iglo5:0.124, energy:0.116, alu:0,     holz:0,     duo68:0.25, duo78:0.25,
          spec:'Farbe außen / innen weiß', short:'Farbe außen',
          note:'Folie außen, innen weiß. Anthrazit, Golden Oak und weitere Farben '
              +'der Standardpalette Renolit — zum selben Preis.' },
-  both:{ iglo5:0.201, energy:0.189, alu:0,
+  both:{ iglo5:0.201, energy:0.189, alu:0,     holz:-0.11, duo68:0.25, duo78:0.25,
          spec:'Farbe außen und innen / Kern durchgefärbt', short:'Farbe beidseitig',
          note:'Folie außen und innen, Profilkern durchgefärbt, Griff und Bandabdeckungen in Farbe.' }
+};
+/* У дерева те же три кнопки цвета значат другое — подписи, тексты и спецификация по материалу.
+   holz: белый кроющий / RAL кроющий (та же цена) / лазурь в тоне дерева (−11 %, одна точка Nussbaum).
+   duo:  алюминиевая накладка белая RAL 9016 / накладка в RAL-цвете (+25 %, одна точка); третьей кнопки нет. */
+const WOODCOL = {
+  holz:{ none:{ label:'weiß', spec:'Weiß deckend lackiert, innen und außen', short:'weiß',
+                note:'Kiefer, beidseitig weiß deckend lackiert.' },
+         out: { label:'RAL-Farbe', spec:'Außen RAL-Farbe deckend, innen weiß deckend', short:'RAL außen',
+                note:'Außen in jeder RAL-Farbe deckend lackiert, innen weiß — zum selben Preis wie Weiß (so im Auftrag 543214: RAL 8001 ohne Aufpreis).' },
+         both:{ label:'Lasur', spec:'Außen Lasur im Holzton, innen weiß deckend', short:'Lasur außen',
+                note:'Außen lasiert, die Holzmaserung bleibt sichtbar — Nussbaum, Teak, Eiche und weitere Töne. Innen weiß deckend. Günstiger als die Lackierung.' } },
+  duo:{  none:{ label:'Alu weiß', spec:'Aluminiumschale außen weiß RAL 9016, innen Kiefer transparent lasiert', short:'Alu weiß',
+                note:'Außen pulverbeschichtete Aluminiumschale in Weiß RAL 9016, innen Kiefer natur, transparent lasiert.' },
+         out: { label:'Alu RAL-Farbe', spec:'Aluminiumschale außen in RAL-Farbe, innen Kiefer transparent lasiert', short:'Alu RAL',
+                note:'Aluminiumschale in jeder RAL-Farbe, feinstrukturiert. Aufpreis etwa 25 % — aus einer einzigen Position abgeleitet, Richtwert.' },
+         both:{ label:'—', spec:'', short:'', note:'' } }
 };
 const MIN_W_HINGES = 500, MAX_W_HINGES = 1500;   // габарит поля, мм
 
@@ -1714,7 +1834,7 @@ function defHinge(i,n){ if(n===1) return 'right'; return (i===n-1) ? 'left' : 'r
 const S = {
   W:1000, H:1500, layout:'1', qty:1, sel:0, sys:'iglo5', glas:'ug11', shape:'rect', rise:600,
   /* какой пакет был выбран в каждом профиле — чтобы при возврате не подставлялся чужой */
-  glasMem:{iglo5:'ug11', energy:'ug05', alu:'ug05a'},
+  glasMem:{iglo5:'ug11', energy:'ug05', alu:'ug05a', holz:'ug08h', duo68:'ug06d', duo78:'ug05d'},
   vsg:false, spross:false, sprossV:1, sprossH:1, mesh:false,
   roll:false, rollDrive:'gurt', rollBox:180, zip:false, zipSys:'slim', zipFab:'s7635', zipCol:'std', zipMotor:'wired', zipCtrl:'remote', color:'none', tone:'anthrazit',
   tuer:false, hinges:false, regel:false,
@@ -1792,23 +1912,24 @@ function setFieldWidth(i, val){
 function calc(){
   const sys=SYS[S.sys], G=sys.geo, R=sys.r, gl=GLAS[S.glas];
   const W=S.W, H=S.H;
-  const layEff = (S.sys==='alu' && LAYOUTS[S.layout].stulp) ? '2' : S.layout;
+  const cap = CAP[S.sys];
+  const layEff = (!cap.stulp && LAYOUTS[S.layout].stulp) ? '2' : S.layout;
   const lay=LAYOUTS[layEff], n=lay.n;
   const ws=fieldWidths();                        // ширины частей, в сумме дают W
   const divider = lay.stulp ? G.stulp : G.mullion;
   /* Форма верха. rise — подъём арки. При отсечке створки стоят ниже арочного поля,
      поэтому прямая часть конструкции ниже на величину подъёма. */
-  /* В алюминии часть возможностей не просчитана. Мы их не стираем из состояния —
+  /* Не во всех системах всё просчитано (таблица CAP). Настройки не стираем —
      просто не учитываем в расчёте, чтобы при возврате на ПВХ всё вернулось как было. */
-  const aluSys = S.sys==='alu';
-  const on = k => S[k] && !aluSys;                     // опция действует?
+  const aluSys = S.sys==='alu', woodSys = !!sys.wood;
+  const on = k => S[k] && cap[k] !== false;            // опция действует в этой системе?
   /* Арка вместе со штульпом Drutex считает иначе, чем сумму наших надбавок:
      616899 поз. 2 (1600×1400, арка с отсечкой + штульп) — факт 619,79 €,
      модель не воспроизводит ни в одном варианте (−25…−40 %).
      Пока нет просчёта, это сочетание НЕ выдаём: считаем как прямоугольник
      и говорим об этом прямым текстом. Настройки при этом не стираем. */
-  const archStulpBlocked = !aluSys && S.shape !== 'rect' && LAYOUTS[S.layout].stulp;
-  const shapeEff = (aluSys || archStulpBlocked) ? 'rect' : S.shape;
+  const archStulpBlocked = cap.arch && S.shape !== 'rect' && LAYOUTS[S.layout].stulp;
+  const shapeEff = (!cap.arch || archStulpBlocked) ? 'rect' : S.shape;
   const shp=ARCH[shapeEff], isArch=shapeEff!=='rect';
   const rise = isArch ? Math.min(S.rise, Math.floor(W/2), H-400) : 0;
   const cut  = shapeEff==='arch';
@@ -1869,7 +1990,7 @@ function calc(){
   /* Шпросы: 14,63 € за перекладину. Сетка задаётся на поле, перекладины
      складываются по всем полям изделия. */
   const sprossBars = on('spross') ? n*(S.sprossV + S.sprossH) : 0;
-  if(sprossBars) ek += sprossBars*OPT.sprossBar;
+  if(sprossBars) ek += sprossBars*(woodSys ? WOOD_SPROSS : OPT.sprossBar);
   if(on('mesh'))   ek += nSash*OPT.mesh;
   if(on('roll')){
     const hr=(H+S.rollBox)/1000;
@@ -1880,9 +2001,11 @@ function calc(){
   const alu = S.sys==='alu', sonderfarbe = alu && S.color!=='none';
   if(sonderfarbe) ek += OPT.aluFarbe;   // покраска в цвет — фикс на изделие
   ek = ek*shp.k + (shp.add||0);       // надбавка за гнутьё
-  ek *= 1 + LAM[S.color][S.sys];      // ламинация — процент на цену изделия, до опций
+  /* у дерева-алюминия третьей кнопки цвета нет — «beidseitig» считаем как RAL-накладку */
+  const colorEff = (MAT[S.sys]==='duo' && S.color==='both') ? 'out' : S.color;
+  ek *= 1 + LAM[colorEff][S.sys];     // ламинация / лак / накладка — процент на цену изделия, до опций
 
-  const hingesOK = nSash>0 && minFW>=MIN_W_HINGES && maxFW<=MAX_W_HINGES;
+  const hingesOK = cap.hinges && nSash>0 && minFW>=MIN_W_HINGES && maxFW<=MAX_W_HINGES;
   const useHinges = S.hinges && hingesOK;
   if(useHinges) ek += nSash*OPT.hinges;
   if(on('tuer'))    ek += (W/1000)*OPT.schwelle;
@@ -1904,11 +2027,15 @@ function calc(){
           shape:S.shape,isArch,cut,rise,Hs,shp,alu,sonderfarbe,
           roll:on('roll'), zip:on('zip'), mesh:on('mesh'), spross:on('spross'),
           vsg:on('vsg'), regel:on('regel')&&nSash>0, tuer:on('tuer'),
-          shapeEff, layEff, archStulpBlocked,
+          shapeEff, layEff, archStulpBlocked, woodSys, colorEff,
           overArea: A > LIM.areaMax,
           overSash: maxSashH > LIM.maxSashHeight || maxSashW > sashWmax(maxSashH),
           lostInAlu: aluSys && (S.shape!=='rect' || LAYOUTS[S.layout].stulp
             || ['tuer','regel','vsg','spross','sprossV','sprossH','mesh','roll','zip'].some(k=>S[k])),
+          /* что из настроек не учтено в этой системе (для дерева: арки, скрытые петли) */
+          lost: (!cap.arch && S.shape!=='rect') || (!cap.hinges && S.hinges)
+            || (!cap.stulp && LAYOUTS[S.layout].stulp)
+            || ['tuer','regel','vsg','spross','mesh','roll','zip'].some(k=>S[k] && cap[k]===false),
           hingesOK,useHinges,sys,gl,uw,rw,kg,item,netto,vat:netto*VAT,brutto:netto*(1+VAT)};
 }
 
@@ -2195,21 +2322,34 @@ function render(){
      +'Fertigbarkeit und Garantie klären wir vor der Bestellung für jedes Maß einzeln mit Drutex ab. '
      +'Richtpreis.'
     : '';
-  const isAlu = S.sys==='alu';
-  $('pr-70').setAttribute('aria-pressed', S.sys==='iglo5');
-  $('pr-82').setAttribute('aria-pressed', S.sys==='energy');
-  $('pr-alu').setAttribute('aria-pressed', isAlu);
+  const isAlu = S.sys==='alu', mat = MAT[S.sys], isWood = mat==='holz' || mat==='duo', cap = CAP[S.sys];
+  /* материал → какие кнопки профиля видны */
+  $('m-pvc').setAttribute('aria-pressed', mat==='pvc');
+  $('m-alu').setAttribute('aria-pressed', mat==='alu');
+  $('m-holz').setAttribute('aria-pressed', mat==='holz');
+  $('m-duo').setAttribute('aria-pressed', mat==='duo');
+  const PRBTN = { 'pr-70':['iglo5','pvc'], 'pr-82':['energy','pvc'], 'pr-alu':['alu','alu'],
+                  'pr-holz':['holz','holz'], 'pr-duo68':['duo68','duo'], 'pr-duo78':['duo78','duo'] };
+  Object.entries(PRBTN).forEach(([id,[sys,m]])=>{
+    const b=$(id); b.hidden = m!==mat; b.setAttribute('aria-pressed', S.sys===sys);
+  });
   $('profnote').textContent =
       S.sys==='iglo5'  ? 'Kunststoff, 5 Kammern, Bautiefe 70 mm — der Standard beim Fenstertausch. '
       + 'Fenster 1200 × 1400: Uw 1,42 mit Zweifachverglasung und 1,14 mit Dreifachverglasung.'
     : S.sys==='energy' ? 'Kunststoff, 6 Kammern, Bautiefe 82 mm, verstärkter Rahmen. '
       + 'Dasselbe Fenster 1200 × 1400 — Uw 0,93, die wärmste Variante.'
-    : 'Aluminium mit thermischer Trennung MB-79N, Bautiefe 79 mm. Schmalerer Rahmen, mehr Glasfläche, '
-      + 'wärmer als Kunststoff wird es aber nicht: Ein Fenster 1000 × 1350 erreicht Uw 1,24 bei gleicher Verglasung Ug 0,5.';
+    : S.sys==='alu' ? 'Aluminium mit thermischer Trennung MB-79N, Bautiefe 79 mm. Schmalerer Rahmen, mehr Glasfläche, '
+      + 'wärmer als Kunststoff wird es aber nicht: Ein Fenster 1000 × 1350 erreicht Uw 1,24 bei gleicher Verglasung Ug 0,5.'
+    : S.sys==='holz' ? 'Holzfenster aus Kiefer, Bautiefe 68 mm, Rahmen und Flügel je 80 mm, zwei Dichtungen, '
+      + 'Aluminium-Wetterschenkel außen. Fenster 1154 × 1406 mit Dreifachverglasung: Uw 1,17.'
+    : S.sys==='duo68' ? 'Holz-Aluminium: innen Kiefer, außen eine pulverbeschichtete Aluminiumschale — kein Streichen mehr. '
+      + 'Bautiefe 68 mm. Fenster 1170 × 1270 mit Dreifachverglasung Ug 0,6: Uw 1,13. Richtpreis.'
+    : 'Holz-Aluminium: innen Kiefer, außen Aluminiumschale, Bautiefe 78 mm — die wärmste Holzvariante. '
+      + 'Fenster 1170 × 1270 mit Dreifachverglasung Ug 0,5: Uw 0,83. Richtpreis.';
   Object.entries(GLAS).forEach(([k,v])=>{
     const b=$('g-'+k), ok = v.prof===S.sys;
-    if(k==='ug05')  b.hidden = isAlu;      // в алюминии тот же пакет идёт своей кнопкой
-    if(k==='ug05a') b.hidden = !isAlu;
+    if(k==='ug11'||k==='ug06'||k==='ug05') b.hidden = mat!=='pvc';   // три кнопки ПВХ видны в обоих ПВХ-профилях
+    else b.hidden = !ok;                                              // остальные — только в своей системе
     b.disabled = !ok;
     b.setAttribute('aria-pressed', S.glas===k);
   });
@@ -2217,15 +2357,17 @@ function render(){
   $('glasnote').textContent = argon + (
       S.sys==='iglo5'  ? 'Die Verglasung Ug 0,5 ist nur im 82-mm-Profil und in Aluminium verfügbar.'
     : S.sys==='energy' ? 'Im 82-mm-Profil nur die Dreifachverglasung Ug 0,5.'
-    : 'In Aluminium ist eine Verglasung kalkuliert — dreifach, Ug 0,5.');
+    : S.sys==='alu' ? 'In Aluminium ist eine Verglasung kalkuliert — dreifach, Ug 0,5.'
+    : S.sys==='holz' ? 'Im Holzfenster wahlweise zwei oder drei Scheiben; die Zweifachverglasung ist rund 85 € je m² Glas günstiger.'
+    : 'Im Holz-Aluminium-Fenster ist eine Verglasung kalkuliert — dreifach.');
 
-  /* в алюминии у нас нет ни одной цены на штульп, арки, порог и клапан */
+  /* что в этой системе не просчитано (CAP) — кнопки гасим, настройки не стираем */
   $('layout').querySelectorAll('button').forEach(b=>{
-    if(b.dataset.l==='stulp') b.disabled = isAlu;
+    if(b.dataset.l==='stulp') b.disabled = !cap.stulp;
   });
-  $('sh-arch').disabled = isAlu; $('sh-full').disabled = isAlu;
-  ['o-tuer','o-regel','o-mesh','o-spross','o-vsg','o-roll']
-    .concat(['o-zip']).forEach(id=>$(id).disabled = isAlu);
+  $('sh-arch').disabled = !cap.arch; $('sh-full').disabled = !cap.arch;
+  [['o-tuer','tuer'],['o-regel','regel'],['o-mesh','mesh'],['o-spross','spross'],['o-vsg','vsg'],['o-roll','roll'],['o-zip','zip']]
+    .forEach(([id,k])=>$(id).disabled = cap[k]===false);
   $('alunote').textContent = isAlu && c.lostInAlu
     ? 'Stulp, Bögen, Bodenschwelle, Falzlüfter, Insektenschutz, Sprossen, VSG und Rollläden haben wir in Aluminium nicht '
       + 'kalkuliert, daher bleiben sie derzeit unberücksichtigt. Die Einstellungen sind gespeichert — wechseln Sie zurück '
@@ -2233,13 +2375,28 @@ function render(){
     : isAlu
     ? 'In Aluminium sind nur rechteckige Fenster mit Pfosten kalkuliert. Stulp, Bögen, '
       + 'Alu-Bodenschwelle und Falzlüfter sind nicht gesondert kalkuliert — wir fragen sie bei Drutex an.'
+    : isWood && c.lost
+    ? 'Bogenfenster und verdeckt liegende Bänder sind in Holz nicht kalkuliert und bleiben hier unberücksichtigt. '
+      + 'Die Einstellungen sind gespeichert.'
+    : S.sys==='holz'
+    ? 'Preise aus Aufträgen und Angeboten von Juni bis September 2026 (zwölf Positionen, Abweichung bis 5 %). '
+      + 'Bodenschwelle, Falzlüfter, VSG und Insektenschutz sind mit den Kunststoff-Preisen angesetzt — Richtwerte.'
+    : isWood
+    ? 'Richtpreis: Holz-Aluminium ist aus vier bzw. fünf Positionen abgeleitet, Abweichung bis 10 % möglich. '
+      + 'Das verbindliche Angebot erhalten Sie nach Anfrage.'
     : '';
-  $('c-none').setAttribute('aria-pressed', S.color==='none');
-  $('c-out').setAttribute('aria-pressed',  S.color==='out');
-  $('c-both').setAttribute('aria-pressed', S.color==='both');
-  $('colornote').textContent = LAM[S.color].note;
+  /* подписи кнопок цвета — по материалу */
+  const WC = isWood ? WOODCOL[mat] : null;
+  $('c-none').textContent = WC ? WC.none.label : 'weiß';
+  $('c-out').textContent  = WC ? WC.out.label  : 'Farbe außen';
+  $('c-both').textContent = WC ? WC.both.label : 'beidseitig';
+  $('c-both').hidden = mat==='duo';
+  $('c-none').setAttribute('aria-pressed', c.colorEff==='none');
+  $('c-out').setAttribute('aria-pressed',  c.colorEff==='out');
+  $('c-both').setAttribute('aria-pressed', c.colorEff==='both');
+  $('colornote').textContent = WC ? WC[c.colorEff].note : LAM[S.color].note;
   const sw=$('swatches');
-  if(S.color==='none'){ sw.innerHTML=''; }
+  if(S.color==='none' || isWood){ sw.innerHTML=''; }
   else {
     sw.innerHTML = Object.entries(TONES).map(([k,t])=>
       `<span class="sw"><button type="button" data-tone="${k}" aria-label="${t.label}"
@@ -2268,7 +2425,8 @@ function render(){
   $('hingenote').textContent =
     (c.useHinges ? 'MACO MULTI POWER — die Bänder liegen im Falz und sind von außen nicht sichtbar. '
                  : 'MACO MULTI-MATIC — aufliegende Bänder, Standard bei allen Fenstern. ')
-    + (c.hingesOK ? '' : 'Bei dieser Flügelbreite sind verdeckt liegende Bänder nicht möglich.');
+    + (c.hingesOK ? '' : !CAP[S.sys].hinges ? 'Verdeckt liegende Bänder sind in dieser Ausführung nicht kalkuliert.'
+                       : 'Bei dieser Flügelbreite sind verdeckt liegende Bänder nicht möglich.');
   $('o-tuer').checked = c.tuer;   $('o-regel').checked  = c.regel;
   $('o-mesh').checked = c.mesh;   $('o-spross').checked = c.spross;
   $('o-vsg').checked  = c.vsg;    $('o-roll').checked   = c.roll;
@@ -2304,7 +2462,7 @@ function render(){
     $('sprossnote').textContent = bars
       ? `${c.n>1 ? c.n+' Feld, ' : ''}${S.sprossV+1} × ${S.sprossH+1} — gesamt `
         + `${bars} ${bars===1?'Sprosse':bars<5?'Sprossen':'Sprossen'} `
-        + `je ${eur(OPT.sprossBar)}.`
+        + `je ${eur(c.woodSys ? WOOD_SPROSS : OPT.sprossBar)}.`
       : 'Keine Sprossen gewählt — kein Aufpreis.';
   }
   if(S.roll){
@@ -2313,7 +2471,9 @@ function render(){
       + `Wird außen über dem Fenster montiert — die Öffnung muss um ${box} mm höher als das Fenster sein.`;
   }
   const notes=[];
-  if(S.spross) notes.push('Die 18-mm-Sprosse ist bei Drutex nicht verfügbar; gerechnet wird die aufgeklebte 27-mm-Sprosse '
+  if(S.spross && c.woodSys) notes.push('Wiener Sprossen, beidseitig aufgeklebt, mit Duplex im Scheibenzwischenraum. '
+    + 'Die maximale Feldgröße zwischen den Sprossen beträgt 1000 × 1000 mm. Preis je Sprosse aus einer Position abgeleitet — Richtwert.');
+  else if(S.spross) notes.push('Die 18-mm-Sprosse ist bei Drutex nicht verfügbar; gerechnet wird die aufgeklebte 27-mm-Sprosse '
     + 'beidseitig. Die maximale Feldgröße zwischen den Sprossen beträgt 1000 × 1000 mm.');
   if(S.mesh)   notes.push('Der Preis für den Insektenschutz stammt aus einer Position 1090 × 1290 und ist derzeit maßunabhängig.');
   $('optnote').textContent = notes.join(' ');
@@ -2329,9 +2489,10 @@ function render(){
   $('sp-link').innerHTML = c.useHinges
     ? '<a href="https://www.maco.eu/de-CH/Produkte-Services/Fensterlosungen/Dreh-Kipp/MACO-Multi-Power/MULTI-POWER-mit-Lastabtragung" target="_blank" rel="noopener">zum MACO-Beschlag →</a>'
     : '';
-  $('sp-color').textContent = S.color==='none' ? LAM[S.color].spec
+  $('sp-color').textContent = c.woodSys ? WOODCOL[MAT[S.sys]][c.colorEff].spec
+    : S.color==='none' ? LAM[S.color].spec
     : LAM[S.color].spec.replace('Farbe', TONES[S.tone].label) + ' · ' + TONES[S.tone].spec;
-  const griffCol = S.color==='both' ? 'in Profilfarbe' : 'weiß';
+  const griffCol = (S.color==='both' && !c.woodSys) ? 'in Profilfarbe' : 'weiß';
   $('sp-griff').textContent = c.nSash===0 ? 'nein — alle Felder fest'
     : `${c.sys.griff}, ${griffCol}` + (c.tuer ? ', Höhe 1070 mm' : '');
   $('sp-uw').textContent = num(c.uw)+' W/m²·K';
@@ -2377,7 +2538,8 @@ function describe(){
     (TYPES[f.type].movable ? (f.hinge==='left'?' (Bänder links)':' (Bänder rechts)') : ''));
   const ex=[c.gl.short];
   if(c.isArch) ex.push(`${c.shp.short} ${c.rise} mm`);
-  if(S.color!=='none') ex.push(TONES[S.tone].label+' '+(S.color==='both'?'beidseitig':'außen'));
+  if(c.woodSys){ if(c.colorEff!=='none') ex.push(WOODCOL[MAT[S.sys]][c.colorEff].short); }
+  else if(S.color!=='none') ex.push(TONES[S.tone].label+' '+(S.color==='both'?'beidseitig':'außen'));
   if(c.tuer) ex.push('Bodenschwelle');
   if(c.useHinges) ex.push('verdeckt liegende Bänder');
   if(c.regel)  ex.push('Falzlüfter');
@@ -2426,7 +2588,7 @@ function renderList(){
   box.innerHTML=`<div class="bulk">
     <p class="lbl" style="margin:0 0 8px">In allen Positionen gleichzeitig ändern</p>
     <div class="bulkrow"><span>Profil</span><span class="chips">
-      ${bt('sys','iglo5','70 mm',cs==='iglo5')}${bt('sys','energy','82 mm',cs==='energy')}${bt('sys','alu','Aluminium',cs==='alu')}
+      ${bt('sys','iglo5','Kunststoff 70 mm',cs==='iglo5')}${bt('sys','energy','Kunststoff 82 mm',cs==='energy')}${bt('sys','alu','Aluminium',cs==='alu')}${bt('sys','holz','Holz',cs==='holz')}${bt('sys','duo68','Holz-Alu 68',cs==='duo68')}${bt('sys','duo78','Holz-Alu 78',cs==='duo78')}
     </span></div>
     <div class="bulkrow"><span>Verglasung</span><span class="chips">${glasBtns}</span></div>
     <div class="bulkrow"><span>Farbe</span><span class="chips">
@@ -2633,12 +2795,22 @@ $('sh-full').addEventListener('click',()=>{ S.shape='archfull';
 $('halfround').addEventListener('click',()=>{ S.rise=Math.floor(S.W/2); S.riseSet=false; render(); });
 $('rise').addEventListener('input', e=>{ S.rise=+e.target.value||100; S.riseSet=true; render(); });
 $('riser').addEventListener('input',e=>{ S.rise=+e.target.value||100; S.riseSet=true; render(); });
-$('pr-70').addEventListener('click',()=>{ S.sys='iglo5'; S.glas=S.glasMem.iglo5; render(); });
-$('pr-82').addEventListener('click',()=>{ S.sys='energy'; S.glas=S.glasMem.energy; render(); });
-$('pr-alu').addEventListener('click',()=>{
-  S.sys='alu'; S.glas=S.glasMem.alu;
-  render();     /* настройки не стираем — они просто не учитываются, см. calc() */
-});
+/* смена системы: настройки не стираем — они просто не учитываются, см. calc() и CAP */
+function setSys(sys){ S.sys=sys; S.glas=S.glasMem[sys]; render(); }
+$('pr-70').addEventListener('click',()=>setSys('iglo5'));
+$('pr-82').addEventListener('click',()=>setSys('energy'));
+$('pr-alu').addEventListener('click',()=>setSys('alu'));
+$('pr-holz').addEventListener('click',()=>setSys('holz'));
+$('pr-duo68').addEventListener('click',()=>setSys('duo68'));
+$('pr-duo78').addEventListener('click',()=>setSys('duo78'));
+/* материал: запоминаем последний профиль в каждом материале */
+const SYS_MEM = { pvc:'iglo5', alu:'alu', holz:'holz', duo:'duo68' };
+$('m-pvc').addEventListener('click', ()=>setSys(SYS_MEM.pvc));
+$('m-alu').addEventListener('click', ()=>setSys('alu'));
+$('m-holz').addEventListener('click',()=>setSys('holz'));
+$('m-duo').addEventListener('click', ()=>setSys(SYS_MEM.duo));
+['pr-70','pr-82'].forEach(id=>$(id).addEventListener('click',()=>{ SYS_MEM.pvc=S.sys; }));
+['pr-duo68','pr-duo78'].forEach(id=>$(id).addEventListener('click',()=>{ SYS_MEM.duo=S.sys; }));
 Object.keys(GLAS).forEach(k=>$('g-'+k).addEventListener('click',()=>{
   S.glas=k; S.sys=GLAS[k].prof; S.glasMem[S.sys]=k; render();
 }));
