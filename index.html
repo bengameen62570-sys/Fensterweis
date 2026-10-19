@@ -415,10 +415,10 @@ body.locked .dock .d-sum span::after{content:" — Preis anzeigen"}
 .c-no{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
 @media(max-width:980px){.cookie{bottom:64px}}
 @media(max-width:560px){
-  .cookie{padding:8px 12px;gap:6px 10px;flex-wrap:nowrap;align-items:center}
-  .cookie p{font-size:11.5px;line-height:1.3}
+  .cookie{padding:6px 12px;gap:6px 10px;flex-wrap:nowrap;align-items:center}
+  .cookie p{font-size:10.5px;line-height:1.25}
   .cookie .c-btns{width:auto;flex-direction:column;gap:5px}
-  .cookie button{padding:6px 10px;font-size:12.5px;white-space:nowrap;flex:none}
+  .cookie button{padding:5px 9px;font-size:12px;white-space:nowrap;flex:none}
 }
 
 /* ── Согласие на обработку данных ────────────────────── */
@@ -999,10 +999,10 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 
     <div class="gate" id="gate">
       <div class="gate-title">Ihr Preis ist berechnet</div>
-      <p class="gate-text">Wohin dürfen wir ihn senden? Sie sehen den Preis sofort hier — und bekommen ihn zusätzlich als Nachricht.</p>
+      <p class="gate-text">Geben Sie Ihre Telefonnummer ein — der Preis erscheint sofort hier, und unser Berater kann Sie zur Abstimmung der Details kontaktieren.</p>
       <div class="gate-row">
         <input type="tel" id="gate-tel" inputmode="tel" autocomplete="tel" placeholder="Telefon / WhatsApp">
-        <input type="email" id="gate-mail" inputmode="email" autocomplete="email" placeholder="oder E-Mail">
+        <input type="email" id="gate-mail" inputmode="email" autocomplete="email" placeholder="E-Mail (optional)">
       </div>
       <button type="button" class="btn gate-btn" id="gate-btn">Preis anzeigen</button>
       <p class="gate-hint" id="gate-hint">Kunststofffenster ab 180 € inkl. MwSt. Mit dem Absenden stimmen Sie der <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> zu.</p>
@@ -3533,17 +3533,18 @@ renderList();
 /* ═══ Preis-Gate: цена после телефона/e-mail, заявка на почту ═══ */
 (function(){
   let un=false; try{ un=localStorage.getItem('fr_unlock')==='1'; }catch(e){}
-  const apply=()=>document.body.classList.toggle('locked',!un);
+  const apply=()=>{ document.body.classList.toggle('locked',!un); const da=$('d-add'); if(da){ if(!da.dataset.t0) da.dataset.t0=da.textContent; da.textContent = un ? da.dataset.t0 : 'Preis anzeigen'; } };
   apply();
   const unlock=()=>{ un=true; try{ localStorage.setItem('fr_unlock','1'); }catch(e){} apply();
     try{ if(window.gtag) gtag('event','generate_lead',{method:'preis'}); }catch(e){} };
   const btn=$('gate-btn'); if(!btn) return;
   // клик по размытой цене в нижней панели — прокрутка к форме
   const dp=$('d-price'); if(dp) dp.parentElement.addEventListener('click',()=>{ if(!un) $('gate').scrollIntoView({behavior:'smooth',block:'center'}); });
+  const da=$('d-add'); if(da) da.addEventListener('click',e=>{ if(!un){ e.stopImmediatePropagation(); e.preventDefault(); $('gate').scrollIntoView({behavior:'smooth',block:'center'}); } },true);
   btn.addEventListener('click',()=>{
     const tel=$('gate-tel').value.trim(), mail=$('gate-mail').value.trim(), hint=$('gate-hint');
-    if(tel.replace(/\D/g,'').length<6 && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
-      hint.textContent='Bitte Telefonnummer oder E-Mail-Adresse eingeben.'; hint.classList.add('err'); return; }
+    if(tel.replace(/\D/g,'').length<6){
+      hint.textContent='Bitte geben Sie Ihre Telefonnummer ein.'; hint.classList.add('err'); return; }
     btn.disabled=true; btn.textContent='Einen Moment …';
     let done=false; const finish=()=>{ if(done) return; done=true; unlock(); };
     const spec=(document.querySelector('.stage')||{}).innerText||'';
