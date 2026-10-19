@@ -384,6 +384,23 @@ details.how[open] summary::before{content:"▾ "}
 .montage b{color:var(--ink)}
 @media(max-width:620px){.montage{padding:16px 18px}}
 
+/* ── Preis-Gate: цена видна после телефона/e-mail ── */
+body.locked #p-window,body.locked #p-netto,body.locked #p-vat,body.locked #p-brutto,
+body.locked #fk-brutto,body.locked #fk-netto,body.locked #fk-vat,body.locked #fk-rows,body.locked #d-price{
+  filter:blur(8px);user-select:none;pointer-events:none}
+.gate{display:none;background:var(--paper,#fff);border:1.5px solid var(--green,#1f4d45);border-radius:14px;padding:16px 16px 12px;margin:14px 0 6px}
+body.locked .gate{display:block}
+.gate-title{font-family:var(--head);font-weight:700;font-size:17px;margin-bottom:4px}
+.gate-text{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.gate-row{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.gate-row input{width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-size:16px}
+.gate-row input:focus{outline:none;border-color:var(--green,#1f4d45)}
+.gate-btn{width:100%;margin:0}
+.gate-hint{margin:10px 0 0;font-size:12.5px;color:var(--muted)}
+.gate-hint.err{color:#b4232c;font-weight:600}
+.gate-hint a{color:inherit}
+body.locked .dock .d-sum span::after{content:" — Preis anzeigen"}
+
 /* ── Cookie-баннер ───────────────────────────────────── */
 .cookie{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);
   color:#fff;padding:14px 18px;display:flex;flex-wrap:wrap;align-items:center;
@@ -397,7 +414,12 @@ details.how[open] summary::before{content:"▾ "}
 .c-ok{background:#fff;color:var(--ink);border:none}
 .c-no{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
 @media(max-width:980px){.cookie{bottom:64px}}
-@media(max-width:560px){.cookie .c-btns{width:100%}.cookie button{flex:1}}
+@media(max-width:560px){
+  .cookie{padding:8px 12px;gap:6px 10px;flex-wrap:nowrap;align-items:center}
+  .cookie p{font-size:11.5px;line-height:1.3}
+  .cookie .c-btns{width:auto;flex-direction:column;gap:5px}
+  .cookie button{padding:6px 10px;font-size:12.5px;white-space:nowrap;flex:none}
+}
 
 /* ── Согласие на обработку данных ────────────────────── */
 .consent{display:flex;gap:10px;align-items:flex-start;margin:14px 0 4px;
@@ -975,6 +997,16 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
       </div>
     </div>
 
+    <div class="gate" id="gate">
+      <div class="gate-title">Ihr Preis ist berechnet</div>
+      <p class="gate-text">Wohin dürfen wir ihn senden? Sie sehen den Preis sofort hier — und bekommen ihn zusätzlich als Nachricht.</p>
+      <div class="gate-row">
+        <input type="tel" id="gate-tel" inputmode="tel" autocomplete="tel" placeholder="Telefon / WhatsApp">
+        <input type="email" id="gate-mail" inputmode="email" autocomplete="email" placeholder="oder E-Mail">
+      </div>
+      <button type="button" class="btn gate-btn" id="gate-btn">Preis anzeigen</button>
+      <p class="gate-hint" id="gate-hint">Kunststofffenster ab 180 € inkl. MwSt. Mit dem Absenden stimmen Sie der <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> zu.</p>
+    </div>
     <div class="price">
       <table>
         <tr><td>Element <span id="p-qty"></span></td><td id="p-window">—</td></tr>
@@ -3496,6 +3528,35 @@ renderList();
                    set(v==='ok'); box.classList.add('hidden'); };
   $('c-ok').addEventListener('click',()=>close('ok'));
   $('c-no').addEventListener('click',()=>close('no'));
+})();
+
+/* ═══ Preis-Gate: цена после телефона/e-mail, заявка на почту ═══ */
+(function(){
+  let un=false; try{ un=localStorage.getItem('fr_unlock')==='1'; }catch(e){}
+  const apply=()=>document.body.classList.toggle('locked',!un);
+  apply();
+  const unlock=()=>{ un=true; try{ localStorage.setItem('fr_unlock','1'); }catch(e){} apply();
+    try{ if(window.gtag) gtag('event','generate_lead',{method:'preis'}); }catch(e){} };
+  const btn=$('gate-btn'); if(!btn) return;
+  // клик по размытой цене в нижней панели — прокрутка к форме
+  const dp=$('d-price'); if(dp) dp.parentElement.addEventListener('click',()=>{ if(!un) $('gate').scrollIntoView({behavior:'smooth',block:'center'}); });
+  btn.addEventListener('click',()=>{
+    const tel=$('gate-tel').value.trim(), mail=$('gate-mail').value.trim(), hint=$('gate-hint');
+    if(tel.replace(/\D/g,'').length<6 && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
+      hint.textContent='Bitte Telefonnummer oder E-Mail-Adresse eingeben.'; hint.classList.add('err'); return; }
+    btn.disabled=true; btn.textContent='Einen Moment …';
+    let done=false; const finish=()=>{ if(done) return; done=true; unlock(); };
+    const spec=(document.querySelector('.stage')||{}).innerText||'';
+    const price=($('p-brutto')||{}).textContent||'';
+    try{
+      fetch('https://formsubmit.co/ajax/bengameen62570@gmail.com',{method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({_subject:'Preis-Anfrage FensterRechner (Rechner)',Telefon:tel||'—','E-Mail':mail||'—',
+          Preis:price,Fenster:spec.replace(/\s+/g,' ').slice(0,900),Seite:location.href})
+      }).then(finish,finish);
+    }catch(e){ finish(); }
+    setTimeout(finish,4000);
+  });
 })();
 
 /* ═══ Обратный отсчёт до конца акции ═══ */
