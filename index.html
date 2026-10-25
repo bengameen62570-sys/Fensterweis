@@ -545,11 +545,11 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
 .rv-score small{font-size:15px;font-weight:600;opacity:.7;margin-left:6px}
 .rv-stars{color:#e8a317;letter-spacing:2px;font-size:17px}
 .rv-src{font-size:14px;opacity:.75}
-.rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .rv-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:18px 18px 16px;font-size:14.5px;line-height:1.5}
 .rv-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .rv-date{font-size:13px;opacity:.6}
-.rv-who{margin:0 0 2px}.rv-job{margin:0 0 12px;opacity:.8}
+.rv-who{margin:0 0 2px}.rv-text{margin:8px 0 0;font-style:italic}.rv-job{margin:0 0 12px;opacity:.8}
 .rv-ans{margin:0;padding:10px 12px;border-radius:10px;background:rgba(0,0,0,.04);font-size:13.5px}
 .rv-ans span{font-weight:700}
 @media(max-width:860px){.rv-grid{grid-template-columns:1fr}}
@@ -1014,7 +1014,7 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
         <tr><td>20 % MwSt.</td><td id="p-vat">—</td></tr>
         <tr class="total"><td>Brutto</td><td id="p-brutto">—</td></tr>
       </table>
-      <p class="note">Preis des Elements ohne Lieferung und Montage. Die Maße gibt der Auftraggeber an, das Aufmaß vor Ort erfolgt gegen gesonderte Verrechnung.<br>
+      <p class="note">Unverbindlicher Richtpreis des Elements ab Werk. <b>Lieferung und Montage werden individuell besprochen.</b> Die Maße gibt der Auftraggeber an, das Aufmaß vor Ort erfolgt gegen gesonderte Verrechnung.<br>
          Lieferung innerhalb Österreichs ab 4200 € netto kostenlos; bei kleineren Aufträgen nach Vereinbarung.<br>Lieferzeit 3–4 Wochen, Expressfertigung in 2 Wochen — nach vorheriger Anfrage.</p>
     </div>
 
@@ -1236,6 +1236,10 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     <a href="images/referenzen/einfamilienhaus-anthrazit.jpg"><img src="images/referenzen/einfamilienhaus-anthrazit.jpg" loading="lazy" alt="Einfamilienhaus Neubau mit anthrazitfarbenen Fenstern und Terrassentür"><span>Neubau, Fenster anthrazit, Niederösterreich</span></a>
     <a href="images/referenzen/terrasse-rollladen.jpg"><img src="images/referenzen/terrasse-rollladen.jpg" loading="lazy" alt="Terrasse mit Fenstern und Rollläden"><span>Fenster mit Rollläden, Wien</span></a>
     <a href="images/referenzen/fensterfront-rohbau.jpg"><img src="images/referenzen/fensterfront-rohbau.jpg" loading="lazy" alt="Fensterfront mit bodentiefen Elementen im Rohbau"><span>Fensterfront, Objektbau</span></a>
+    <a href="images/referenzen/fassade-5-fenster-rollladen.jpg"><img src="images/referenzen/fassade-5-fenster-rollladen.jpg" loading="lazy" alt="Fünf weiße Kunststofffenster mit Rollläden in einer Hausfassade"><span>5 Fenster mit Rollläden, Niederösterreich</span></a>
+    <a href="images/referenzen/drutex-lieferung-palette.jpg"><img src="images/referenzen/drutex-lieferung-palette.jpg" loading="lazy" alt="Drutex-Fenster auf Palette verpackt, angeliefert vor dem Haus"><span>Anlieferung ab Werk, verpackt auf Palette</span></a>
+    <a href="images/referenzen/drutex-stapler-abladen.jpg"><img src="images/referenzen/drutex-stapler-abladen.jpg" loading="lazy" alt="Abladen der Fenster mit Mitnahmestapler"><span>Abladen mit Mitnahmestapler</span></a>
+    <a href="images/referenzen/drutex-lkw-anlieferung.jpg"><img src="images/referenzen/drutex-lkw-anlieferung.jpg" loading="lazy" alt="Drutex-Lkw bei der Anlieferung"><span>Direktlieferung vom Hersteller</span></a>
   </div>
   <p class="refs-note">Alle Bilder zeigen von uns gelieferte und montierte Elemente. Auf Wunsch nennen wir Ihnen Referenzen in Ihrer Nähe.</p>
 </section>
@@ -1246,9 +1250,14 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
     <div class="rv-head">
       <span class="rv-score">5,0<small>/ 5</small></span>
       <span class="rv-stars" aria-label="5 von 5 Sternen">★★★★★</span>
-      <span class="rv-src">3 Bewertungen auf MyHammer</span>
+      <span class="rv-src">4 Bewertungen auf MyHammer</span>
     </div>
     <div class="rv-grid">
+      <article class="rv-card">
+        <div class="rv-top"><span class="rv-stars" aria-label="5 von 5 Sternen">★★★★★</span><span class="rv-date">23.10.2026</span></div>
+        <p class="rv-who"><b>MyHammer-Kunde</b>, Wien, Hernals</p>
+        <p class="rv-text">„Hat gründlich gearbeitet und hat via WhatsApp immer sofort geantwortet.“</p>
+      </article>
       <article class="rv-card">
         <div class="rv-top"><span class="rv-stars" aria-label="5 von 5 Sternen">★★★★★</span><span class="rv-date">18.08.2026</span></div>
         <p class="rv-who"><b>Christoph K.</b>, Wien, Margareten</p>
@@ -1839,7 +1848,7 @@ function sashWmax(h){
   const t = (h - LIM.sashH1) / (LIM.sashH2 - LIM.sashH1);
   return LIM.sashW1 + t * (LIM.sashW2 - LIM.sashW1);
 }
-const MARKUP = 0.30, VAT = 0.20, MAIL = 'bengameen62570@gmail.com';
+const MARKUP = 0.15, VAT = 0.20, MAIL = 'bengameen62570@gmail.com';
 const FREI = 4200;                    // нетто, от которого доставка бесплатная
 const FRIST = 'Lieferzeit 3–4 Wochen. Expressfertigung in 2 Wochen — nach vorheriger Anfrage.';
 
