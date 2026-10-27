@@ -996,17 +996,6 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
         <button class="stepbtn" id="q-plus" type="button" aria-label="mehr">+</button>
       </div>
     </div>
-
-    <div class="gate" id="gate">
-      <div class="gate-title">Ihr Preis ist berechnet</div>
-      <p class="gate-text">Geben Sie Ihre Telefonnummer ein — der Preis erscheint sofort hier, und unser Berater kann Sie zur Abstimmung der Details kontaktieren.</p>
-      <div class="gate-row">
-        <input type="tel" id="gate-tel" inputmode="tel" autocomplete="tel" placeholder="Telefon / WhatsApp">
-        <input type="email" id="gate-mail" inputmode="email" autocomplete="email" placeholder="E-Mail (optional)">
-      </div>
-      <button type="button" class="btn gate-btn" id="gate-btn">Preis anzeigen</button>
-      <p class="gate-hint" id="gate-hint">Kunststofffenster ab 180 € inkl. MwSt. Mit dem Absenden stimmen Sie der <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> zu.</p>
-    </div>
     <div class="price">
       <table>
         <tr><td>Element <span id="p-qty"></span></td><td id="p-window">—</td></tr>
@@ -1853,7 +1842,7 @@ function sashWmax(h){
   const t = (h - LIM.sashH1) / (LIM.sashH2 - LIM.sashH1);
   return LIM.sashW1 + t * (LIM.sashW2 - LIM.sashW1);
 }
-const MARKUP = 0.30, VAT = 0.20, MAIL = 'bengameen62570@gmail.com';
+const MARKUP = 0.25, VAT = 0.20, MAIL = 'bengameen62570@gmail.com';
 const FREI = 4200;                    // нетто, от которого доставка бесплатная
 const FRIST = 'Lieferzeit 3–4 Wochen. Expressfertigung in 2 Wochen — nach vorheriger Anfrage.';
 
@@ -3546,7 +3535,7 @@ renderList();
 
 /* ═══ Preis-Gate: цена после телефона/e-mail, заявка на почту ═══ */
 (function(){
-  let un=false; try{ un=localStorage.getItem('fr_unlock')==='1'; }catch(e){}
+  let un=true;   // Preis ohne Telefon-Gate sichtbar (28.10.2026)
   const apply=()=>{ document.body.classList.toggle('locked',!un); const da=$('d-add'); if(da){ if(!da.dataset.t0) da.dataset.t0=da.textContent; da.textContent = un ? da.dataset.t0 : 'Preis anzeigen'; } };
   apply();
   const unlock=()=>{ un=true; try{ localStorage.setItem('fr_unlock','1'); }catch(e){} apply();
