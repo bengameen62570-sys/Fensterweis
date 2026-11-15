@@ -569,66 +569,159 @@ select.sel:focus{outline:2px solid var(--accent);outline-offset:1px}
      was diese Seite ist. Beim Aendern von Telefon/Adresse hier mitaendern. ===== -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "@id": "https://fensterrechner.at/#rechner",
-      "name": "FensterRechner",
-      "url": "https://fensterrechner.at/",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Alle (Browser)",
-      "inLanguage": "de-AT",
-      "browserRequirements": "Benoetigt JavaScript",
-      "description": "Online-Rechner fuer Fensterpreise in Oesterreich. Masse eingeben, Profil, Verglasung, Beschlag und Zubehoer waehlen und sofort den Preis netto und brutto sehen, inklusive Uw- und Rw-Wert, Zeichnung und Spezifikation.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR",
-        "description": "Die Nutzung des Rechners ist kostenlos und unverbindlich."
-      },
-      "featureList": [
-        "Sofortige Preisberechnung fuer Kunststofffenster",
-        "Preis netto und brutto inklusive 20 % MwSt.",
-        "Uw-Wert und Schalldaemmwert Rw je Element",
-        "Massstabsgetreue Zeichnung jedes Elements",
-        "Spezifikation als PDF zum Herunterladen",
-        "Warenkorb mit mehreren Lieferadressen"
-      ],
-      "provider": { "@id": "https://fensterrechner.at/#firma" }
-    },
-    {
-      "@type": "HomeAndConstructionBusiness",
-      "@id": "https://fensterrechner.at/#firma",
-      "name": "FensterRechner",
-      "legalName": "Veniamin Kononenko e.U.",
-      "url": "https://fensterrechner.at/",
-      "telephone": "+43 681 81380389",
-      "vatID": "ATU83265958",
-      "priceRange": "€€",
-      "currenciesAccepted": "EUR",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Seitenstettengasse 5/37",
-        "postalCode": "1010",
-        "addressLocality": "Wien",
-        "addressCountry": "AT"
-      },
-      "areaServed": { "@type": "Country", "name": "Österreich" },
-      "knowsLanguage": ["de", "ru"],
-      "knowsAbout": ["Kunststofffenster", "Holzfenster", "Aluminiumfenster", "Haustüren", "Balkon- und Terrassentüren", "Dachfenster"]
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://fensterrechner.at/#website",
-      "url": "https://fensterrechner.at/",
-      "name": "FensterRechner",
-      "inLanguage": "de-AT",
-      "publisher": { "@id": "https://fensterrechner.at/#firma" }
-    }
-  ]
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebApplication",
+   "@id": "https://fensterrechner.at/#rechner",
+   "name": "FensterRechner",
+   "url": "https://fensterrechner.at/",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Alle (Browser)",
+   "inLanguage": "de-AT",
+   "browserRequirements": "Benoetigt JavaScript",
+   "description": "Online-Rechner fuer Fensterpreise in Oesterreich. Masse eingeben, Profil, Verglasung, Beschlag und Zubehoer waehlen und sofort den Preis netto und brutto sehen, inklusive Uw- und Rw-Wert, Zeichnung und Spezifikation.",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "description": "Die Nutzung des Rechners ist kostenlos und unverbindlich."
+   },
+   "featureList": [
+    "Sofortige Preisberechnung fuer Kunststofffenster",
+    "Preis netto und brutto inklusive 20 % MwSt.",
+    "Uw-Wert und Schalldaemmwert Rw je Element",
+    "Massstabsgetreue Zeichnung jedes Elements",
+    "Spezifikation als PDF zum Herunterladen",
+    "Warenkorb mit mehreren Lieferadressen"
+   ],
+   "provider": {
+    "@id": "https://fensterrechner.at/#firma"
+   }
+  },
+  {
+   "@type": "HomeAndConstructionBusiness",
+   "@id": "https://fensterrechner.at/#firma",
+   "name": "FensterRechner",
+   "legalName": "Veniamin Kononenko e.U.",
+   "url": "https://fensterrechner.at/",
+   "telephone": "+43 681 81380389",
+   "vatID": "ATU83265958",
+   "priceRange": "€€",
+   "currenciesAccepted": "EUR",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Seitenstettengasse 5/37",
+    "postalCode": "1010",
+    "addressLocality": "Wien",
+    "addressCountry": "AT"
+   },
+   "areaServed": {
+    "@type": "Country",
+    "name": "Österreich"
+   },
+   "knowsLanguage": [
+    "de",
+    "ru"
+   ],
+   "knowsAbout": [
+    "Kunststofffenster",
+    "Holzfenster",
+    "Aluminiumfenster",
+    "Haustüren",
+    "Balkon- und Terrassentüren",
+    "Dachfenster"
+   ],
+   "email": "office@fensterhof.at",
+   "sameAs": [
+    "https://glasrand.at/",
+    "https://pergolarechner.at/",
+    "https://fensterhof.at/",
+    "https://fensteralu.at/"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://fensterrechner.at/#website",
+   "url": "https://fensterrechner.at/",
+   "name": "FensterRechner",
+   "inLanguage": "de-AT",
+   "publisher": {
+    "@id": "https://fensterrechner.at/#firma"
+   }
+  }
+ ]
 }
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://fensterrechner.at/#faq",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Wie funktioniert der FensterRechner?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sie geben Breite und Höhe ein, wählen Profil, Verglasung, Beschlag und Zubehör und sehen sofort den Preis netto und brutto. Dazu gibt es Uw- und Rw-Wert, eine maßstabsgetreue Zeichnung und die Spezifikation als PDF."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Sind die Preise im Rechner verbindlich?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Die Preise sind Richtwerte inkl. 20 % MwSt. Der endgültige Preis ergibt sich nach Klärung der Maße und der Lieferbedingungen."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Welche Fenster kann ich berechnen?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Kunststofffenster und Balkontüren von Drutex: Profil mit 5 Kammern (70 mm) mit Zweifachverglasung 4/16/4, Ug 1,1 W/m²·K, oder Profil mit 6 Kammern (82 mm) mit Wärmeschutzverglasung 4/18/4/18/4, Ug 0,5 W/m²·K. Beschlag MACO Multi-Matic."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Liefern Sie in ganz Österreich?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ja, die Lieferung erfolgt in ganz Österreich."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Bekomme ich eine Rechnung mit Umsatzsteuer?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ja. Wir arbeiten mit Umsatzsteuer, die Rechnung enthält unsere UID ATU83265958."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Gibt es auch Rollläden und Insektenschutz?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ja, Rollläden und Insektenschutz bieten wir auf Anfrage an."
+   }
+  }
+ ]
+}
+</script>
+<style>
+/* Häufige Fragen */
+.kq{max-width:860px;margin:0 auto}
+.kq details{border:1px solid rgba(0,0,0,.14);border-radius:12px;padding:0 18px;margin:0 0 10px;background:#fff;color:#1c1b18}
+.kq summary{cursor:pointer;padding:16px 28px 16px 0;font-weight:600;list-style:none;position:relative}
+.kq summary::-webkit-details-marker{display:none}
+.kq summary::after{content:"+";position:absolute;right:0;top:14px;font-size:1.2em}
+.kq details[open] summary::after{content:"–"}
+.kq p{margin:0 0 16px;line-height:1.6}
+.kq a{color:inherit;text-decoration:underline}
+</style>
+
 </head>
 <body>
 
@@ -1308,6 +1401,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove(
   <div class="d-sum"><span>Brutto</span><b id="d-price">—</b></div>
   <button class="btn" type="button" id="d-add">Zur Anfrage</button>
 </div>
+
+<section id="faq" style="padding:44px 0 20px">
+  <div class="wrap">
+    <h2 style="margin:0 0 18px">Häufige Fragen</h2>
+<div class="kq">
+  <details><summary>Wie funktioniert der FensterRechner?</summary><p>Sie geben Breite und Höhe ein, wählen Profil, Verglasung, Beschlag und Zubehör und sehen sofort den Preis netto und brutto. Dazu gibt es Uw- und Rw-Wert, eine maßstabsgetreue Zeichnung und die Spezifikation als PDF.</p></details>
+  <details><summary>Sind die Preise im Rechner verbindlich?</summary><p>Die Preise sind Richtwerte inkl. 20 % MwSt. Der endgültige Preis ergibt sich nach Klärung der Maße und der Lieferbedingungen.</p></details>
+  <details><summary>Welche Fenster kann ich berechnen?</summary><p>Kunststofffenster und Balkontüren von Drutex: Profil mit 5 Kammern (70 mm) mit Zweifachverglasung 4/16/4, Ug 1,1 W/m²·K, oder Profil mit 6 Kammern (82 mm) mit Wärmeschutzverglasung 4/18/4/18/4, Ug 0,5 W/m²·K. Beschlag MACO Multi-Matic.</p></details>
+  <details><summary>Liefern Sie in ganz Österreich?</summary><p>Ja, die Lieferung erfolgt in ganz Österreich.</p></details>
+  <details><summary>Bekomme ich eine Rechnung mit Umsatzsteuer?</summary><p>Ja. Wir arbeiten mit Umsatzsteuer, die Rechnung enthält unsere UID ATU83265958.</p></details>
+  <details><summary>Gibt es auch Rollläden und Insektenschutz?</summary><p>Ja, Rollläden und Insektenschutz bieten wir auf Anfrage an.</p></details>
+</div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap">
