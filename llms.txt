@@ -1,18 +1,17 @@
-# Fensterhof
+# FensterRechner
 
-> Fenster aus Kunststoff, Holz und Aluminium, Haustüren, Balkontüren und Sonnenschutz. Lieferung in ganz Österreich, Montage auf Wunsch.
+> Online-Rechner für Kunststofffenster und Balkontüren in Österreich: Maße eingeben, Preis netto und brutto sofort sehen.
 
 ## Fakten
-- Lieferzeit in der Regel 3 bis 5 Wochen.
-- Ablauf: Anfrage, Angebot mit Skizze, Aufmaß vor Ort, Lieferung, auf Wunsch Montage.
-- Gewährleistung: 5 Jahre auf die Fenster, 2 Jahre auf die Montage.
-- Preise für Kunststofffenster sofort online: https://fensterrechner.at/
+- Profile Drutex: 5 Kammern 70 mm mit Verglasung 4/16/4 (Ug 1,1) oder 6 Kammern 82 mm mit 4/18/4/18/4 (Ug 0,5).
+- Beschlag MACO, verdeckt liegende Bänder MACO Multi Power optional.
+- Lieferung in ganz Österreich, Rechnung mit Umsatzsteuer.
+- Rollläden und Insektenschutz auf Anfrage.
 
 ## Seiten
-- [Startseite](https://fensterhof.at/): Fenster aus Kunststoff, Holz und Aluminium, Haustüren, Balkontüren und Sonnenschutz – Lieferung in ganz Österreich, Montage auf Wunsch. Jetzt unverbindliches Angebot anfordern.
-- [Kunststoff, Holz oder Aluminium: Welches Fenster passt?](https://fensterhof.at/fenster-material-vergleich.html): Kunststofffenster, Holzfenster und Aluminiumfenster im Vergleich: Preis, Pflege, Optik und Einsatz – eine Entscheidungshilfe für Neubau und Sanierung.
-- [Fenstertausch: Ablauf Schritt für Schritt](https://fensterhof.at/fenstertausch-ablauf.html): Fenstertausch Schritt für Schritt: Anfrage, Angebot, Aufmaß, Fertigung und Montage. Was im Angebot stehen sollte und was Sie vorbereiten können.
-- [Zweifach- oder Dreifachverglasung: Was lohnt sich?](https://fensterhof.at/dreifachverglasung.html): Zweifach- und Dreifachverglasung im Vergleich: Ug-Werte, Gewicht, warme Kante und Schallschutz – und wann welche Verglasung sinnvoll ist.
+- [Startseite](https://fensterrechner.at/): Kunststofffenster von Drutex mit Lieferung in ganz Österreich. Berechnen Sie den Preis online in einer Minute.
+- [Fensterpreise 2026 in Österreich: Was kosten neue Fenster wirklich?](https://fensterrechner.at/ratgeber/fensterpreise-oesterreich.html): Echte Fensterpreise 2026 für Österreich: Kunststofffenster ab 276 €, Dreifachverglasung, Aluminium, Balkontüren – mit Preistabelle nach Größe, Kosten pro m², Montage und Beispielrechnung für ein Einfamilienhaus.
+- [Fenstertausch im Altbau: Kosten, Ablauf und worauf Sie achten müssen](https://fensterrechner.at/ratgeber/fenstertausch-altbau-kosten.html): Fenster tauschen im Altbau: Was kostet der Fenstertausch pro Fenster inklusive Demontage und Montage, wie läuft er ab, was ist bei Kastenfenstern, Hausverwaltung und Schutzzonen zu beachten – mit Beispiel für eine Wiener Altbauwohnung.
 
 ## Unternehmen
 - Betreiber: Veniamin Kononenko e.U., Seitenstettengasse 5/37, 1010 Wien, Österreich
@@ -23,6 +22,6 @@
 
 ## Weitere Websites desselben Unternehmens
 - [GlasRand](https://glasrand.at/): Glasgeländer
-- [FensterRechner](https://fensterrechner.at/): Kunststofffenster online berechnen
 - [PergolaRechner](https://pergolarechner.at/): Lamellendächer
+- [Fensterhof](https://fensterhof.at/): Fenster aus Kunststoff, Holz und Aluminium
 - [AluForm](https://fensteralu.at/): Fenster, Türen und Portale aus Aluminium

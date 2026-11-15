@@ -1,4 +1,4 @@
-# Fensterhof — fensterhof.at
+# FensterRechner — fensterrechner.at
 # Suchmaschinen und KI-Assistenten sind ausdrücklich willkommen.
 
 User-agent: *
@@ -73,4 +73,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://fensterhof.at/sitemap.xml
+Sitemap: https://fensterrechner.at/sitemap.xml
